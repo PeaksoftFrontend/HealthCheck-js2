@@ -36,24 +36,18 @@ export default [
     rules: {
       ...eslintConfigPrettier.rules,
       "no-console": "error",
-
-      "react/function-component-definition": [
-        2,
-        {
-          namedComponents: "arrow-function",
-          unnamedComponents: "arrow-function",
-        },
-      ],
-
+      "prefer-arrow-callback": "error",
       "react/jsx-no-target-blank": "off",
+
+      "react-jsx-props-no-spreading": "off",
+      "react-hooks/exhaustive-deps": "off",
+
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
       ],
-
       "prettier/prettier": [
         "error",
-
         {
           endOfLine: "auto",
           singleQuote: false,
