@@ -9,7 +9,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 export default [
   {
     plugins: {
-      "react-hook": eslintReactHooks,
+      "react-hooks": eslintReactHooks,
       react: eslintReact,
       "react-refresh": eslintReactRefresh,
       prettier: prettierPlugin,
@@ -18,8 +18,9 @@ export default [
   {
     ignores: ["node_modules", "dist"],
   },
-  js.configs.recommended,
-
+  {
+    ...js.configs.recommended,
+  },
   {
     languageOptions: {
       globals: {
@@ -35,11 +36,14 @@ export default [
 
     rules: {
       ...eslintConfigPrettier.rules,
+      eqeqeq: ["error", "always"],
+      semi: ["error", "always"],
       "no-console": "error",
       "prefer-arrow-callback": "error",
-      "react/jsx-no-target-blank": "off",
+      "func-style": ["error", "expression", { allowArrowFunctions: true }],
 
-      "react-jsx-props-no-spreading": "off",
+      "react/jsx-no-target-blank": "off",
+      "react/jsx-props-no-spreading": "off",
       "react-hooks/exhaustive-deps": "off",
 
       "react-refresh/only-export-components": [
@@ -49,12 +53,16 @@ export default [
       "prettier/prettier": [
         "error",
         {
+          semi: true,
           endOfLine: "auto",
           singleQuote: false,
           tabWidth: 2,
-          trailingComma: "es5",
           bracketSpacing: true,
         },
+      ],
+      "no-unused-expressions": [
+        "error",
+        { allowShortCircuit: true, allowTernary: true },
       ],
     },
   },
