@@ -1,19 +1,25 @@
-import React from "react";
 import { Button as MuiButton, styled } from "@mui/material";
-const Button = ({ onClick, type, children, variant, disabled }) => {
+
+export const Button = ({
+  onClick,
+  type,
+  children,
+  variant,
+  disabled,
+  ...props
+}) => {
   return (
     <StyledButton
       onClick={onClick}
       type={type}
       variant={variant}
       disabled={disabled}
+      {...props}
     >
       {children}
     </StyledButton>
   );
 };
-
-export default Button;
 
 const StyledButton = styled(MuiButton)(({ variant }) => ({
   ...(variant === "contained" && {
@@ -52,4 +58,13 @@ const StyledButton = styled(MuiButton)(({ variant }) => ({
       height: "2.625rem",
     },
   }),
+  width: "100px",
+  height: "40px",
+  borderRadius: "0.625rem",
+  background:
+    "linear-gradient(to bottom,rgba(12, 187, 107, 1),rgba(2, 123, 68, 1)) 100%",
+  color: "white",
+  "&:hover": {
+    background: "linear-gradient(rgba(8, 223, 125, 1), rgba(4, 143, 80, 1))",
+  },
 }));
