@@ -21,22 +21,12 @@ export const Button = ({
   );
 };
 
-const StyledButton = styled(MuiButton)(({ variant }) => ({
-  width: "100px",
-  height: "40px",
-  borderRadius: "0.625rem",
-
-  background:
-    "linear-gradient(to bottom,rgba(12, 187, 107, 1),rgba(2, 123, 68, 1)) 100%",
-  color: "white",
-
-  "&:hover": {
-    background: "linear-gradient(rgba(8, 223, 125, 1), rgba(4, 143, 80, 1))",
-  },
+const StyledButton = styled(MuiButton)(({ variant = "contained" }) => ({
   ...(variant === "contained" && {
     width: "22.75rem",
     height: "2.625rem",
     borderRadius: "0.625rem",
+    color: "white",
 
     padding: "14px, 32px, 14px, 32px",
     background:
@@ -75,4 +65,8 @@ const StyledButton = styled(MuiButton)(({ variant }) => ({
       height: "2.625rem",
     },
   }),
+  "&:active": {
+    background:
+      "linear-gradient(to bottom,rgba(12, 187, 107, 1),rgba(2, 123, 68, 1)) 100%",
+  },
 }));
