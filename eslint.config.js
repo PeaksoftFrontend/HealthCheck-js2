@@ -5,6 +5,7 @@ import eslintReactHooks from "eslint-plugin-react-hooks";
 import eslintReactRefresh from "eslint-plugin-react-refresh";
 import prettierPlugin from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
+import eslintImport from "eslint-plugin-import";
 
 export default [
   {
@@ -13,14 +14,13 @@ export default [
       react: eslintReact,
       "react-refresh": eslintReactRefresh,
       prettier: prettierPlugin,
+      import: eslintImport,
     },
   },
   {
     ignores: ["node_modules", "dist"],
   },
-  {
-    ...js.configs.recommended,
-  },
+  js.configs.recommended,
   {
     languageOptions: {
       globals: {
@@ -33,19 +33,10 @@ export default [
   },
   {
     files: ["**/*.{js,jsx}"],
-
     rules: {
       ...eslintConfigPrettier.rules,
-      eqeqeq: ["error", "always"],
-      semi: ["error", "always"],
-      "no-console": "error",
-      "prefer-arrow-callback": "error",
-      "func-style": ["error", "expression", { allowArrowFunctions: true }],
-
+      "no-console": "warn",
       "react/jsx-no-target-blank": "off",
-      "react/jsx-props-no-spreading": "off",
-      "react-hooks/exhaustive-deps": "off",
-
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
@@ -53,17 +44,35 @@ export default [
       "prettier/prettier": [
         "error",
         {
-          semi: true,
           endOfLine: "auto",
           singleQuote: false,
           tabWidth: 2,
+          trailingComma: "es5",
           bracketSpacing: true,
         },
       ],
-      "no-unused-expressions": [
+      "import/no-default-export": "error",
+      "no-unused-vars": [
         "error",
-        { allowShortCircuit: true, allowTernary: true },
+        {
+          vars: "all",
+          args: "after-used",
+          ignoreRestSiblings: true,
+        },
       ],
+      "func-style": ["error", "expression"],
+      "prefer-arrow-callback": ["error"],
+      "react/jsx-uses-vars": "error",
+      "no-shadow": "off",
+      "no-alert": "error",
+      eqeqeq: "error",
+      "react/jsx-no-undef": "error",
+    },
+  },
+  {
+    files: ["eslint.config.js"],
+    rules: {
+      "import/no-default-export": "off",
     },
   },
 ];
