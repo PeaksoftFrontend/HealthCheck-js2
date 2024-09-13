@@ -1,10 +1,8 @@
 import { createTheme } from "@mui/material";
 import "@fontsource/roboto";
 
-// Primary theme
-
-export const darkTheme = createTheme({
-  palette: {
+export const theme = createTheme({
+  darkTheme: {
     primary: {
       main: "#FFFFFF",
     },
@@ -24,16 +22,7 @@ export const darkTheme = createTheme({
       main: "#F5F5F5",
     },
   },
-  typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-    fontSize: 14,
-  },
-});
-
-// Secondary theme
-
-export const pastelTheme = createTheme({
-  palette: {
+  pastelTheme: {
     primary: {
       main: "#D9D9D9",
     },
@@ -53,16 +42,7 @@ export const pastelTheme = createTheme({
       main: "#E4772F",
     },
   },
-  typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-    fontSize: 14,
-  },
-});
-
-// Tertiery theme
-
-export const vibrantTheme = createTheme({
-  palette: {
+  tertiaryTheme: {
     primary: {
       main: "#DBEBFF",
     },
@@ -78,9 +58,5 @@ export const vibrantTheme = createTheme({
     error: {
       main: "#346EFB",
     },
-  },
-  typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-    fontSize: 14,
   },
 });
