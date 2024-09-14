@@ -7,7 +7,7 @@ import GreenWatsapp from "../icons/messenger/green-watsApp.svg?react";
 import GreenTelegram from "../icons/messenger/green-telegram.svg?react";
 import GreenInstagram from "../icons/messenger/green-instagram.svg?react";
 
-import AllIcons from "../icons/others/all icons.svg?react";
+import AllIcons from "../icons/others/allicons.svg?react";
 import andDesginPhoneOutlined from "../icons/others/ant-design_phone-outlined.svg?react";
 import Bicons from "../icons/others/B.svg?react";
 import burgerMenu from "../icons/others/burger-menu.svg?react";
