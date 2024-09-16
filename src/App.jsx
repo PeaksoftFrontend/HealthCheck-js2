@@ -1,7 +1,12 @@
+import { styled } from "@mui/material";
 export const App = () => {
   return (
-    <div>
+    <StyledDiv>
       <h1>Healtcheck</h1>
-    </div>
+    </StyledDiv>
   );
 };
+
+const StyledDiv = styled("div")(({ theme }) => ({
+  background: theme.palette.primary.gradientPrimary,
+}));
