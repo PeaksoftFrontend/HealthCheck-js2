@@ -4,34 +4,27 @@ import "@fontsource/roboto";
 export const theme = createTheme({
   palette: {
     primary: {
-      darkTheme: "#FFFFFF",
-      pastelTheme: "#D9D9D9",
-      tertiaryTheme: "#DBEBFF",
+      main: "#FFFFFF",
+      backgroundDark: "#222222",
+      backgroundNeutral: "#4D4E51",
+      gradientPrimary: "#0CBB6B, #027B44",
+      highlightGreen: "#048741",
+      backgroundOffWhite: "#F5F5F5",
     },
     secondary: {
-      darkTheme: "#222222",
-      pastelTheme: "#E0E2E7",
-      tertiaryTheme: "#DBF0E5",
+      main: "#D9D9D9",
+      backgroundGrayNeutral: "#E0E2E7",
+      gradientPastel: "#FDFDFD, #E4E7EE",
+      backgroundSoftGray: "#F3F1F1",
+      textMuted: "#959595",
+      accentOrange: "#E4772F",
     },
     success: {
-      darkTheme: "#4D4E51",
-      pastelTheme: "#FDFDFD, #E4E7EE",
-      tertiaryTheme: "#F91515",
-    },
-    warning: {
-      darkTheme: "#0CBB6B, #027B44",
-      pastelTheme: "#F3F1F1",
-      tertiaryTheme: "#3977C0",
-    },
-    error: {
-      darkTheme: "#048741",
-      pastelTheme: "#959595",
-      tertiaryTheme: "#346EFB",
-    },
-    info: {
-      darkTheme: "#F5F5F5",
-      pastelTheme: "#E4772F",
-      tertiaryTheme: "#346EFB",
+      main: "#DBEBFF",
+      backgroundLightGreen: "#DBF0E5",
+      errorRed: "#F91515",
+      linkBlue: "#3977C0",
+      buttonBlue: "#346EFB",
     },
   },
 });
