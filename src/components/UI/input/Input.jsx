@@ -88,13 +88,12 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
     color: disabled ? "#A9A9A9" : "#959595",
 
     "&:hover": {
-      borderColor: disabled ? "#E0E0E0" : "#959595",
+      border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#959595"}`,
       color: disabled ? "#A9A9A9" : "#4D4E51",
     },
 
     "&:active": {
-      borderColor: disabled ? "#E0E0E0" : "#048741CC",
-      color: disabled ? "#A9A9A9" : "#4D4E51",
+      border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#048741CC"}`,
     },
     "&:disabled": {
       borderColor: "#E0E0E0",

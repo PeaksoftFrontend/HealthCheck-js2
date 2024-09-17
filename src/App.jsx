@@ -30,9 +30,11 @@ export const App = () => {
       <StyledInput4 placeholder="Поиск" iconEnd={<Icons.Search />} />
       <StyledDate
         placeholder="дд.мм.гг"
+        type="date"
         iconEnd={<Icons.CalendarTodayIcon />}
       />
       <Input placeholder="disabled" disabled />
+      <Input error />
     </StyledContainer>
   );
 };
