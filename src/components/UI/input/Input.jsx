@@ -100,7 +100,9 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
     },
   },
   "& .MuiInputBase-input": {
-    padding: "10px, 8px, 10px, 16px",
+    padding: "0px",
+    border: "none",
+
     "&::placeholder": {
       color: disabled ? "#A9A9A9" : "#959595",
     },
