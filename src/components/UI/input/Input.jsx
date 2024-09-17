@@ -48,7 +48,7 @@ export const Input = forwardRef(
                     onClick={handleClickShowPassword}
                     edge="end"
                     style={{
-                      cursor: disabled ? "default" : "pointer", // Отключаем курсор при disabled
+                      cursor: disabled ? "default" : "pointer",
                       pointerEvents: disabled ? "none" : "auto",
                     }}
                   >
