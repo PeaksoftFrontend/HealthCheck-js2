@@ -25,6 +25,7 @@ export const Input = forwardRef(
 
     return (
       <StyledInput
+        variant="outlined"
         value={value}
         onChange={onChange}
         placeholder={placeholder}
@@ -76,35 +77,36 @@ export const Input = forwardRef(
 );
 
 const StyledInput = styled(TextField)(({ error, disabled }) => ({
-  "& .MuiInputBase-root": {
+  border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#D9D9D9"}`,
+  width: "414px",
+  height: "42px",
+  borderRadius: "8px",
+  padding: "10px",
+  color: disabled ? "#A9A9A9" : "#959595",
+
+  "&:hover": {
+    border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#959595"}`,
+    color: disabled ? "#A9A9A9" : "#4D4E51",
+  },
+
+  "&:active": {
+    border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#048741CC"}`,
+  },
+  "&:disabled": {
+    borderColor: "#E0E0E0",
+  },
+
+  "& .MuiOutlinedInput-root": {
     "& fieldset": {
       border: "none",
-    },
-
-    border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#D9D9D9"}`,
-    width: "414px",
-    height: "42px",
-    borderRadius: "8px",
-    color: disabled ? "#A9A9A9" : "#959595",
-
-    "&:hover": {
-      border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#959595"}`,
-      color: disabled ? "#A9A9A9" : "#4D4E51",
-    },
-
-    "&:active": {
-      border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#048741CC"}`,
-    },
-    "&:disabled": {
-      borderColor: "#E0E0E0",
+      padding: "0px",
+      backgroundColor: "none",
     },
   },
-  "& .MuiInputBase-input": {
-    padding: "0px",
-    border: "none",
 
-    "&::placeholder": {
-      color: disabled ? "#A9A9A9" : "#959595",
-    },
+  "& .MuiInputBase-input": {
+    border: "none",
+    padding: "0px",
+    backgroundColor: "none",
   },
 }));
