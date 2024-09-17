@@ -9,12 +9,12 @@ export const Input = forwardRef(
       value,
       onChange,
       placeholder,
-      type,
+      type = "text",
       iconStart,
       iconEnd,
       disabled,
       error,
-      variant,
+      icon,
       ...props
     },
     ref
@@ -31,18 +31,27 @@ export const Input = forwardRef(
         type={type === "password" && !showPassword ? "password" : "text"}
         error={error}
         disabled={disabled}
-        ref={ref}
         fullWidth
-        variant={variant}
+        inputRef={ref}
         InputProps={{
           startAdornment: iconStart ? (
-            <InputAdornment position="start">{iconStart}</InputAdornment>
+            <InputAdornment position="start">
+              {" "}
+              <div style={{ cursor: "pointer" }}>{iconStart}</div>
+            </InputAdornment>
           ) : null,
           endAdornment: (
             <>
               {type === "password" && (
                 <InputAdornment position="end">
-                  <IconButton onClick={handleClickShowPassword} edge="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                    style={{
+                      cursor: disabled ? "default" : "pointer", // Отключаем курсор при disabled
+                      pointerEvents: disabled ? "none" : "auto",
+                    }}
+                  >
                     {showPassword ? (
                       <Icons.VisibilituIcon />
                     ) : (
@@ -53,7 +62,9 @@ export const Input = forwardRef(
               )}
 
               {iconEnd && type !== "password" ? (
-                <InputAdornment position="end">{iconEnd}</InputAdornment>
+                <InputAdornment position="end">
+                  <div style={{ cursor: "pointer" }}>{iconEnd}</div>
+                </InputAdornment>
               ) : null}
             </>
           ),
@@ -64,31 +75,35 @@ export const Input = forwardRef(
   }
 );
 
-const StyledInput = styled(TextField)(({ error }) => ({
-  height: "42px",
+const StyledInput = styled(TextField)(({ error, disabled }) => ({
   "& .MuiInputBase-root": {
-    "&::placeholder": {
-      color: "#959595",
+    "& fieldset": {
+      border: "none",
     },
-    border: `1px solid ${error ? "#F91515" : "#D9D9D9"}`,
-    width: "100%",
+
+    border: `1px solid ${error ? "#F91515" : disabled ? "#E0E0E0" : "#D9D9D9"}`,
+    width: "414px",
     height: "42px",
     borderRadius: "8px",
-    color: "#959595",
+    color: disabled ? "#A9A9A9" : "#959595",
+
     "&:hover": {
-      borderColor: "#959595",
-      color: "#4D4E51",
-      height: "45px",
+      borderColor: disabled ? "#E0E0E0" : "#959595",
+      color: disabled ? "#A9A9A9" : "#4D4E51",
     },
 
     "&:active": {
-      borderColor: "#048741CC",
-      height: "43px",
-      color: "#4D4E51",
+      borderColor: disabled ? "#E0E0E0" : "#048741CC",
+      color: disabled ? "#A9A9A9" : "#4D4E51",
+    },
+    "&:disabled": {
+      borderColor: "#E0E0E0",
     },
   },
-
-  "& fieldset": {
-    border: "none",
+  "& .MuiInputBase-input": {
+    padding: "10px, 8px, 10px, 16px",
+    "&::placeholder": {
+      color: disabled ? "#A9A9A9" : "#959595",
+    },
   },
 }));
