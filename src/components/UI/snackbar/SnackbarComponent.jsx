@@ -1,69 +1,57 @@
-import { Snackbar, Alert, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { CheckCircle, Error, Info, Warning } from "@mui/icons-material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const icons = {
-  success: <CheckCircle />,
-  error: <Error />,
-  info: <Info />,
-  warning: <Warning />,
+export const ToastifySnackbar = () => {
+  return (
+    <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </div>
+  );
 };
 
-export const SnackbarComponent = ({
-  autoHideDuration = 6000,
-  openSnackbar,
-  handleClose,
-  anchorOrigin = { vertical: "bottom", horizontal: "center" },
-  severity = "success",
-  message = "This is a Snackbar message!",
-}) => {
-  return (
-    <Snackbar
-      open={openSnackbar}
-      autoHideDuration={autoHideDuration}
-      onClose={handleClose}
-      anchorOrigin={anchorOrigin}
-    >
-      <Alert
-        onClose={handleClose}
-        severity={severity}
-        variant="filled"
-        iconMapping={icons}
-        sx={{
-          width: "100%",
-          bgcolor:
-            severity === "success"
-              ? "success.main"
-              : severity === "error"
-                ? "error.main"
-                : severity === "info"
-                  ? "info.main"
-                  : "warning.main",
-          color: "white",
-          borderRadius: 2,
-          fontWeight: "bold",
-          "& .MuiAlert-icon": {
-            fontSize: "1.5rem",
-          },
-          "& .MuiAlert-message": {
-            fontSize: "1rem",
-            fontWeight: "500",
-          },
-          "& .MuiAlert-action": {
-            paddingRight: 0,
-          },
-        }}
-      >
-        {message}
-        <IconButton
-          aria-label="close"
-          color="inherit"
-          onClick={handleClose}
-          sx={{ p: 1 }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </Alert>
-    </Snackbar>
-  );
+export const ShowToast = (message, severity) => {
+  const toastConfig = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    style: {
+      fontSize: "18px",
+    },
+  };
+
+  if (severity === "success") {
+    toast.success(message, {
+      ...toastConfig,
+      style: {
+        ...toastConfig.style,
+        background: "#F6FBFF",
+        color: "#4D4E51",
+        borderLeft: "8px solid #28a745",
+      },
+    });
+  } else if (severity === "error") {
+    toast.error(message, {
+      ...toastConfig,
+      style: {
+        ...toastConfig.style,
+        background: "#FFF9F8",
+        color: "#494949",
+        borderLeft: "8px solid #dc3545",
+      },
+    });
+  }
 };
