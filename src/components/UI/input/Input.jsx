@@ -95,11 +95,6 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
     borderColor: "#E0E0E0",
   },
 
-  "& .MuiOutlinedInput-root": {
-    "&::placeholder": {
-      backgroundColor: "none",
-    },
-  },
   "& input:-webkit-autofill, & input:-webkit-autofill:hover, & input:-webkit-autofill:focus, & input:-webkit-autofill:active":
     {
       WebkitTransition: "color 9999s ease-out, background-color 9999s ease-out",
