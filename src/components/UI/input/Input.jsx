@@ -28,7 +28,7 @@ export const Input = forwardRef(
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        type={type === "password" && !showPassword ? "password" : type}
+        type={type === "password" && !showPassword ? "password" : "text"}
         error={error}
         disabled={disabled}
         fullWidth
@@ -80,7 +80,8 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
   width: "414px",
   height: "42px",
   borderRadius: "8px",
-  padding: "10px",
+  padding: "5px",
+
   color: disabled ? "#A9A9A9" : "#959595",
 
   "&:hover": {
