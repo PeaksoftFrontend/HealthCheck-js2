@@ -14,7 +14,7 @@ export const Input = forwardRef(
       iconEnd,
       disabled,
       error,
-      icon,
+
       ...props
     },
     ref
@@ -25,11 +25,10 @@ export const Input = forwardRef(
 
     return (
       <StyledInput
-        variant="outlined"
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        type={type === "password" && !showPassword ? "password" : "text"}
+        type={type === "password" && !showPassword ? "password" : type}
         error={error}
         disabled={disabled}
         fullWidth
@@ -97,16 +96,25 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
   },
 
   "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "none",
-      padding: "0px",
+    "&::placeholder": {
       backgroundColor: "none",
     },
+  },
+  "& input:-webkit-autofill, & input:-webkit-autofill:hover, & input:-webkit-autofill:focus, & input:-webkit-autofill:active":
+    {
+      WebkitTransition: "color 9999s ease-out, background-color 9999s ease-out",
+      WebkitTransitionDelay: "9999s",
+    },
+  "& fieldset": { border: "none" },
+  "& ::-webkit-input-placeholder": {
+    color: "#FFFF",
+  },
+  "input[type='search']::-webkit-search-cancel-button": {
+    display: "none",
   },
 
   "& .MuiInputBase-input": {
     border: "none",
     padding: "0px",
-    backgroundColor: "none",
   },
 }));
