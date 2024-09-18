@@ -12,7 +12,7 @@ const MenuProps = {
   },
 };
 
-export default function MuiSelect({ children, placeholder }) {
+export const MuiSelect = ({ children, placeholder }) => {
   const [personName, setPersonName] = useState([]);
 
   const handleChange = (event) => {
@@ -23,28 +23,32 @@ export default function MuiSelect({ children, placeholder }) {
   };
 
   return (
-    <div>
-      <FormControl sx={{ m: 2, width: 300, mt: 3 }}>
-        <SelectInput
-          displayEmpty
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput />}
-          renderValue={(selected) => {
-            if (selected.length === 0) {
-              return <p style={{ color: "gray" }}>{placeholder}</p>;
-            }
-
-            return selected.join(", ");
-          }}
-          MenuProps={MenuProps}
-        >
-          {children}
-        </SelectInput>
-      </FormControl>
-    </div>
+    <FormControls>
+      <SelectInput
+        displayEmpty
+        value={personName}
+        onChange={handleChange}
+        input={<OutlinedInput />}
+        renderValue={(selected) => {
+          if (selected.length === 0) {
+            return <p>{placeholder}</p>;
+          }
+          return selected.join(", ");
+        }}
+        MenuProps={MenuProps}
+      >
+        {children}
+      </SelectInput>
+    </FormControls>
   );
-}
+};
+
+const FormControls = styled(FormControl)(({ theme }) => ({
+  margin: theme.spacing(3),
+  width: 300,
+  marginTop: theme.spacing(1),
+}));
+
 const SelectInput = styled(Select)(() => ({
   width: "490px",
   height: "38px",
@@ -57,5 +61,8 @@ const SelectInput = styled(Select)(() => ({
   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
     borderColor: "rgba(4, 135, 65, 0.8)",
     borderWidth: "2px",
+  },
+  "& .MuiSelect-select": {
+    color: "gray",
   },
 }));
