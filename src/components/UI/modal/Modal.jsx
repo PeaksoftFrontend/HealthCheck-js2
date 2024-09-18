@@ -1,9 +1,15 @@
-import { Modal as MuiModal, styled } from "@mui/material";
+import { Box, Modal as MuiModal, styled } from "@mui/material";
+import { Icons } from "../../../assets/icons";
 
-export const Modal = ({ children, isOpen, onModalClose, ...props }) => {
+export const Modal = ({ children, isOpen, onClose, icon, ...props }) => {
   return (
-    <StyledModal open={isOpen} onClose={onModalClose} {...props}>
-      <StyledBox>{children}</StyledBox>
+    <StyledModal open={isOpen} onClose={onClose} {...props}>
+      <div>
+        <StyledBox>
+          {children}
+          {!icon && <Icons.AllIcons onClick={onClose} />}
+        </StyledBox>
+      </div>
     </StyledModal>
   );
 };
@@ -13,9 +19,10 @@ const StyledModal = styled(MuiModal)(() => ({
   justifyContent: "center",
   alignItems: "center",
 }));
-const StyledBox = styled("div")(() => ({
+const StyledBox = styled(Box)(() => ({
   backgroundColor: "white",
-  width: "660px",
-  height: "468px",
+
   borderRadius: "16px",
+  display: "flex",
+  padding: "15px 20px",
 }));
