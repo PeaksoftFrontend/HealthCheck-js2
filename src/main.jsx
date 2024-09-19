@@ -2,8 +2,18 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { App } from "./App";
-import { ThemeProvider } from "@mui/material";
-import { theme } from "./theme/Theme";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#048741",
+    },
+    error: {
+      main: "#F91515",
+    },
+  },
+});
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
