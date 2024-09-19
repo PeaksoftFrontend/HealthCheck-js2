@@ -1,16 +1,14 @@
-@import url("./assets/fonts/font.css");
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  font-family: "Myriad Pro", sans-serif;
+
+svg {
+  cursor: pointer;
 }
 
-h1,
-h2,
-h3 {
-  font-family: "Manrope", sans-serif;
+body {
+  font-family: 'Manrope';
 }
+
