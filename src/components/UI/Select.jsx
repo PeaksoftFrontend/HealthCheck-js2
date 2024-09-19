@@ -1,6 +1,8 @@
-import { FormControl, MenuItem, OutlinedInput, styled } from "@mui/material";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormControl from "@mui/material/FormControl";
 import { Select as MySelect } from "@mui/material";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
+import { MenuItem, styled } from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -12,43 +14,47 @@ const MenuProps = {
   },
 };
 
-export const Select = ({ options, placeholder, label, ...props }) => {
-  const [personName, setPersonName] = useState("");
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(typeof value === "string" ? value.split(",") : value);
-  };
+export const Select = forwardRef(
+  ({ options, placeholder, label, ...props }, ref) => {
+    const [personName, setPersonName] = useState("");
 
-  return (
-    <div>
-      <FormControls>
-        <label>{label}</label>
-        <SelectInput
-          displayEmpty
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput />}
-          renderValue={(selected) => {
-            if (selected.length === 0) {
-              return <p>{placeholder}</p>;
-            }
-            return selected.join(", ");
-          }}
-          {...props}
-          MenuProps={MenuProps}
-        >
-          {options.map((item) => (
-            <StyledMenuItem key={item.label} value={item.label}>
-              {item.label}
-            </StyledMenuItem>
-          ))}
-        </SelectInput>
-      </FormControls>
-    </div>
-  );
-};
+    const handleChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonName(typeof value === "string" ? value.split(",") : value);
+    };
+
+    return (
+      <div>
+        <FormControls>
+          <label>{label}</label>
+          <SelectInput
+            displayEmpty
+            value={personName}
+            onChange={handleChange}
+            input={<OutlinedInput />}
+            renderValue={(selected) => {
+              if (selected.length === 0) {
+                return <p>{placeholder}</p>;
+              }
+              return selected.join(", ");
+            }}
+            {...props}
+            ref={ref}
+            MenuProps={MenuProps}
+          >
+            {options.map((item) => (
+              <StyledMenuItem key={item.label} value={item.label}>
+                {item.label}
+              </StyledMenuItem>
+            ))}
+          </SelectInput>
+        </FormControls>
+      </div>
+    );
+  }
+);
 
 const FormControls = styled(FormControl)(({ theme }) => ({
   margin: theme.spacing(3),
