@@ -6,8 +6,14 @@ export const Modal = ({ children, isOpen, onClose, icon, ...props }) => {
     <StyledModal open={isOpen} onClose={onClose} {...props}>
       <div>
         <StyledBox>
-          {children}
-          {!icon && <Icons.AllIcons onClick={onClose} />}
+          <section>
+            {!icon && (
+              <CloseIconWrapper onClick={onClose}>
+                <Icons.AllIcons />
+              </CloseIconWrapper>
+            )}
+          </section>
+          <div>{children}</div>
         </StyledBox>
       </div>
     </StyledModal>
@@ -19,10 +25,21 @@ const StyledModal = styled(MuiModal)(() => ({
   justifyContent: "center",
   alignItems: "center",
 }));
-const StyledBox = styled(Box)(() => ({
-  backgroundColor: "white",
 
+const StyledBox = styled(Box)(() => ({
+  position: "relative",
+  backgroundColor: "white",
   borderRadius: "16px",
-  display: "flex",
-  padding: "15px 20px",
+  padding: "15px 25px",
+
+  "& section": {
+    padding: "10px",
+  },
+}));
+
+const CloseIconWrapper = styled("div")(() => ({
+  position: "absolute",
+  top: "8px",
+  right: "6px",
+  cursor: "pointer",
 }));
