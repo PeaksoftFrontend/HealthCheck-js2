@@ -1,78 +1,72 @@
-import OutlinedInput from "@mui/material/OutlinedInput";
-import FormControl from "@mui/material/FormControl";
-import { Select as MySelect } from "@mui/material";
-import { useState, forwardRef } from "react";
-import { MenuItem, styled } from "@mui/material";
+import {
+  FormControl,
+  Select as MuiSelect,
+  MenuItem,
+  OutlinedInput,
+  styled,
+} from "@mui/material";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+export const Select = ({
+  options = [],
+  value = "",
+  onChange,
+  label = "",
+  placeholder = "Выберите...",
+  ...props
+}) => {
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: 48 * 4 + 8,
+      },
     },
-  },
+  };
+
+  return (
+    <FormControls variant="outlined" fullWidth>
+      <label>{label}</label>
+      <StyledSelect
+        displayEmpty
+        value={value}
+        onChange={onChange}
+        input={<OutlinedInput />}
+        renderValue={(selected) => {
+          if (!selected) {
+            return <Placeholder>{placeholder}</Placeholder>;
+          }
+          return selected;
+        }}
+        MenuProps={MenuProps}
+        {...props}
+      >
+        {placeholder && (
+          <MenuItem disabled value="">
+            <Placeholder>{placeholder}</Placeholder>
+          </MenuItem>
+        )}
+
+        {options.map((option) => (
+          <StyledMenuItem key={option.value} value={option.value}>
+            {option.label}
+          </StyledMenuItem>
+        ))}
+      </StyledSelect>
+    </FormControls>
+  );
 };
 
-export const Select = forwardRef(
-  ({ options, placeholder, label, ...props }, ref) => {
-    const [personName, setPersonName] = useState("");
-
-    const handleChange = (event) => {
-      const {
-        target: { value },
-      } = event;
-      setPersonName(typeof value === "string" ? value.split(",") : value);
-    };
-
-    return (
-      <div>
-        <FormControls>
-          <label>{label}</label>
-          <SelectInput
-            displayEmpty
-            value={personName}
-            onChange={handleChange}
-            input={<OutlinedInput />}
-            renderValue={(selected) => {
-              if (selected.length === 0) {
-                return <p>{placeholder}</p>;
-              }
-              return selected.join(", ");
-            }}
-            {...props}
-            ref={ref}
-            MenuProps={MenuProps}
-          >
-            {options.map((item) => (
-              <StyledMenuItem key={item.label} value={item.label}>
-                {item.label}
-              </StyledMenuItem>
-            ))}
-          </SelectInput>
-        </FormControls>
-      </div>
-    );
-  }
-);
-
 const FormControls = styled(FormControl)(({ theme }) => ({
-  margin: theme.spacing(3),
-  marginTop: theme.spacing(1),
+  margin: theme.spacing(1.8),
+  marginTop: theme.spacing(0),
   display: "flex",
   gap: "4px",
-  justifyContent: "center",
-  "& label": {
-    color: "#464444",
-    fontFamily: "Manrope",
-    fontWeight: "400",
-    fontSize: "14px",
-  },
 }));
 
-const SelectInput = styled(MySelect)(() => ({
-  width: "490px",
-  height: "38px",
+const StyledSelect = styled(MuiSelect)(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius,
+  width: "300px",
+  height: "40px",
+  borderColor: "rgba(217, 217, 217, 1)",
   "& .MuiOutlinedInput-notchedOutline": {
     borderColor: "rgba(217, 217, 217, 1)",
   },
@@ -87,6 +81,10 @@ const SelectInput = styled(MySelect)(() => ({
     color: "#959595",
   },
 }));
+
+const Placeholder = styled("span")({
+  color: "#959595",
+});
 
 const StyledMenuItem = styled(MenuItem)(() => ({
   "&:hover": {
