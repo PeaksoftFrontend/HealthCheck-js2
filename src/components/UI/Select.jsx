@@ -5,55 +5,62 @@ import {
   OutlinedInput,
   styled,
 } from "@mui/material";
+import { forwardRef } from "react";
 
-export const Select = ({
-  options = [],
-  value = "",
-  onChange,
-  label = "",
-  placeholder = "Выберите...",
-  ...props
-}) => {
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: 48 * 4 + 8,
-      },
+export const Select = forwardRef(
+  (
+    {
+      options = [],
+      value = "",
+      onChange,
+      label = "",
+      placeholder = "Выберите...",
+      ...props
     },
-  };
+    ref
+  ) => {
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: 48 * 4 + 8,
+        },
+      },
+    };
 
-  return (
-    <FormControls variant="outlined" fullWidth>
-      <label>{label}</label>
-      <StyledSelect
-        displayEmpty
-        value={value}
-        onChange={onChange}
-        input={<OutlinedInput />}
-        renderValue={(selected) => {
-          if (!selected) {
-            return <Placeholder>{placeholder}</Placeholder>;
-          }
-          return selected;
-        }}
-        MenuProps={MenuProps}
-        {...props}
-      >
-        {placeholder && (
-          <MenuItem disabled value="">
-            <Placeholder>{placeholder}</Placeholder>
-          </MenuItem>
-        )}
+    return (
+      <FormControls variant="outlined" fullWidth>
+        <label>{label}</label>
+        <StyledSelect
+          displayEmpty
+          ref={ref}
+          value={value}
+          onChange={onChange}
+          input={<OutlinedInput />}
+          renderValue={(selected) => {
+            if (!selected) {
+              return <Placeholder>{placeholder}</Placeholder>;
+            }
+            return selected;
+          }}
+          MenuProps={MenuProps}
+          {...props}
+        >
+          {placeholder && (
+            <MenuItem disabled value="">
+              <Placeholder>{placeholder}</Placeholder>
+            </MenuItem>
+          )}
 
-        {options.map((option) => (
-          <StyledMenuItem key={option.value} value={option.value}>
-            {option.label}
-          </StyledMenuItem>
-        ))}
-      </StyledSelect>
-    </FormControls>
-  );
-};
+          {options.map((option) => (
+            <StyledMenuItem key={option.value} value={option.value}>
+              {option.label}
+            </StyledMenuItem>
+          ))}
+        </StyledSelect>
+      </FormControls>
+    );
+  }
+);
 
 const FormControls = styled(FormControl)(({ theme }) => ({
   margin: theme.spacing(1.8),
