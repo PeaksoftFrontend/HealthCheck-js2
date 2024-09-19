@@ -68,8 +68,10 @@ import Revmatologiya from "../icons/service-icons/Revmatologiya.svg?react";
 import Stomach from "../icons/service-icons/stomach.svg?react";
 import Terapiya from "../icons/service-icons/Terapiya.svg?react";
 import Urologiya from "../icons/service-icons/Urologiya.svg?react";
+import ProfileGreen from "../icons/others/Profile (2).svg?react";
 
 export const Icons = {
+  ProfileGreen,
   LogoHalthCeck,
   Watsapp,
   Telegram,
