@@ -166,13 +166,13 @@ const StyledNavigete = styled("section")({
 });
 
 const StyledButtonOutlined = styled(Button)({
-  width: "13.0625rem",
+  width: "14rem",
   height: "2.6875rem",
   borderRadius: "1.5rem",
 });
 
 const StyledButtonContained = styled(Button)({
-  width: "9.875rem",
+  width: "10rem",
   height: "2.6875rem",
   borderRadius: "1.5rem",
 });
