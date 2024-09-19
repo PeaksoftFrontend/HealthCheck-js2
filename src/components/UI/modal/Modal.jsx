@@ -28,7 +28,7 @@ const StyledModal = styled(MuiModal)(() => ({
 
 const StyledBox = styled(Box)(() => ({
   position: "relative",
-  backgroundColor: "white",
+  backgroundColor: "#fff",
   borderRadius: "16px",
   padding: "15px 25px",
 
