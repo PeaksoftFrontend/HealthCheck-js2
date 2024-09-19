@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import mask from "../../assets/images/Mask group.png";
+import mask from "../../assets/images/Mask group .png";
 
 export const MainBanner = () => {
   return (
