@@ -1,18 +1,21 @@
-// Header.js
 import { styled } from "@mui/material";
 import { Icons } from "../assets/icons";
 import { Input } from "./UI/input/Input";
 import { Button } from "./UI/button/Button";
-import { HeaderModal } from "./HeaderModal";
 import { useState } from "react";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Fade from "@mui/material/Fade";
 
 export const Header = () => {
-  const [openModal, setOpenModal] = useState(false);
-
-  const handleIcon = () => {
-    setOpenModal(!openModal);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <StyledWrapper>
       <StyledHeader>
@@ -42,8 +45,19 @@ export const Header = () => {
               <p>+996(800) 000 000</p>
             </section>
           </StyledContainerNumber>
-          <Icons.ProfileGreen onClick={handleIcon} />
-          {openModal && <HeaderModal handleIcon={handleIcon} />}
+          <Icons.ProfileGreen onClick={handleClick} />
+          {anchorEl && (
+            <Menu
+              anchorEl={anchorEl}
+              id="fade-menu"
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+            >
+              <StyledMenuItem onClick={handleClose}>Войти</StyledMenuItem>
+              <StyledMenuItem onClick={handleClose}>Регистрация</StyledMenuItem>
+            </Menu>
+          )}
         </StyledIcons>
       </StyledHeader>
       <hr />
@@ -71,8 +85,8 @@ export const Header = () => {
 
 const StyledWrapper = styled("header")({
   width: "100%",
-  height: "182px",
-  padding: "22px 130px 17px 120px",
+  height: "11.375rem",
+  padding: "1.375rem 8.125rem 1.0625rem 7.5rem",
   "& svg": {
     cursor: "pointer",
   },
@@ -81,28 +95,27 @@ const StyledWrapper = styled("header")({
 const StyledHeader = styled("section")({
   display: "flex",
   justifyContent: "space-between",
-  paddingBottom: "17px",
+  paddingBottom: "1.0625rem",
 });
 
 const StyledContainer = styled("div")({
   display: "flex",
   alignItems: "center",
-  gap: "6px",
+  gap: "0.375rem",
 });
 
 const StyledSpan = styled("span")({
-  color: "#0CBB6B",
+  color: "#048741",
 });
 
 const StyledInput = styled(Input)({
-  width: "370px",
-  height: "40px",
-  borderRadius: "24px",
-  padding: "4px 20px",
+  width: "23.125rem",
+  borderRadius: "1.5rem",
+  padding: "0.25rem 1.25rem",
   backgroundColor: "#F3F1F1",
   border: "none",
-  "& svg ": {
-    margin: "6px 0px 0px 10px",
+  "& svg": {
+    margin: "0.375rem 0 0 0.625rem",
   },
   "& ::placeholder": {
     color: "#716B6B",
@@ -111,23 +124,23 @@ const StyledInput = styled(Input)({
 
 const StyledContainerMessenger = styled("div")({
   display: "flex",
-  gap: "8px",
+  gap: "0.5rem",
 });
 
 const StyledContainerNumber = styled("div")({
   display: "flex",
-  gap: "6px",
+  gap: "0.375rem",
   "& section": {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    gap: "4px",
+    gap: "0.25rem",
   },
 });
 
 const StyledIcons = styled("div")({
   display: "flex",
-  gap: "50px",
+  gap: "3.125rem",
   alignItems: "center",
 });
 
@@ -136,30 +149,36 @@ const StyledNavigete = styled("section")({
   justifyContent: "space-between",
   alignItems: "center",
   width: "100%",
-  padding: "12px",
-  "&  nav": {
+  padding: "0.75rem",
+  "& nav": {
     display: "flex",
-    gap: "36px",
+    gap: "2.25rem",
   },
   "& a": {
     textDecoration: "none",
     color: "inherit",
-    fontSize: "16px",
+    fontSize: "1rem",
   },
   "& div": {
     display: "flex",
-    gap: "16px",
+    gap: "1rem",
   },
 });
 
 const StyledButtonOutlined = styled(Button)({
-  width: "209px",
-  height: "43px",
-  borderRadius: "24px",
+  width: "13.0625rem",
+  height: "2.6875rem",
+  borderRadius: "1.5rem",
 });
 
 const StyledButtonContained = styled(Button)({
-  width: "158px",
-  height: "43px",
-  borderRadius: "24px",
+  width: "9.875rem",
+  height: "2.6875rem",
+  borderRadius: "1.5rem",
+});
+
+const StyledMenuItem = styled(MenuItem)({
+  "&:hover": {
+    color: "#048741",
+  },
 });
