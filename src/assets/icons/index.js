@@ -46,30 +46,32 @@ import CheckboxEmpty from "./toggle/checkbox-empty.svg?react";
 import Checkbox from "./toggle/checkbox.svg?react";
 import Swich from "./toggle/Switch.svg?react";
 
-import Analysic from "./service-icons/analysis.svg?react";
-import Brain from "./service-icons/brain.svg?react";
-import Easy from "./service-icons/easy.svg?react";
-import Endokrinologiya from "./service-icons/Endokrinologiya.svg?react";
-import Eye from "./service-icons/eye.svg?react";
-import Fizioterapiya from "./service-icons/Fizioterapiya.svg?react";
-import Gynecology from "./service-icons/gynecology.svg?react";
-import HairRoots from "./service-icons/hair-roots.svg?react";
-import Hand from "./service-icons/hand.svg?react";
-import Heart from "./service-icons/heart.svg?react";
-import Intestines from "./service-icons/intestines.svg?react";
-import Legs from "./service-icons/legs.svg?react";
-import Neurosurgery from "./service-icons/neurosurgery.svg?react";
-import Nose from "./service-icons/nose.svg?react";
-import Onkologiya from "./service-icons/Onkologiya.svg?react";
-import Ortopediya from "./service-icons/Ortopediya.svg?react";
-import Oxygen from "./service-icons/oxygen.svg?react";
-import Psikhoterapiya from "./service-icons/Psikhoterapiya.svg?react";
-import Revmatologiya from "./service-icons/Revmatologiya.svg?react";
-import Stomach from "./service-icons/stomach.svg?react";
-import Terapiya from "./service-icons/Terapiya.svg?react";
-import Urologiya from "./service-icons/Urologiya.svg?react";
+import Analysic from "../icons/service-icons/analysis.svg?react";
+import Brain from "../icons/service-icons/brain.svg?react";
+import Easy from "../icons/service-icons/easy.svg?react";
+import Endokrinologiya from "../icons/service-icons/Endokrinologiya.svg?react";
+import Eye from "../icons/service-icons/eye.svg?react";
+import Fizioterapiya from "../icons/service-icons/Fizioterapiya.svg?react";
+import Gynecology from "../icons/service-icons/gynecology.svg?react";
+import HairRoots from "../icons/service-icons/hair-roots.svg?react";
+import Hand from "../icons/service-icons/hand.svg?react";
+import Heart from "../icons/service-icons/heart.svg?react";
+import Intestines from "../icons/service-icons/intestines.svg?react";
+import Legs from "../icons/service-icons/legs.svg?react";
+import Neurosurgery from "../icons/service-icons/neurosurgery.svg?react";
+import Nose from "../icons/service-icons/nose.svg?react";
+import Onkologiya from "../icons/service-icons/Onkologiya.svg?react";
+import Ortopediya from "../icons/service-icons/Ortopediya.svg?react";
+import Oxygen from "../icons/service-icons/oxygen.svg?react";
+import Psikhoterapiya from "../icons/service-icons/Psikhoterapiya.svg?react";
+import Revmatologiya from "../icons/service-icons/Revmatologiya.svg?react";
+import Stomach from "../icons/service-icons/stomach.svg?react";
+import Terapiya from "../icons/service-icons/Terapiya.svg?react";
+import Urologiya from "../icons/service-icons/Urologiya.svg?react";
+import ProfileGreen from "../icons/others/Profile (2).svg?react";
 
 export const Icons = {
+  ProfileGreen,
   LogoHalthCeck,
   Watsapp,
   Telegram,
