@@ -1,21 +1,28 @@
-import { Box, Modal as MuiModal, styled } from "@mui/material";
+import { Box, Modal as MuiModal, Slide, styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 
-export const Modal = ({ children, isOpen, onClose, icon, ...props }) => {
+export const Modal = ({
+  children,
+  isOpen,
+  onClose,
+  icon,
+  bgColor,
+  ...props
+}) => {
   return (
     <StyledModal open={isOpen} onClose={onClose} {...props}>
-      <div>
-        <StyledBox>
-          <section>
+      <Slide direction="up" in={isOpen} mountOnEnter unmountOnExit>
+        <StyledBox bgColor={bgColor}>
+          <Header>
             {!icon && (
               <CloseIconWrapper onClick={onClose}>
                 <Icons.AllIcons />
               </CloseIconWrapper>
             )}
-          </section>
-          <div>{children}</div>
+          </Header>
+          <Content>{children}</Content>
         </StyledBox>
-      </div>
+      </Slide>
     </StyledModal>
   );
 };
@@ -26,20 +33,28 @@ const StyledModal = styled(MuiModal)(() => ({
   alignItems: "center",
 }));
 
-const StyledBox = styled(Box)(() => ({
+const StyledBox = styled(Box)(({ bgColor }) => ({
   position: "relative",
-  backgroundColor: "#fff",
+  backgroundColor: bgColor ? "#EBF2FC" : "#fff",
   borderRadius: "16px",
-  padding: "15px 25px",
+  border: "none",
+  padding: "15px 20px",
+}));
 
-  "& section": {
-    padding: "10px",
-  },
+const Header = styled("section")(() => ({
+  position: "absolute",
+  top: "8px",
+  right: "10px",
 }));
 
 const CloseIconWrapper = styled("div")(() => ({
-  position: "absolute",
-  top: "8px",
-  right: "6px",
   cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#eae6e6c6",
+    borderRadius: "20px",
+  },
+}));
+
+const Content = styled("div")(() => ({
+  padding: "10px",
 }));
