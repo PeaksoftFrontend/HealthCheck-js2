@@ -37,7 +37,7 @@ const StyledBox = styled(Box)(({ bgColor }) => ({
   position: "relative",
   backgroundColor: bgColor ? "#EBF2FC" : "#fff",
   borderRadius: "16px",
-  border: "none",
+  outlined: "none",
   padding: "15px 20px",
 }));
 
@@ -49,10 +49,6 @@ const Header = styled("section")(() => ({
 
 const CloseIconWrapper = styled("div")(() => ({
   cursor: "pointer",
-  "&:hover": {
-    backgroundColor: "#eae6e6c6",
-    borderRadius: "20px",
-  },
 }));
 
 const Content = styled("div")(() => ({
