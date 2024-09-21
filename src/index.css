@@ -3,6 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+<<<<<<< HEAD
+body {
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+=======
 
 svg {
   cursor: pointer;
@@ -10,5 +16,5 @@ svg {
 
 body {
   font-family: 'Manrope';
+>>>>>>> e2cc841a037d9fb60d9b3ff93b9ae8665ac1f8c4
 }
-
