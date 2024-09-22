@@ -1,157 +1,122 @@
 import { styled } from "@mui/material";
-import { reviews } from "../../utils/constants/constants";
 import { SliderItem } from "./SliderItem";
-import Carousel from "react-material-ui-carousel";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { reviews } from "../../utils/constants/constants";
 
-export const Slider = () => {
-  const [activeStep, setActiveStep] = useState(0); // Состояние для текущего активного слайда
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+export const SliderComponent = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveStep((prevActiveStep) => (prevActiveStep + 1) % reviews.length);
-    }, 3000); // Прокрутка каждые 3 секунды
+      if (sliderRef.current) {
+        const nextStep = (activeStep + 1) % reviews.length;
+        sliderRef.current.slickGoTo(nextStep);
+      }
+    }, 4000);
 
-    return () => clearInterval(interval); // Очищаем таймер, когда компонент размонтируется
-  }, []);
+    return () => clearInterval(interval);
+  }, [activeStep]);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    centerMode: true,
+    centerPadding: "60px",
+    slidesToShow: 1.63,
+    slidesToScroll: 1,
+    speed: 800,
+    arrows: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+    beforeChange: (current, next) => {
+      setActiveStep(next);
+    },
+    customPaging: (i) => <CustomDot isActive={i === activeStep} />,
+  };
 
   return (
     <StyledContainer>
       <h1>
         Отзывы наших <span>пациентов</span>
       </h1>
-      <Carousel
-        index={activeStep} // Управляемый индекс для переключения слайдов
-        onChange={(index) => setActiveStep(index)} // Обновляем индекс при смене слайда вручную
-        animation="slide"
-        navButtonsAlwaysVisible
-        indicators={true}
-        autoPlay={false} // Отключаем встроенное автоматическое воспроизведение
-      >
+      <Slider ref={sliderRef} {...settings}>
         {reviews.map((review, index) => (
-          <SliderItem key={index} {...review} />
+          <div>
+            <SliderItem
+              key={review.id}
+              {...review}
+              isActive={index === activeStep}
+              isNext={index === (activeStep + 1) % reviews.length}
+            />
+          </div>
         ))}
-      </Carousel>
+      </Slider>
     </StyledContainer>
   );
 };
+
+const CustomDot = styled("div")(({ isActive }) => ({
+  width: "10px",
+  height: "10px",
+  borderRadius: "50%",
+  backgroundColor: isActive ? "#28a745" : "#ccc",
+  transition: "background-color 0.3s ease",
+}));
 
 const StyledContainer = styled("div")(() => ({
   width: "100%",
   height: "481px",
   display: "flex",
-  gap: "34px",
   flexDirection: "column",
-  flexWrap: "wrap",
+  gap: "60px",
+  "& h1": {
+    width: "80%",
+    margin: "0 auto",
+    fontSize: "36px",
+  },
   "& span": {
-    color: "#048741",
+    color: "#28a745",
   },
 }));
-// // CarouselComponent.jsx
-// import { useEffect, useState } from "react";
-// import Carousel from "react-material-ui-carousel";
-// import { Paper, Typography, Avatar, Box, Container } from "@mui/material";
-// export const reviews = [
-//   {
-//     img: "../../assets/images/men profile.png",
-//     name: "Александр",
-//     rating: "../assets/images/stars.png",
-//     title:
-//       "Хочу выразить признательность и благодарность отличному врачу - Попову Алексею Дмитриевичу за профессиональное удаление зуба мудрости! Отмечу, что зуб был очень сложным: расположен за челюстной костью, росший вниз (под семерку), с кривыми корнями. Не ожидал, что удаление такого зуба сможет пройти столь спокойно и безболезненно (пишу, кстати, по факту заживления - лунка затянулась прекрасно). В общем, огромное спасибо Алексею Дмитриевичу , персоналу и самой клинике!",
-//   },
-//   {
-//     img: "../../assets/images/men profile.png",
-//     name: "Александр",
-//     rating: "../assets/images/stars.png",
-//     title:
-//       "Хочу выразить признательность и благодарность отличному врачу - Попову Алексею Дмитриевичу за профессиональное удаление зуба мудрости! Отмечу, что зуб был очень сложным: расположен за челюстной костью, росший вниз (под семерку), с кривыми корнями. Не ожидал, что удаление такого зуба сможет пройти столь спокойно и безболезненно (пишу, кстати, по факту заживления - лунка затянулась прекрасно). В общем, огромное спасибо Алексею Дмитриевичу , персоналу и самой клинике!",
-//   },
-//   {
-//     img: "../../assets/images/men profile.png",
-//     name: "Александр",
-//     rating: "../assets/images/stars.png",
-//     title:
-//       "Хочу выразить признательность и благодарность отличному врачу - Попову Алексею Дмитриевичу за профессиональное удаление зуба мудрости! Отмечу, что зуб был очень сложным: расположен за челюстной костью, росший вниз (под семерку), с кривыми корнями. Не ожидал, что удаление такого зуба сможет пройти столь спокойно и безболезненно (пишу, кстати, по факту заживления - лунка затянулась прекрасно). В общем, огромное спасибо Алексею Дмитриевичу , персоналу и самой клинике!",
-//   },
-//   {
-//     img: "../../assets/images/men profile.png",
-//     name: "Александр",
-//     rating: "../assets/images/stars.png",
-//     title:
-//       "Хочу выразить признательность и благодарность отличному врачу - Попову Алексею Дмитриевичу за профессиональное удаление зуба мудрости! Отмечу, что зуб был очень сложным: расположен за челюстной костью, росший вниз (под семерку), с кривыми корнями. Не ожидал, что удаление такого зуба сможет пройти столь спокойно и безболезненно (пишу, кстати, по факту заживления - лунка затянулась прекрасно). В общем, огромное спасибо Алексею Дмитриевичу , персоналу и самой клинике!",
-//   },
-//   {
-//     img: "../../assets/images/men profile.png",
-//     name: "Александр",
-//     rating: "../assets/images/stars.png",
-//     title:
-//       "Хочу выразить признательность и благодарность отличному врачу - Попову Алексею Дмитриевичу за профессиональное удаление зуба мудрости! Отмечу, что зуб был очень сложным: расположен за челюстной костью, росший вниз (под семерку), с кривыми корнями. Не ожидал, что удаление такого зуба сможет пройти столь спокойно и безболезненно (пишу, кстати, по факту заживления - лунка затянулась прекрасно). В общем, огромное спасибо Алексею Дмитриевичу , персоналу и самой клинике!",
-//   },
-//   {
-//     img: "../../assets/images/men profile.png",
-//     name: "Александр",
-//     rating: "../assets/images/stars.png",
-//     title:
-//       "Хочу выразить признательность и благодарность отличному врачу - Попову Алексею Дмитриевичу за профессиональное удаление зуба мудрости! Отмечу, что зуб был очень сложным: расположен за челюстной костью, росший вниз (под семерку), с кривыми корнями. Не ожидал, что удаление такого зуба сможет пройти столь спокойно и безболезненно (пишу, кстати, по факту заживления - лунка затянулась прекрасно). В общем, огромное спасибо Алексею Дмитриевичу , персоналу и самой клинике!",
-//   },
-//   {
-//     img: "../../assets/images/men profile.png",
-//     name: "Александр",
-//     rating: "../assets/images/stars.png",
-//     title:
-//       "Хочу выразить признательность и благодарность отличному врачу - Попову Алексею Дмитриевичу за профессиональное удаление зуба мудрости! Отмечу, что зуб был очень сложным: расположен за челюстной костью, росший вниз (под семерку), с кривыми корнями. Не ожидал, что удаление такого зуба сможет пройти столь спокойно и безболезненно (пишу, кстати, по факту заживления - лунка затянулась прекрасно). В общем, огромное спасибо Алексею Дмитриевичу , персоналу и самой клинике!",
-//   },
-//   {
-//     img: "../../assets/images/men profile.png",
-//     name: "Александр",
-//     rating: "../assets/images/stars.png",
-//     title:
-//       "Хочу выразить признательность и благодарность отличному врачу - Попову Алексею Дмитриевичу за профессиональное удаление зуба мудрости! Отмечу, что зуб был очень сложным: расположен за челюстной костью, росший вниз (под семерку), с кривыми корнями. Не ожидал, что удаление такого зуба сможет пройти столь спокойно и безболезненно (пишу, кстати, по факту заживления - лунка затянулась прекрасно). В общем, огромное спасибо Алексею Дмитриевичу , персоналу и самой клинике!",
-//   },
-// ];
 
-// export const CarouselComponent = () => {
-//   const [activeStep, setActiveStep] = useState(0); // Состояние для текущего активного слайда
+const PrevArrow = ({ onClick }) => (
+  <ArrowButton onClick={onClick} left>
+    {"<"}
+  </ArrowButton>
+);
+const NextArrow = ({ onClick }) => (
+  <ArrowButton onClick={onClick} right>
+    {">"}
+  </ArrowButton>
+);
 
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setActiveStep((prevActiveStep) => (prevActiveStep + 1) % reviews.length);
-//     }, 3000); // Прокрутка каждые 3 секунды
-
-//     return () => clearInterval(interval); // Очищаем таймер, когда компонент размонтируется
-//   }, []);
-
-//   return (
-//     <Container maxWidth="md">
-//       <Typography variant="h4" align="center" gutterBottom>
-//         Отзывы наших <span style={{ color: "green" }}>пациентов</span>
-//       </Typography>
-//       <Carousel
-//         index={activeStep} // Управляемый индекс для переключения слайдов
-//         onChange={(index) => setActiveStep(index)} // Обновляем индекс при смене слайда вручную
-//         animation="slide"
-//         navButtonsAlwaysVisible
-//         indicators={true}
-//         autoPlay={false} // Отключаем встроенное автоматическое воспроизведение
-//       >
-//         {reviews.map((review, index) => (
-//           <ReviewItem key={index} review={review} />
-//         ))}
-//       </Carousel>
-//     </Container>
-//   );
-// };
-
-// const ReviewItem = ({ review }) => (
-//   <Paper elevation={3} style={{ padding: "30px", backgroundColor: "#F0F8F5" }}>
-//     <Box display="flex" alignItems="center" justifyContent="center" mb={2}>
-//       <Avatar alt={review.name} src="../../src/assets/images/men profile.png" />
-//       <Box ml={2}>
-//         <Typography variant="h6">{review.name}</Typography>
-//         <Typography variant="body2">{"⭐".repeat(review.rating)}</Typography>
-//       </Box>
-//     </Box>
-//     <Typography variant="h6">{review.title}</Typography>
-//     <Typography variant="body1" align="center"></Typography>
-//   </Paper>
-// );
+const ArrowButton = styled("div")(({ left, right }) => ({
+  position: "absolute",
+  top: "95%",
+  zIndex: 1,
+  backgroundColor: "#ffff",
+  color: "#048741",
+  width: "45px",
+  height: "45px",
+  border: "1px solid #048741",
+  borderRadius: "50%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  cursor: "pointer",
+  fontWeight: "900",
+  transform: "translateX(0%)",
+  transition: "all 0.3s ease",
+  ...(left && { left: "41%" }),
+  ...(right && { right: "41%" }),
+  "&:hover": {
+    backgroundColor: "#0CBB6B",
+    color: "#fff",
+    border: "none",
+  },
+}));
