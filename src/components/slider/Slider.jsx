@@ -26,7 +26,7 @@ export const SliderComponent = () => {
     dots: true,
     infinite: true,
     centerMode: true,
-    centerPadding: "60px",
+    centerPadding: "3.75rem",
     slidesToShow: 1.63,
     slidesToScroll: 1,
     speed: 800,
@@ -46,14 +46,12 @@ export const SliderComponent = () => {
       </h1>
       <Slider ref={sliderRef} {...settings}>
         {reviews.map((review, index) => (
-          <div>
-            <SliderItem
-              key={review.id}
-              {...review}
-              isActive={index === activeStep}
-              isNext={index === (activeStep + 1) % reviews.length}
-            />
-          </div>
+          <SliderItem
+            key={review.id}
+            {...review}
+            isActive={index === activeStep}
+            isNext={index === (activeStep + 1) % reviews.length}
+          />
         ))}
       </Slider>
     </StyledContainer>
@@ -61,8 +59,8 @@ export const SliderComponent = () => {
 };
 
 const CustomDot = styled("div")(({ isActive }) => ({
-  width: "10px",
-  height: "10px",
+  width: "0.625rem",
+  height: "0.625rem",
   borderRadius: "50%",
   backgroundColor: isActive ? "#28a745" : "#ccc",
   transition: "background-color 0.3s ease",
@@ -70,14 +68,15 @@ const CustomDot = styled("div")(({ isActive }) => ({
 
 const StyledContainer = styled("div")(() => ({
   width: "100%",
-  height: "481px",
+  height: "30.0625rem",
   display: "flex",
   flexDirection: "column",
-  gap: "60px",
+  gap: "3.75rem",
   "& h1": {
+    fontFamily: "Manrope",
     width: "80%",
     margin: "0 auto",
-    fontSize: "36px",
+    fontSize: "2.25rem",
   },
   "& span": {
     color: "#28a745",
@@ -99,10 +98,10 @@ const ArrowButton = styled("div")(({ left, right }) => ({
   position: "absolute",
   top: "95%",
   zIndex: 1,
-  backgroundColor: "#ffff",
+  backgroundColor: "#fff",
   color: "#048741",
-  width: "45px",
-  height: "45px",
+  width: "2.8125rem",
+  height: "2.8125rem",
   border: "1px solid #048741",
   borderRadius: "50%",
   display: "flex",

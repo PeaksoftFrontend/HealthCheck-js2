@@ -3,13 +3,13 @@ import { Avatar, styled } from "@mui/material";
 export const SliderItem = ({ img, rating, name, title, isActive, isNext }) => {
   return (
     <StyledSlider isActive={isActive} isNext={isNext}>
-      <section style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <StyledSection>
         <Avatar alt={`${name}'s profile`} src={img} />
         <div>
           <h3>{name}</h3>
           {rating && <StyledStars src={rating} alt="star rating" />}
         </div>
-      </section>
+      </StyledSection>
       <p>{title}</p>
     </StyledSlider>
   );
@@ -17,35 +17,37 @@ export const SliderItem = ({ img, rating, name, title, isActive, isNext }) => {
 
 const StyledSlider = styled("div")(({ isActive, isNext }) => ({
   width: "100%",
-  maxWidth: "782px",
+  maxWidth: "48.875rem",
   height: "fit-content",
   backgroundColor: isActive ? "#f0f0f0" : isNext ? "#00934424" : "#f0f0f0",
-  borderRadius: "20px",
-  padding: "40px",
+  borderRadius: "1.25rem",
+  padding: "2.5rem",
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
+  gap: "1.25rem",
   transition: "background-color 0.3s ease, box-shadow 0.3s ease",
-  marginBottom: "40px",
+  marginBottom: "2.5rem",
 
-  "& section": {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  },
   "& h3": {
+    fontFamily: "Manrope",
     margin: "0",
-    fontSize: "18px",
+    fontSize: "1.125rem",
     fontWeight: "600",
   },
   "& p": {
-    marginTop: "10px",
-    fontSize: "16px",
+    marginTop: "0.625rem",
+    fontSize: "1rem",
     color: "#555",
   },
 }));
 
+const StyledSection = styled("section")(() => ({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.625rem",
+}));
+
 const StyledStars = styled("img")(() => ({
-  width: "74px",
-  height: "14px",
+  width: "4.625rem",
+  height: "0.875rem",
 }));
