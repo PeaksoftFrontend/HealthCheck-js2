@@ -2,22 +2,24 @@ import { Avatar, styled } from "@mui/material";
 
 export const SliderItem = ({ img, rating, name, title, isActive, isNext }) => {
   return (
-    <StyledSlider isActive={isActive} isNext={isNext}>
-      <StyledSection>
-        <Avatar alt={`${name}'s profile`} src={img} />
-        <div>
-          <h3>{name}</h3>
-          {rating && <StyledStars src={rating} alt="star rating" />}
-        </div>
-      </StyledSection>
-      <p>{title}</p>
-    </StyledSlider>
+    <>
+      <StyledSlider isActive={isActive} isNext={isNext}>
+        <StyledSection>
+          <Avatar alt={`${name}'s profile`} src={img} />
+          <div>
+            <h3>{name}</h3>
+            {rating && <StyledStars src={rating} alt="star rating" />}
+          </div>
+        </StyledSection>
+        <p>{title}</p>
+      </StyledSlider>
+    </>
   );
 };
 
 const StyledSlider = styled("div")(({ isActive, isNext }) => ({
-  width: "100%",
-  maxWidth: "50rem",
+  // width: "1000px",
+  // maxWidth: "80rem",
   height: "fit-content",
   backgroundColor: isActive ? "#f0f0f0" : isNext ? "#00934424" : "#f0f0f0",
   borderRadius: "1.25rem",
@@ -27,6 +29,7 @@ const StyledSlider = styled("div")(({ isActive, isNext }) => ({
   gap: "1.25rem",
   transition: "background-color 0.3s ease, box-shadow 0.3s ease",
   marginBottom: "2.5rem",
+  width: "782px",
 
   "& h3": {
     fontFamily: "Manrope",

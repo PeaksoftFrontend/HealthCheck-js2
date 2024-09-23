@@ -15,10 +15,9 @@ export const SliderReview = () => {
 
   const settings = {
     dots: true,
-    infinite: true,
     centerMode: true,
     centerPadding: "3.75rem",
-    slidesToShow: 1.67,
+    slidesToShow: 1.92,
     slidesToScroll: 1,
     speed: 800,
     arrows: true,
@@ -33,7 +32,7 @@ export const SliderReview = () => {
       <h1>
         Отзывы наших <span>пациентов</span>
       </h1>
-      <Slider ref={sliderRef} {...settings}>
+      <Sliderr ref={sliderRef} {...settings}>
         {reviews.map((review, index) => (
           <SliderItem
             key={review.id}
@@ -42,10 +41,17 @@ export const SliderReview = () => {
             isNext={index === (activeStep + 1) % reviews.length}
           />
         ))}
-      </Slider>
+      </Sliderr>
     </StyledContainer>
   );
 };
+
+const Sliderr = styled(Slider)(() => ({
+  "& .slick-track": {
+    display: "flex",
+    gap: "36px",
+  },
+}));
 
 const CustomDot = styled("div")(({ isActive }) => ({
   width: "0.625rem",
