@@ -1,7 +1,7 @@
 export const doctors = [
   {
     id: 1,
-    img: "/src/assets/images/therapist.png",
+    img: "/src/assets/images/therapists.png",
     name: "Войнич Дарья",
     title: "Врач-терапевт",
   },
