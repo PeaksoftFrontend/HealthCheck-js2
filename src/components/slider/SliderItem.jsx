@@ -17,7 +17,7 @@ export const SliderItem = ({ img, rating, name, title, isActive, isNext }) => {
 
 const StyledSlider = styled("div")(({ isActive, isNext }) => ({
   width: "100%",
-  maxWidth: "48.875rem",
+  maxWidth: "50rem",
   height: "fit-content",
   backgroundColor: isActive ? "#f0f0f0" : isNext ? "#00934424" : "#f0f0f0",
   borderRadius: "1.25rem",
@@ -33,11 +33,13 @@ const StyledSlider = styled("div")(({ isActive, isNext }) => ({
     margin: "0",
     fontSize: "1.125rem",
     fontWeight: "600",
+    marginBottom: "0.125rem",
   },
   "& p": {
     marginTop: "0.625rem",
     fontSize: "1rem",
-    color: "#555",
+    color: "#222222",
+    lineHeight: "1.5",
   },
 }));
 

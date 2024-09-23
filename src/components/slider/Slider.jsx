@@ -6,6 +6,8 @@ import { reviews } from "../../utils/constants/constants";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export const SliderReview = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -16,12 +18,12 @@ export const SliderReview = () => {
     infinite: true,
     centerMode: true,
     centerPadding: "3.75rem",
-    slidesToShow: 1.63,
+    slidesToShow: 1.67,
     slidesToScroll: 1,
     speed: 800,
     arrows: true,
-    prevArrow: <Arrow direction="left" />,
-    nextArrow: <Arrow direction="right" />,
+    prevArrow: <Arrow direction="left" stepsCount={reviews.length} />,
+    nextArrow: <Arrow direction="right" stepsCount={reviews.length} />,
     beforeChange: (_, next) => setActiveStep(next),
     customPaging: (i) => <CustomDot isActive={i === activeStep} />,
   };
@@ -70,20 +72,14 @@ const StyledContainer = styled("div")({
   },
 });
 
-const Arrow = ({ direction, onClick }) => (
-  <ArrowButton onClick={onClick} direction={direction}>
-    {direction === "left" ? "<" : ">"}
-  </ArrowButton>
-);
-
-const ArrowButton = styled("div")(({ direction }) => ({
+const ArrowButton = styled("div")(({ direction, stepsCount }) => ({
   position: "absolute",
   top: "95%",
   zIndex: 1,
   backgroundColor: "#fff",
   color: "#048741",
-  width: "2.8125rem",
-  height: "2.8125rem",
+  width: "2.5rem",
+  height: "2.5rem",
   border: "1px solid #048741",
   borderRadius: "50%",
   display: "flex",
@@ -91,12 +87,20 @@ const ArrowButton = styled("div")(({ direction }) => ({
   alignItems: "center",
   cursor: "pointer",
   fontWeight: "700",
-  left: direction === "left" ? "41%" : "auto",
-  right: direction === "right" ? "41%" : "auto",
+  left: direction === "left" ? `${Math.max(10, 50 - stepsCount * 2)}%` : "auto",
+  right:
+    direction === "right" ? `${Math.max(10, 50 - stepsCount * 2)}%` : "auto",
   transition: "all 0.3s ease",
+
   "&:hover": {
-    backgroundColor: "#0CBB6B",
+    background: "linear-gradient(#0CBB6B, #027B44)",
     color: "#fff",
     border: "none",
   },
 }));
+
+const Arrow = ({ direction, stepsCount, onClick }) => (
+  <ArrowButton onClick={onClick} direction={direction} stepsCount={stepsCount}>
+    {direction === "left" ? <ArrowBackIcon /> : <ArrowForwardIcon />}
+  </ArrowButton>
+);
