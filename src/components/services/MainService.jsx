@@ -26,12 +26,14 @@ const services = [
 export const MainServices = () => {
   return (
     <StyledDiv>
-      <StyledH2>
-        Наши <GreenText>услуги</GreenText>
-      </StyledH2>
-      <StyledParagraph>
-        За все время работы клиника приняла более 1 млн. пациентов.
-      </StyledParagraph>
+      <StyledText>
+        <StyledH2>
+          Наши <GreenText>услуги</GreenText>
+        </StyledH2>
+        <StyledParagraph>
+          За все время работы клиника приняла более 1 млн. пациентов.
+        </StyledParagraph>
+      </StyledText>
 
       <IconContainer>
         {services.map((service, index) => (
@@ -48,14 +50,25 @@ export const MainServices = () => {
   );
 };
 
-const StyledDiv = styled("div")({
-  width: "74.69rem",
-  height: "25.38rem",
+const StyledText = styled("div")({
+  width: "83.125rem",
+  margin: "0 auto",
   top: "63.56rem",
   left: "7.5rem",
 });
+const StyledDiv = styled("div")({
+  width: "95%",
+  margin: "0",
+  top: "63.56rem",
+  left: "7.5rem",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+});
 
 const StyledH2 = styled("h2")({
+  width: "95%",
+  margin: "0 auto",
   fontFamily: "Manrope",
   fontWeight: 600,
   fontSize: "2.25rem",
@@ -66,6 +79,8 @@ const StyledH2 = styled("h2")({
 });
 
 const StyledParagraph = styled("p")({
+  width: "95%",
+  margin: "0 auto",
   fontFamily: "Manrope",
   lineHeight: "1.5rem",
   marginTop: "1rem",
@@ -77,7 +92,7 @@ const GreenText = styled("span")({
 
 const IconContainer = styled("div")({
   display: "flex",
-  // gap: "1rem",
+  gap: "1rem",
   justifyContent: "center",
   marginTop: "2rem",
   overflowX: "auto",
