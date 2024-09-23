@@ -18,8 +18,8 @@ export const SliderItem = ({ img, rating, name, title, isActive, isNext }) => {
 };
 
 const StyledSlider = styled("div")(({ isActive, isNext }) => ({
-  // width: "1000px",
-  // maxWidth: "80rem",
+  width: "100%",
+  maxWidth: "782px",
   height: "fit-content",
   backgroundColor: isActive ? "#f0f0f0" : isNext ? "#00934424" : "#f0f0f0",
   borderRadius: "1.25rem",
@@ -29,7 +29,6 @@ const StyledSlider = styled("div")(({ isActive, isNext }) => ({
   gap: "1.25rem",
   transition: "background-color 0.3s ease, box-shadow 0.3s ease",
   marginBottom: "2.5rem",
-  width: "782px",
 
   "& h3": {
     fontFamily: "Manrope",
