@@ -68,6 +68,7 @@ import Revmatologiya from "./service-icons/Revmatologiya.svg?react";
 import Stomach from "./service-icons/stomach.svg?react";
 import Terapiya from "./service-icons/Terapiya.svg?react";
 import Urologiya from "./service-icons/Urologiya.svg?react";
+import Gematologicheskoe from "../icons/service-icons/Gematologicheskoe_testirovanie.png";
 
 export const Icons = {
   LogoHalthCeck,
@@ -136,4 +137,5 @@ export const Icons = {
   Stomach,
   Terapiya,
   Urologiya,
+  Gematologicheskoe,
 };
