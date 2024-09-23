@@ -6,8 +6,8 @@ import { reviews } from "../../utils/constants/constants";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export const SliderReview = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -101,6 +101,10 @@ const ArrowButton = styled("div")(({ direction, stepsCount }) => ({
 
 const Arrow = ({ direction, stepsCount, onClick }) => (
   <ArrowButton onClick={onClick} direction={direction} stepsCount={stepsCount}>
-    {direction === "left" ? <ArrowBackIcon /> : <ArrowForwardIcon />}
+    {direction === "left" ? (
+      <KeyboardArrowLeftIcon />
+    ) : (
+      <KeyboardArrowRightIcon />
+    )}
   </ArrowButton>
 );
