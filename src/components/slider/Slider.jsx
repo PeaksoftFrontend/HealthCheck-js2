@@ -17,7 +17,7 @@ export const SliderReview = () => {
     dots: true,
     centerMode: true,
     centerPadding: "3.75rem",
-    slidesToShow: 1.92,
+    slidesToShow: 1.8,
     slidesToScroll: 1,
     speed: 800,
     arrows: true,
