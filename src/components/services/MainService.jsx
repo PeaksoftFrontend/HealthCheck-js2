@@ -17,7 +17,7 @@ export const MainServices = () => {
         {services.map((service, index) => (
           <ServiceCard key={index}>
             <IconWrapper isFirst={index === 0}>
-              <Icon src={service.icon} alt={`Icon ${index + 1}`} />
+              <service.icon />
             </IconWrapper>
             <IconText>{service.text}</IconText>
           </ServiceCard>
@@ -42,6 +42,7 @@ const StyledDiv = styled("div")({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  paddingBottom: "120px",
 });
 
 const StyledH2 = styled("h2")({
@@ -84,24 +85,22 @@ const ServiceCard = styled("div")({
   margin: "1rem",
 });
 
-const IconWrapper = styled("div")(({ isFirst }) => ({
+const IconWrapper = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  border: `2px solid ${isFirst ? "#048741" : "#ccc"}`,
+  border: "2px solid #ccc",
   borderRadius: "0.5rem",
   padding: "1rem",
   "&:hover": {
     backgroundColor: "#048741",
-    color: "white",
+    "&:hover svg": {
+      path: {
+        fill: "#ffff",
+      },
+    },
   },
 }));
-
-const Icon = styled("img")({
-  width: "3.125rem",
-  height: "3.125rem",
-  filter: "invert(1%)",
-});
 
 const IconText = styled("span")({
   marginTop: "0.75rem",
