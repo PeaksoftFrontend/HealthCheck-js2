@@ -5,27 +5,26 @@ import { MainItem } from "./MainItem";
 export const Main = () => {
   return (
     <StyledContainerMain>
-      <a>
-        Почему
-        <span> нас выбирают?</span>
-      </a>
-      <section>
-        {list.map((item) => (
-          <MainItem key={item.id} {...item} />
-        ))}
-      </section>
+      <StyledBox>
+        <a>
+          Почему
+          <span> нас выбирают?</span>
+        </a>
+        <section>
+          {list.map((item) => (
+            <MainItem key={item.id} {...item} />
+          ))}
+        </section>
+      </StyledBox>
     </StyledContainerMain>
   );
 };
 
 const StyledContainerMain = styled("div")(() => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "3.75rem",
+  paddingBottom: "120px",
   "& a": {
     fontSize: "2.25rem",
     fontWeight: "600",
-    paddingLeft: "7.8125rem",
 
     "& span": {
       color: "#048741",
@@ -37,4 +36,11 @@ const StyledContainerMain = styled("div")(() => ({
     justifyContent: "center",
     gap: "1.125rem",
   },
+}));
+const StyledBox = styled("div")(() => ({
+  maxWidth: "1300px",
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
+  gap: "60px",
 }));

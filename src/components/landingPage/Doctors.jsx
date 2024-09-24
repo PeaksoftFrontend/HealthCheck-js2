@@ -6,28 +6,30 @@ import { Button } from "../UI/button/Button";
 export const Doctors = () => {
   return (
     <StyledContainer>
-      <section>
-        <h2>
-          Лучшие <span>врачи</span>
-        </h2>
-        <div>
-          <p>Попасть в команду медицинской клиники «MedCheck» могут</p>
-          <p>
-            только лучшие специалисты с многолетней практикой и доказанным
-            опытом.
-          </p>
-        </div>
-      </section>
-      <StyledContainerItem>
-        <StyledContainerImage>
-          {doctors.map((item) => (
-            <DoctorsItem key={item.id} {...item} />
-          ))}
-        </StyledContainerImage>
-        <StyledButton variant={"outlined"}>
-          <span>В </span>се врачи клиники
-        </StyledButton>
-      </StyledContainerItem>
+      <StyledBox>
+        <section>
+          <h2>
+            Лучшие <span>врачи</span>
+          </h2>
+          <div>
+            <p>Попасть в команду медицинской клиники «MedCheck» могут</p>
+            <p>
+              только лучшие специалисты с многолетней практикой и доказанным
+              опытом.
+            </p>
+          </div>
+        </section>
+        <StyledContainerItem>
+          <StyledContainerImage>
+            {doctors.map((item) => (
+              <DoctorsItem key={item.id} {...item} />
+            ))}
+          </StyledContainerImage>
+          <StyledButton variant={"outlined"}>
+            <span>В </span>се врачи клиники
+          </StyledButton>
+        </StyledContainerItem>
+      </StyledBox>
     </StyledContainer>
   );
 };
@@ -50,14 +52,9 @@ const StyledContainerImage = styled("div")(() => ({
 }));
 
 const StyledContainer = styled("div")(() => ({
-  height: "34.6875rem",
-  display: "flex",
-  flexDirection: "column",
-  gap: "3.75rem",
-  fontFamily: "Manrope",
+  paddingBottom: "120px",
 
   "& section": {
-    paddingLeft: "7.5rem",
     display: "flex",
     flexDirection: "column",
     gap: "2.25rem",
@@ -74,6 +71,14 @@ const StyledContainer = styled("div")(() => ({
       gap: "0.125rem",
     },
   },
+}));
+
+const StyledBox = styled("div")(() => ({
+  maxWidth: "1300px",
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
+  gap: "60px",
 }));
 
 const StyledContainerItem = styled("div")(() => ({

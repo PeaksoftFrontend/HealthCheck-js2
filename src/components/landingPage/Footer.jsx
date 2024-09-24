@@ -6,44 +6,50 @@ import HealthCheck from "../../assets/images/Groups.png";
 export const Footer = () => {
   return (
     <StyledFooterContainer>
-      <StyledFooter>
-        <StyledFooterText>
-          <img src={HealthCheck} alt="HealthCheck" />
-          <div>
-            <p>Медицинская клиника «HealthCheck»</p>
-            <a>
-              Международная Медицинская клиника «HealthCheck» — это клиника, в
-              которой применяются новейшие диагностические и лечебные технологии
-              и ведут прием лучшие специалисты.
-            </a>
-          </div>
-        </StyledFooterText>
-        <FooterContact />
-        <FooterSocialNewtworks />
-      </StyledFooter>
-      <StyledNavigateHr>
-        <StyledNavigate>
-          <a href="#">О клинике</a>
-          <a href="#">Услуги</a>
-          <a href="#">Врачи</a>
-          <a href="#">Прайс</a>
-          <a href="#">Отзывы</a>
-          <a href="#">Контакты</a>
-        </StyledNavigate>
-        <hr />
-        <StyledText>
-          © Peaksoft House 2023 | MedCheck | Все права защищены
-        </StyledText>
-      </StyledNavigateHr>
+      <StyledBox>
+        <StyledFooter>
+          <StyledFooterText>
+            <img src={HealthCheck} alt="HealthCheck" />
+            <div>
+              <p>Медицинская клиника «HealthCheck»</p>
+              <a>
+                Международная Медицинская клиника «HealthCheck» — это клиника, в
+                которой применяются новейшие диагностические и лечебные
+                технологии и ведут прием лучшие специалисты.
+              </a>
+            </div>
+          </StyledFooterText>
+          <FooterContact />
+          <FooterSocialNewtworks />
+        </StyledFooter>
+        <StyledNavigateHr>
+          <StyledNavigate>
+            <a href="#">О клинике</a>
+            <a href="#">Услуги</a>
+            <a href="#">Врачи</a>
+            <a href="#">Прайс</a>
+            <a href="#">Отзывы</a>
+            <a href="#">Контакты</a>
+          </StyledNavigate>
+          <hr />
+          <StyledText>
+            © Peaksoft House 2023 | MedCheck | Все права защищены
+          </StyledText>
+        </StyledNavigateHr>
+      </StyledBox>
     </StyledFooterContainer>
   );
 };
 
 const StyledFooterContainer = styled("div")(() => ({
-  display: "flex",
-  flexDirection: "column",
   height: "30.875rem",
   background: "#212529",
+}));
+const StyledBox = styled("div")(() => ({
+  maxWidth: "1300px",
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
 }));
 
 const StyledFooter = styled("footer")(() => ({
@@ -97,8 +103,6 @@ const StyledNavigateHr = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   gap: "2.875rem",
-  paddingLeft: "7.4375rem",
-  paddingRight: "7.4375rem",
 }));
 
 const StyledText = styled("p")(() => ({
