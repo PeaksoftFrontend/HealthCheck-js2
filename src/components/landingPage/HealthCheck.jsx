@@ -45,14 +45,13 @@ export const HealthCheck = () => {
 const StyledContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "60px",
+  gap: "3.75rem",
   fontFamily: "Manrope",
 
-  " & a": {
-    fontSize: "36px",
+  "& a": {
+    fontSize: "2.25rem",
     fontWeight: "600",
-    paddingLeft: "125px",
-
+    paddingLeft: "7.8125rem",
     "& span": {
       color: "#048741",
     },
@@ -63,14 +62,15 @@ const StyledWrapper = styled("div")(() => ({
   display: "flex",
   justifyContent: "space-evenly",
 }));
+
 const StyledContinerText = styled("section")(() => ({
-  width: "515px",
-  height: "546px",
+  width: "32.1875rem",
+  height: "34.125rem",
   display: "flex",
   flexDirection: "column",
-  gap: "30px",
+  gap: "1.875rem",
   "& p": {
-    lineHeight: "25.6px",
+    lineHeight: "1.6",
   },
   "& span": {
     fontFamily: "Manrope",

@@ -31,9 +31,10 @@ export const Doctors = () => {
     </StyledContainer>
   );
 };
+
 const StyledButton = styled(Button)(() => ({
-  width: "200px",
-  height: "42px",
+  width: "12.5rem",
+  height: "2.625rem",
   textTransform: "lowercase",
   margin: "0 auto",
   "& span": {
@@ -45,23 +46,24 @@ const StyledContainerImage = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  gap: "30px",
+  gap: "1.875rem",
 }));
+
 const StyledContainer = styled("div")(() => ({
-  height: "555px",
+  height: "34.6875rem",
   display: "flex",
   flexDirection: "column",
-  gap: "60px",
+  gap: "3.75rem",
   fontFamily: "Manrope",
 
   "& section": {
-    paddingLeft: "120px",
+    paddingLeft: "7.5rem",
     display: "flex",
     flexDirection: "column",
-    gap: "36px",
+    gap: "2.25rem",
 
     "& h2": {
-      fontSize: "36px",
+      fontSize: "2.25rem",
     },
     "& span": {
       color: "#048741",
@@ -69,12 +71,13 @@ const StyledContainer = styled("div")(() => ({
     "& div": {
       display: "flex",
       flexDirection: "column",
-      gap: "2px",
+      gap: "0.125rem",
     },
   },
 }));
+
 const StyledContainerItem = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "40px",
+  gap: "2.5rem",
 }));

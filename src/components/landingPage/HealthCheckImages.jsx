@@ -20,19 +20,22 @@ export const HealthCheckImages = () => {
 const StyledImages = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "26px",
+  gap: "1.625rem",
 }));
+
 const StyledImageClinic = styled("img")(() => ({
-  width: "586px",
-  height: "398",
-  borderRadius: "8px",
+  width: "36.625rem",
+  height: "24.875rem",
+  borderRadius: "0.5rem",
 }));
+
 const StyledImg = styled("section")(() => ({
   display: "flex",
-  gap: "26px",
+  gap: "1.625rem",
 }));
+
 const StyledImageDoctors = styled("img")(() => ({
-  width: "178px",
-  height: "120px",
-  borderRadius: "8px",
+  width: "11.125rem",
+  height: "7.5rem",
+  borderRadius: "0.5rem",
 }));

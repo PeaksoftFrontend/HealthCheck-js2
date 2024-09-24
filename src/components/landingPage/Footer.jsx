@@ -38,15 +38,17 @@ export const Footer = () => {
     </StyledFooterContainer>
   );
 };
+
 const StyledFooterContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  height: "494px",
+  height: "30.875rem",
   background: "#212529",
 }));
+
 const StyledFooter = styled("footer")(() => ({
-  paddingTop: "68px ",
-  paddingBottom: "48px",
+  paddingTop: "4.25rem",
+  paddingBottom: "3rem",
   display: "flex",
   justifyContent: "space-around",
 }));
@@ -54,34 +56,35 @@ const StyledFooter = styled("footer")(() => ({
 const StyledFooterText = styled("section")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "30px",
+  gap: "1.875rem",
   fontFamily: "Manrope",
 
   "& img": {
-    width: "280px",
-    height: "79px",
+    width: "17.5rem",
+    height: "4.9375rem",
   },
 
   "& div": {
-    width: "461px",
-    height: "126px",
+    width: "28.9375rem",
+    height: "7.875rem",
     display: "flex",
     flexDirection: "column",
-    gap: "16px",
+    gap: "1rem",
     "& p": {
       fontWeight: "500",
       color: "#FFFFFF",
     },
     "& a": {
       color: "#CCCCCC",
-      lineHeight: "23px",
+      lineHeight: "1.4375rem",
     },
   },
 }));
+
 const StyledNavigate = styled("nav")(() => ({
   display: "flex",
   justifyContent: "center",
-  gap: "24px",
+  gap: "1.5rem",
   fontFamily: "Manrope",
 
   "& a": {
@@ -89,15 +92,17 @@ const StyledNavigate = styled("nav")(() => ({
     color: "#CCCCCC",
   },
 }));
+
 const StyledNavigateHr = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "46px",
-  paddingLeft: "119px",
-  paddingRight: "119px",
+  gap: "2.875rem",
+  paddingLeft: "7.4375rem",
+  paddingRight: "7.4375rem",
 }));
+
 const StyledText = styled("p")(() => ({
-  fontSize: "14px",
+  fontSize: "0.875rem",
   color: "#959595",
   textAlign: "center",
 }));

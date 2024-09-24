@@ -13,10 +13,11 @@ export const FooterSocialNewtworks = () => {
     </StyledContainer>
   );
 };
+
 const StyledContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
+  gap: "1.25rem",
   fontFamily: "Manrope",
   "& p": {
     fontWeight: 500,
@@ -24,6 +25,6 @@ const StyledContainer = styled("div")(() => ({
   },
   "& section": {
     display: "flex",
-    gap: "15px",
+    gap: "0.9375rem",
   },
 }));

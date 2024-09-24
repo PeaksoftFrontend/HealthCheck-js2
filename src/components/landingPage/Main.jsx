@@ -17,14 +17,15 @@ export const Main = () => {
     </StyledContainerMain>
   );
 };
+
 const StyledContainerMain = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "60px",
+  gap: "3.75rem",
   "& a": {
-    fontSize: "36px",
+    fontSize: "2.25rem",
     fontWeight: "600",
-    paddingLeft: "125px",
+    paddingLeft: "7.8125rem",
 
     "& span": {
       color: "#048741",
@@ -34,6 +35,6 @@ const StyledContainerMain = styled("div")(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "18px",
+    gap: "1.125rem",
   },
 }));

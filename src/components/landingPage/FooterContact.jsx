@@ -38,45 +38,50 @@ const StyledWrapper = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
 }));
+
 const StyledIcon = styled("div")(() => ({
   display: "flex",
-  gap: "8px",
+  gap: "0.5rem",
   textAlign: "center",
   color: "#CCCCCC",
 }));
+
 const StyledContact = styled("section")(() => ({
-  width: "300px",
-  height: "190px",
+  width: "18.75rem",
+  height: "11.875rem",
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
+  gap: "1.25rem",
   "& p": {
     color: "#CCCCCC",
   },
 }));
-const StyledContainer = styled("footer")({
+
+const StyledContainer = styled("footer")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "8px",
+  gap: "0.5rem",
   "& p": {
     display: "flex",
-    gap: "8px",
+    gap: "0.5rem",
   },
-});
+}));
+
 const StyledTextContact = styled("p")(() => ({
   color: "#FFFFFF",
   fontWeight: "600",
 }));
+
 const StyledArticle = styled("article")(() => ({
   display: "flex",
 
   "& div": {
     display: "flex",
     flexDirection: "column",
-    gap: "5px",
+    gap: "0.3125rem",
   },
   "& p": {
-    paddingLeft: "5px",
+    paddingLeft: "0.3125rem",
   },
   "& span": {
     color: "#CCCCCC",
