@@ -91,12 +91,16 @@ const IconWrapper = styled("div")(({ isFirst }) => ({
   border: `2px solid ${isFirst ? "#048741" : "#ccc"}`,
   borderRadius: "0.5rem",
   padding: "1rem",
-  backgroundColor: isFirst ? "#048741" : "transparent",
+  "&:hover": {
+    backgroundColor: "#048741",
+    color: "white",
+  },
 }));
 
 const Icon = styled("img")({
   width: "3.125rem",
   height: "3.125rem",
+  filter: "invert(1%)",
 });
 
 const IconText = styled("span")({
@@ -105,7 +109,7 @@ const IconText = styled("span")({
 });
 
 const StyledButton = styled("button")({
-  width: "9.1875rem",
+  width: "10rem",
   height: "2.625rem",
   borderRadius: "0.625rem",
   border: "0.0625rem solid green",
