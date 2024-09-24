@@ -33,8 +33,7 @@ const StyledContainerMain = styled("div")(() => ({
   "& section": {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    gap: "1.125rem",
+    justifyContent: "space-between",
   },
 }));
 const StyledBox = styled("div")(() => ({

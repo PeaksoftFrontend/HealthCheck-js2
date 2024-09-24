@@ -64,6 +64,7 @@ const StyledBox = styled("div")(() => ({
 }));
 const StyledWrapper = styled("div")(() => ({
   display: "flex",
+  justifyContent: "space-between",
   gap: "125px",
 }));
 
