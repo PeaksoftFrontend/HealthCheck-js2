@@ -33,7 +33,7 @@ export const Footer = () => {
           </StyledNavigate>
           <hr />
           <StyledText>
-            © Peaksoft House 2023 | MedCheck | Все права защищены
+            © Peaksoft Moscow 2024 |HealthCheck | Все права защищены
           </StyledText>
         </StyledNavigateHr>
       </StyledBox>
@@ -48,6 +48,7 @@ const StyledFooterContainer = styled("div")(() => ({
 const StyledBox = styled("div")(() => ({
   maxWidth: "1300px",
   margin: "0 auto",
+
   display: "flex",
   flexDirection: "column",
 }));
@@ -56,7 +57,7 @@ const StyledFooter = styled("footer")(() => ({
   paddingTop: "4.25rem",
   paddingBottom: "3rem",
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "space-between",
 }));
 
 const StyledFooterText = styled("section")(() => ({
