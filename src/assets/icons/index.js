@@ -40,6 +40,7 @@ import Users2 from "./others/Users-2.svg?react";
 import Users from "./others/users.svg?react";
 import VisibilituIcon from "./others/VisibilityIcon.svg?react";
 import VisibilityOffIcon from "./others/VisibilityOffIcon.svg?react";
+import Masseger from "../icons/others/messenger.svg?react";
 
 import Check1 from "./toggle/check-1.svg?react";
 import CheckboxEmpty from "./toggle/checkbox-empty.svg?react";
@@ -69,8 +70,15 @@ import Stomach from "../icons/service-icons/stomach.svg?react";
 import Terapiya from "../icons/service-icons/Terapiya.svg?react";
 import Urologiya from "../icons/service-icons/Urologiya.svg?react";
 import ProfileGreen from "../icons/others/Profile (2).svg?react";
+import Detail from "../icons/others/Подробнее.svg?react";
+import Logotip from "../icons/logo/logo-healthCheck.svg?react";
+import PhoneMob from "../icons/others/phoneMob.svg?react";
 
 export const Icons = {
+  Masseger,
+  PhoneMob,
+  Logotip,
+  Detail,
   ProfileGreen,
   LogoHalthCeck,
   Watsapp,
