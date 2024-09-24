@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
-import { Icons } from "../assets/icons";
-import { Input } from "./UI/input/Input";
-import { Button } from "./UI/button/Button";
+import { Icons } from "../../assets/icons";
+import { Input } from "../UI/input/Input";
+import { Button } from "../UI/button/Button";
 import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
