@@ -68,7 +68,7 @@ export const Header = () => {
         </StyledHeader>
         <hr />
         <StyledNavigete>
-          <Icons.LogoHalthCeck />
+          <Icons.LogohealthCheck />
           <nav>
             <a href="#">О клинике</a>
             <a href="#">Услуги</a>

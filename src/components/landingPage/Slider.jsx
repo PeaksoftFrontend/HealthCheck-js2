@@ -68,7 +68,6 @@ const StyledContainer = styled("div")({
   "& h1": {
     fontFamily: "Manrope",
     width: "80%",
-    margin: "0 auto",
     fontSize: "2.25rem",
     "& > span": {
       color: "#28a745",
@@ -88,7 +87,7 @@ const StyledBox = styled("div")(() => ({
 }));
 const ArrowButton = styled("div")(({ direction, stepsCount }) => ({
   position: "absolute",
-  top: "95%",
+  top: "96%",
   zIndex: 1,
   backgroundColor: "#fff",
   color: "#048741",

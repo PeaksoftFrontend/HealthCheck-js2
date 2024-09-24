@@ -73,8 +73,10 @@ import ProfileGreen from "../icons/others/Profile (2).svg?react";
 import Detail from "../icons/others/Подробнее.svg?react";
 import Logotip from "../icons/logo/logo-healthCheck.svg?react";
 import PhoneMob from "../icons/others/phoneMob.svg?react";
+import LogohealthCheck from "../icons/logo/HealthCheckLogo.svg?react";
 
 export const Icons = {
+  LogohealthCheck,
   Masseger,
   PhoneMob,
   Logotip,
