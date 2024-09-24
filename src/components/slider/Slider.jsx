@@ -15,8 +15,10 @@ export const SliderReview = () => {
 
   const settings = {
     dots: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    infinity: true,
     centerMode: true,
-    centerPadding: "3.75rem",
     slidesToShow: 1.67,
     slidesToScroll: 1,
     speed: 800,
@@ -66,9 +68,13 @@ const StyledContainer = styled("div")({
     width: "80%",
     margin: "0 auto",
     fontSize: "2.25rem",
+    "& > span": {
+      color: "#28a745",
+    },
   },
-  "& span": {
-    color: "#28a745",
+
+  "& .slick-initialized .slick-slide": {
+    margin: "0 10px",
   },
 });
 
