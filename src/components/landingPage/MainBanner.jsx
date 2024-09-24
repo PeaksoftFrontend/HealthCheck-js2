@@ -1,31 +1,33 @@
 import { styled } from "@mui/material";
 import Mask from "../../assets/images/MainBannerImage.png";
+import { Button } from "../UI/button/Button";
 
 export const MainBanner = () => {
   return (
-    <StyledContainer>
-      <StyledDiv>
-        <GradientText>Добро пожаловать в клинику HealthCheck</GradientText>
-        <StyledP>
-          Международная медицинская клиника «HealthCheck» — это клиника, в
-          которой применяются новейшие диагностические и лечебные технологии и
-          ведут прием лучшие специалисты.
-        </StyledP>
-        <StyledModal>Оставьте заявку</StyledModal>
-      </StyledDiv>
-      <StyledImg src={Mask} alt="Mask" />
-    </StyledContainer>
+    <>
+      <StyledBox>
+        <StyledDiv>
+          <GradientText>Добро пожаловать в клинику HealthCheck</GradientText>
+          <StyledP>
+            Международная медицинская клиника «HealthCheck» — это клиника, в
+            которой применяются новейшие диагностические и лечебные технологии и
+            ведут прием лучшие специалисты.
+          </StyledP>
+          <StyledButton variant={"outlined"}>Оставьте заявку</StyledButton>
+        </StyledDiv>
+        <StyledImg src={Mask} alt="Mask" />
+      </StyledBox>
+    </>
   );
 };
 
-const StyledContainer = styled("div")({
+const StyledBox = styled("div")(() => ({
+  maxWidth: "1300px",
+  margin: "0 auto",
   display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "0 7.5rem",
-  position: "relative",
-});
-
+  gap: "40px",
+  paddingBottom: "31px",
+}));
 const GradientText = styled("h1")({
   background: "linear-gradient(90deg, #30CFD0,#330867)",
   WebkitBackgroundClip: "text",
@@ -39,27 +41,22 @@ const GradientText = styled("h1")({
 const StyledP = styled("p")({
   width: "36.56rem",
   height: "4.31rem",
-  marginTop: "1.25rem",
+  fontSize: "18px",
+  lineHeight: "23px",
+  fontFamily: "Manrope",
 });
 
 const StyledDiv = styled("div")({
   display: "flex",
   flexDirection: "column",
-  maxWidth: "36.56rem",
+  justifyContent: "center",
+  gap: "26px",
 });
-
-const StyledModal = styled("div")({
-  width: "11.06rem",
-  height: "2.69rem",
-  marginTop: "1.25rem",
-  borderRadius: "1.5rem",
-  border: "1px solid #048741",
-  padding: "0.5rem 1.5rem",
-  color: "#048741",
-  display: "inline-block",
-  textAlign: "center",
-  cursor: "pointer",
-});
+const StyledButton = styled(Button)(() => ({
+  width: "180px",
+  height: "43px",
+  borderRadius: "24px",
+}));
 
 const StyledImg = styled("img")({
   width: "36.27rem",
