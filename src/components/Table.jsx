@@ -1,3 +1,4 @@
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useTable } from "react-table";
 import styled from "styled-components";
 
@@ -5,17 +6,17 @@ const StyledTable = styled.table`
   width: 100%;
 `;
 
-const Th = styled.th`
-  background-color: #fff;
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #d9d9d9;
-`;
+// const Th = styled.th`
+//   background-color: #fff;
+//   padding: 8px;
+//   text-align: left;
+//   border-bottom: 1px solid #d9d9d9;
+// `;
 
-const Td = styled.td`
-  padding: 8px;
-  border-bottom: 1px solid #d9d9d9;
-`;
+// const Td = styled.td`
+//   padding: 8px;
+//   border-bottom: 1px solid #d9d9d9;
+// `;
 
 export const SpecialistCell = styled.div`
   display: flex;
@@ -80,27 +81,36 @@ export const Table = ({ columns, data }) => {
 
   return (
     <StyledTable {...getTableProps()}>
-      <thead>
+      <TableHead>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <TableRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <Th {...column.getHeaderProps()}>{column.render("Header")}</Th>
+              <TableCell {...column.getHeaderProps()}>
+                {column.render("Header")}
+              </TableCell>
             ))}
-          </tr>
+          </TableRow>
         ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
+      </TableHead>
+      <TableBody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <TableRoww {...row.getRowProps()}>
               {row.cells.map((cell) => (
-                <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
+                <TableCell {...cell.getCellProps()}>
+                  {cell.render("Cell")}
+                </TableCell>
               ))}
-            </tr>
+            </TableRoww>
           );
         })}
-      </tbody>
+      </TableBody>
     </StyledTable>
   );
 };
+const TableRoww = styled(TableRow)(() => ({
+  "& .css-10ukr6t-MuiTableCell-root": {
+    borderBottom: "none",
+  },
+}));
