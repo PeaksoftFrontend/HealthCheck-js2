@@ -4,62 +4,87 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
-import { Icons } from "../../../assets/icons";
-import { TextField, InputAdornment } from "@mui/material";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 export const MuiDatePicker = ({ selectedDate, onDateChange }) => {
-  const shouldDisableDate = (date) => {
-    return date.isBefore(dayjs(), "day");
+  const shouldDisableDate = (date) => date.isBefore(dayjs(), "day");
+
+  const CustomCalendarHeader = ({ currentMonth, onMonthChange }) => {
+    return (
+      <div
+        style={{
+          height: "52px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "16px 23px",
+        }}
+      >
+        <NavigateBeforeIcon
+          onClick={() => onMonthChange(currentMonth.subtract(1, "month"))}
+        />
+
+        <div
+          style={{
+            textAlign: "center",
+            fontWeight: "500",
+            fontSize: "16px",
+            textTransform: "capitalize",
+          }}
+        >
+          {currentMonth.format("MMMM YYYY")}
+        </div>
+
+        <NavigateNextIcon
+          onClick={() => onMonthChange(currentMonth.add(1, "month"))}
+        />
+      </div>
+    );
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
       <StyledDatePicker
         value={selectedDate}
-        onChange={(newValue) => onDateChange(newValue)}
+        onChange={onDateChange}
         shouldDisableDate={shouldDisableDate}
         inputFormat="DD.MM.YY"
-        renderInput={(params) => (
-          <StyledTextField
-            {...params}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Icons.CalendarTodayIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        )}
+        slots={{
+          calendarHeader: (props) => <CustomCalendarHeader {...props} />,
+        }}
+        slotProps={{
+          desktopPaper: desktopPaperStyles,
+        }}
       />
     </LocalizationProvider>
   );
 };
 
-const StyledDatePicker = styled(DatePicker)(() => ({
-  width: "159px",
-  height: "38px",
-  border: "1px solid #D9D9D9",
-  borderRadius: "6px",
-
-  "& input:-webkit-autofill, & input:-webkit-autofill:hover, & input:-webkit-autofill:focus, & input:-webkit-autofill:active":
-    {
-      WebkitTransition: "color 9999s ease-out, background-color 9999s ease-out",
-      WebkitTransitionDelay: "9999s",
+const desktopPaperStyles = {
+  sx: {
+    "& .MuiPickersDay-root": {
+      fontSize: "14px",
+      fontWeight: "400",
+      "&.Mui-selected": {
+        backgroundColor: "#048741",
+        color: "#fff",
+      },
     },
-
-  "& .MuiInputBase-input": {
-    border: "none",
-    padding: "8px 4px",
   },
+};
 
-  "& fieldset": {
-    border: "none",
+const StyledDatePicker = styled(DatePicker)(({ error }) => ({
+  borderRadius: "4px",
+  fontFamily: "Roboto",
+  border: error ? "1px solid red" : "1px solid #D4D4D4",
+  "& input": {
+    width: "5.625rem",
+    padding: "8px 15px",
+    fontSize: "14px",
+    color: "#4D4E51",
   },
-  "& ::-webkit-input-placeholder": {
-    color: "#959595",
+  "& .MuiOutlinedInput-notchedOutline": {
+    border: "none",
   },
 }));
-
-const StyledTextField = styled(TextField)(() => ({}));

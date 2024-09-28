@@ -11,32 +11,3 @@ svg {
 body {
   font-family: "Manrope";
 }
-.css-1eeiwjo-MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon {
-  display: none;
-}
-.css-ufcxyz-MuiTypography-root-MuiDayCalendar-weekDayLabel {
-  width: 32px;
-  height: 32px;
-}
-.css-i5q14k-MuiDayCalendar-header {
-  height: 32px;
-  display: flex;
-}
-
-.css-dplwbx-MuiPickersCalendarHeader-label {
-  text-transform: capitalize;
-}
-
-.css-5ivcmv-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton
-  svg
-  path {
-  display: none;
-}
-
-.css-1quycln-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
-  .MuiOutlinedInput-notchedOutline {
-  display: none;
-}
-.css-8k0jfx-MuiFormControl-root-MuiTextField-root .MuiInputBase-input {
-  font-size: 15px;
-}
