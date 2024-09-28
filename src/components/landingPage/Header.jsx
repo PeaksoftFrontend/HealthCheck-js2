@@ -18,67 +18,74 @@ export const Header = () => {
   };
   return (
     <StyledWrapper>
-      <StyledHeader>
-        <section>
-          <StyledContainer>
-            <Icons.Gps />
-            <span>106452, г. Бишкек, Гражданская 119</span>
-          </StyledContainer>
-          <StyledContainer>
-            <Icons.andDesginPhoneOutlined />
-            <p>
-              <StyledSpan>пн-сб </StyledSpan> 08:00 до 18:00{" "}
-            </p>
-          </StyledContainer>
-        </section>
-        <StyledInput placeholder="Поиск по сайту " iconEnd={<Icons.Search />} />
-        <StyledIcons>
-          <StyledContainerMessenger>
-            <Icons.GreenInstagram />
-            <Icons.GreenTelegram />
-            <Icons.GreenWatsapp />
-          </StyledContainerMessenger>
-          <StyledContainerNumber>
-            <Icons.Phone />
-            <section>
-              <p>+996(505) 000 000</p>
-              <p>+996(800) 000 000</p>
-            </section>
-          </StyledContainerNumber>
-          <Icons.ProfileGreen onClick={handleClick} />
-          {anchorEl && (
-            <Menu
-              anchorEl={anchorEl}
-              id="fade-menu"
-              open={open}
-              onClose={handleClose}
-              TransitionComponent={Fade}
-            >
-              <StyledMenuItem onClick={handleClose}>Войти</StyledMenuItem>
-              <StyledMenuItem onClick={handleClose}>Регистрация</StyledMenuItem>
-            </Menu>
-          )}
-        </StyledIcons>
-      </StyledHeader>
-      <hr />
-      <StyledNavigete>
-        <Icons.LogoHalthCeck />
-        <nav>
-          <a href="#">О клинике</a>
-          <a href="#">Услуги</a>
-          <a href="#">Врачи</a>
-          <a href="#">Прайс</a>
-          <a href="#">Контакты</a>
-        </nav>
-        <div>
-          <StyledButtonOutlined variant={"outlined"}>
-            получить результаты
-          </StyledButtonOutlined>
-          <StyledButtonContained variant={"contained"}>
-            запись онлайн
-          </StyledButtonContained>
-        </div>
-      </StyledNavigete>
+      <StyledBox>
+        <StyledHeader>
+          <section>
+            <StyledContainer>
+              <Icons.Gps />
+              <span>106452, г. Бишкек, Гражданская 119</span>
+            </StyledContainer>
+            <StyledContainer>
+              <Icons.andDesginPhoneOutlined />
+              <p>
+                <StyledSpan>пн-сб </StyledSpan> 08:00 до 18:00{" "}
+              </p>
+            </StyledContainer>
+          </section>
+          <StyledInput
+            placeholder="Поиск по сайту "
+            iconEnd={<Icons.Search />}
+          />
+          <StyledIcons>
+            <StyledContainerMessenger>
+              <Icons.GreenInstagram />
+              <Icons.GreenTelegram />
+              <Icons.GreenWatsapp />
+            </StyledContainerMessenger>
+            <StyledContainerNumber>
+              <Icons.Phone />
+              <section>
+                <p>+996(505) 000 000</p>
+                <p>+996(800) 000 000</p>
+              </section>
+            </StyledContainerNumber>
+            <Icons.ProfileGreen onClick={handleClick} />
+            {anchorEl && (
+              <Menu
+                anchorEl={anchorEl}
+                id="fade-menu"
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Fade}
+              >
+                <StyledMenuItem onClick={handleClose}>Войти</StyledMenuItem>
+                <StyledMenuItem onClick={handleClose}>
+                  Регистрация
+                </StyledMenuItem>
+              </Menu>
+            )}
+          </StyledIcons>
+        </StyledHeader>
+        <hr />
+        <StyledNavigete>
+          <Icons.LogohealthCheck />
+          <nav>
+            <a href="#">О клинике</a>
+            <a href="#">Услуги</a>
+            <a href="#">Врачи</a>
+            <a href="#">Прайс</a>
+            <a href="#">Контакты</a>
+          </nav>
+          <div>
+            <StyledButtonOutlined variant={"outlined"}>
+              получить результаты
+            </StyledButtonOutlined>
+            <StyledButtonContained variant={"contained"}>
+              запись онлайн
+            </StyledButtonContained>
+          </div>
+        </StyledNavigete>
+      </StyledBox>
     </StyledWrapper>
   );
 };
@@ -86,12 +93,16 @@ export const Header = () => {
 const StyledWrapper = styled("header")({
   width: "100%",
   height: "11.375rem",
-  padding: "1.375rem 8.125rem 1.0625rem 7.5rem",
+
   "& svg": {
     cursor: "pointer",
   },
 });
 
+const StyledBox = styled("div")(() => ({
+  maxWidth: "1300px",
+  margin: "0 auto",
+}));
 const StyledHeader = styled("section")({
   display: "flex",
   justifyContent: "space-between",
@@ -148,7 +159,6 @@ const StyledNavigete = styled("section")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  width: "100%",
   padding: "0.75rem",
   "& nav": {
     display: "flex",

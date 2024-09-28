@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
 import { Input } from "../../UI/input/Input";
 import { Button } from "../../UI/button/Button";
-import { styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 import { validationSchema } from "../../../validation/validation";
 import validation from "../../../assets/images/validation.png";
+import { styled } from "@mui/material";
 
 export const Form = () => {
   const formik = useFormik({
@@ -19,134 +19,139 @@ export const Form = () => {
   });
 
   return (
-    <FormWrapper>
-      <FormContainer>
-        <FormElement onSubmit={formik.handleSubmit}>
-          <FormTitle>Оставьте заявку</FormTitle>
-          <FormDescription>
-            Оставьте свой номер и наши специалисты свяжутся с Вами в ближайшее
-            время
-          </FormDescription>
-          <StyledDiv>
-            <InputGroup>
-              <label htmlFor="name">Как к Вам обратиться?</label>
-              <StyledInput
-                iconStart={<Icons.Users2 />}
-                id="name"
-                name="name"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
-                placeholder="Введите имя"
-              />
-              {formik.touched.name && formik.errors.name ? (
-                <ErrorMessage>{formik.errors.name}</ErrorMessage>
-              ) : null}
-            </InputGroup>
-
-            <InputGroup>
-              <label htmlFor="phone">Номер мобильного телефона</label>
-              <StyledInput
-                iconStart={<Icons.Phone />}
-                id="phone"
-                name="phone"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.phone}
-                placeholder="+996 (___) ___-____"
-              />
-              {formik.touched.phone && formik.errors.phone ? (
-                <ErrorMessage>{formik.errors.phone}</ErrorMessage>
-              ) : null}
-            </InputGroup>
-          </StyledDiv>
-
-          <StyledButton type="submit">ОТПРАВИТЬ ЗАЯВКУ</StyledButton>
-        </FormElement>
-      </FormContainer>
-
-      <img
-        src={validation}
-        alt="validation"
-        style={{
-          Height: " 530px",
-          width: "582px",
-          position: "relative",
-          left: "581px",
-          backgroundColor: "transparent",
-          borderRadius: "0.5rem",
-          border: "none",
-        }}
-      />
-    </FormWrapper>
+    <StyledContainer>
+      <FormWrapper>
+        <div>
+          <StyledBox onSubmit={formik.handleSubmit}>
+            <section>
+              <h1>Оставьте заявку</h1>
+              <p>
+                Оставьте свой номер и наши специалисты свяжутся с Вами в
+                ближайшее время
+              </p>
+            </section>
+            <StyledContainerInput>
+              <div>
+                <label htmlFor="name">Как к Вам обратиться?</label>
+                <StyledContainerInputMassage>
+                  <StyledInput
+                    iconStart={<Icons.Users2 />}
+                    id="name"
+                    name="name"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.name}
+                    placeholder="Введите имя"
+                  />
+                  {formik.touched.name && formik.errors.name ? (
+                    <ErrorMessage style={{ fontsiz: "8px" }}>
+                      {formik.errors.name}
+                    </ErrorMessage>
+                  ) : null}
+                </StyledContainerInputMassage>
+              </div>
+              <div>
+                <label htmlFor="phone">Номер мобильного телефона</label>
+                <StyledContainerInputMassage>
+                  <StyledInput
+                    iconStart={<Icons.Phone />}
+                    id="phone"
+                    name="phone"
+                    type="number"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.phone}
+                    placeholder="+996 (___) ___-____"
+                  />
+                  {formik.touched.phone && formik.errors.phone ? (
+                    <ErrorMessage>{formik.errors.phone}</ErrorMessage>
+                  ) : null}
+                </StyledContainerInputMassage>
+              </div>
+            </StyledContainerInput>
+            <StyledButton type="submit">ОТПРАВИТЬ ЗАЯВКУ</StyledButton>
+          </StyledBox>
+        </div>
+      </FormWrapper>
+      <StyledImg>
+        <img
+          src={validation}
+          alt="validation"
+          style={{
+            Height: " 530px",
+            width: "582px",
+            backgroundColor: "transparent",
+            borderRadius: "0.5rem",
+            marginLeft: "-30px",
+          }}
+        />
+      </StyledImg>
+    </StyledContainer>
   );
 };
 
-const FormWrapper = styled("div")(() => ({
-  width: "72.6875rem",
-  height: "33.125rem",
+const StyledContainer = styled("div")(() => ({
   display: "flex",
   justifyContent: "center",
-  top: "244.625rem",
-  left: "8.6875rem",
-  backgroundColor: "#ffff",
-  borderRadius: "0.5rem",
+  alignItems: "center",
+  paddingBottom: "120px",
 }));
-
-const FormContainer = styled("div")(() => ({
-  Radius: "1.25rem",
-  width: "41.1875rem",
-  height: "28.75rem",
-  position: "absolute",
-  top: "4.375rem",
-  borderRadius: "1.25rem",
-  backgroundColor: "#Tertiary/the lightest blue",
-}));
-
-const FormElement = styled("form")(() => ({
-  backgroundColor: "#E6F0FF",
-  padding: "1.5rem",
-  borderRadius: "1.25rem",
-  textAlign: "center",
-}));
-
-const FormTitle = styled("h2")(() => ({
-  marginBottom: "1rem",
-}));
-
-const FormDescription = styled("p")(() => ({
-  marginBottom: "1.5rem",
-}));
-
-const StyledDiv = styled("div")(() => ({
+const FormWrapper = styled("div")(() => ({
+  width: "600px",
+  height: "460px",
+  background: "#DBEBFF",
+  borderRadius: "20px",
   display: "flex",
-  gap: "1rem",
-  marginBottom: "1.5rem",
-  justifyContent: "space-between",
-  flexWrap: "wrap",
-  height: "75px",
+  padding: "40px",
+  marginTop: "70px",
+
+  "& section": {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+
+    gap: "20px",
+
+    "& h1": {
+      fontSize: "36px",
+    },
+    "& p": {
+      fontSize: "18px",
+    },
+  },
+}));
+const StyledBox = styled("div")(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "45px",
 }));
 
-const InputGroup = styled("div")(() => ({
-  flex: "1",
-  minWidth: "12.5rem",
-  "& label": {
-    fontSize: "14px",
+const StyledContainerInput = styled("form")(() => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "15px",
+}));
+
+const StyledInput = styled(Input)(() => ({
+  width: "16.44rem",
+  height: "2.625rem",
+  background: "#FFFFFF",
+  padding: "0.625rem",
+  "::placeholder": {
+    color: "#C4C4C4",
   },
 }));
 
 const ErrorMessage = styled("div")(() => ({
   color: "red",
   marginTop: "0.5rem",
-}));
-
-const StyledInput = styled(Input)(() => ({
-  width: "16.4375rem",
-  padding: "0.5rem",
-  borderRadius: "0.3125rem",
-  border: "1px solid #ccc",
+  position: "absolute",
+  top: "40px",
+  fontSize: "15px",
 }));
 
 const StyledButton = styled(Button)(() => ({
@@ -161,4 +166,16 @@ const StyledButton = styled(Button)(() => ({
   "&:hover": {
     backgroundColor: "#218838",
   },
+}));
+const StyledContainerInputMassage = styled("section")(() => ({
+  height: "60px",
+  position: "relative",
+}));
+
+const StyledImg = styled("div")(() => ({
+  Height: " 530px",
+  width: "582px",
+  backgroundColor: "transparent",
+  borderRadius: "0.5rem",
+  marginLeft: "-48px",
 }));
