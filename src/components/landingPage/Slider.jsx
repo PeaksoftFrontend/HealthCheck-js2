@@ -1,5 +1,4 @@
 import { styled } from "@mui/material";
-import { SliderItem } from "./SliderItem";
 import { useState, useRef } from "react";
 import { reviews } from "../../utils/constants/constants";
 
@@ -8,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { SliderItem } from "./SliderItem";
 
 export const SliderReview = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -31,19 +31,21 @@ export const SliderReview = () => {
 
   return (
     <StyledContainer>
-      <h1>
-        Отзывы наших <span>пациентов</span>
-      </h1>
-      <Slider ref={sliderRef} {...settings}>
-        {reviews.map((review, index) => (
-          <SliderItem
-            key={review.id}
-            {...review}
-            isActive={index === activeStep}
-            isNext={index === (activeStep + 1) % reviews.length}
-          />
-        ))}
-      </Slider>
+      <StyledBox>
+        <h1>
+          Отзывы наших <span>пациентов</span>
+        </h1>
+        <Slider ref={sliderRef} {...settings}>
+          {reviews.map((review, index) => (
+            <SliderItem
+              key={review.id}
+              {...review}
+              isActive={index === activeStep}
+              isNext={index === (activeStep + 1) % reviews.length}
+            />
+          ))}
+        </Slider>
+      </StyledBox>
     </StyledContainer>
   );
 };
@@ -59,14 +61,13 @@ const CustomDot = styled("div")(({ isActive }) => ({
 const StyledContainer = styled("div")({
   width: "100%",
   margin: "0 auto",
-  height: "30.0625rem",
+  paddingBottom: "120px",
   display: "flex",
   flexDirection: "column",
   gap: "3.75rem",
   "& h1": {
     fontFamily: "Manrope",
     width: "80%",
-    margin: "0 auto",
     fontSize: "2.25rem",
     "& > span": {
       color: "#28a745",
@@ -77,10 +78,16 @@ const StyledContainer = styled("div")({
     margin: "0 10px",
   },
 });
-
+const StyledBox = styled("div")(() => ({
+  maxWidth: "1300px",
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
+  gap: "60px",
+}));
 const ArrowButton = styled("div")(({ direction, stepsCount }) => ({
   position: "absolute",
-  top: "95%",
+  top: "96%",
   zIndex: 1,
   backgroundColor: "#fff",
   color: "#048741",
