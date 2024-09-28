@@ -6,23 +6,41 @@ import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import { useState } from "react";
+
+dayjs.locale("ru");
 
 export const MuiDatePicker = ({ selectedDate, onDateChange }) => {
+  const [currentDate, setCurrentDate] = useState(selectedDate || dayjs());
+  const [currentMonth, setCurrentMonth] = useState(
+    dayjs(currentDate).startOf("month")
+  );
+
   const shouldDisableDate = (date) => date.isBefore(dayjs(), "day");
 
-  const CustomCalendarHeader = ({ currentMonth, onMonthChange }) => {
+  const handleDateChange = (newDate) => {
+    setCurrentDate(newDate);
+    setCurrentMonth(dayjs(newDate).startOf("month"));
+    onDateChange(newDate);
+  };
+
+  const CustomCalendarHeader = ({ currentMonth }) => {
     return (
       <div
         style={{
-          height: "52px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "16px 23px",
+          padding: "12px 16px",
         }}
       >
         <NavigateBeforeIcon
-          onClick={() => onMonthChange(currentMonth.subtract(1, "month"))}
+          onClick={() => {
+            const newMonth = currentMonth.subtract(1, "month");
+            setCurrentMonth(newMonth);
+            setCurrentDate(newMonth.date(currentDate.date()));
+            onDateChange(newMonth.date(currentDate.date()));
+          }}
         />
 
         <div
@@ -37,7 +55,12 @@ export const MuiDatePicker = ({ selectedDate, onDateChange }) => {
         </div>
 
         <NavigateNextIcon
-          onClick={() => onMonthChange(currentMonth.add(1, "month"))}
+          onClick={() => {
+            const newMonth = currentMonth.add(1, "month");
+            setCurrentMonth(newMonth);
+            setCurrentDate(newMonth.date(currentDate.date()));
+            onDateChange(newMonth.date(currentDate.date()));
+          }}
         />
       </div>
     );
@@ -46,12 +69,14 @@ export const MuiDatePicker = ({ selectedDate, onDateChange }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
       <StyledDatePicker
-        value={selectedDate}
-        onChange={onDateChange}
+        value={currentDate}
+        onChange={handleDateChange}
         shouldDisableDate={shouldDisableDate}
         inputFormat="DD.MM.YY"
         slots={{
-          calendarHeader: (props) => <CustomCalendarHeader {...props} />,
+          calendarHeader: (props) => (
+            <CustomCalendarHeader {...props} currentMonth={currentMonth} />
+          ),
         }}
         slotProps={{
           desktopPaper: desktopPaperStyles,
