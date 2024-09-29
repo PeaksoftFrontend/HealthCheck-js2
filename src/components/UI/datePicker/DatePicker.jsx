@@ -10,7 +10,7 @@ import { useState } from "react";
 
 dayjs.locale("ru");
 
-export const MuiDatePicker = ({ selectedDate, onDateChange }) => {
+export const Datepicker = ({ selectedDate, onDateChange }) => {
   const [currentDate, setCurrentDate] = useState(selectedDate || dayjs());
   const [currentMonth, setCurrentMonth] = useState(
     dayjs(currentDate).startOf("month")
@@ -26,14 +26,7 @@ export const MuiDatePicker = ({ selectedDate, onDateChange }) => {
 
   const CustomCalendarHeader = ({ currentMonth }) => {
     return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "12px 16px",
-        }}
-      >
+      <StyledCalendar>
         <NavigateBeforeIcon
           onClick={() => {
             const newMonth = currentMonth.subtract(1, "month");
@@ -43,16 +36,7 @@ export const MuiDatePicker = ({ selectedDate, onDateChange }) => {
           }}
         />
 
-        <div
-          style={{
-            textAlign: "center",
-            fontWeight: "500",
-            fontSize: "16px",
-            textTransform: "capitalize",
-          }}
-        >
-          {currentMonth.format("MMMM YYYY")}
-        </div>
+        <StyledMonthText>{currentMonth.format("MMMM YYYY")}</StyledMonthText>
 
         <NavigateNextIcon
           onClick={() => {
@@ -62,7 +46,7 @@ export const MuiDatePicker = ({ selectedDate, onDateChange }) => {
             onDateChange(newMonth.date(currentDate.date()));
           }}
         />
-      </div>
+      </StyledCalendar>
     );
   };
 
@@ -112,4 +96,16 @@ const StyledDatePicker = styled(DatePicker)(({ error }) => ({
   "& .MuiOutlinedInput-notchedOutline": {
     border: "none",
   },
+}));
+const StyledCalendar = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: "12px 16px",
+}));
+const StyledMonthText = styled("div")(() => ({
+  textAlign: "center",
+  fontWeight: "500",
+  fontSize: "16px",
+  textTransform: "capitalize",
 }));
