@@ -1,116 +1,155 @@
-import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import {
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Table as MuiTable,
+} from "@mui/material";
 import { useTable } from "react-table";
 import styled from "styled-components";
 
-const StyledTable = styled.table`
-  width: 100%;
-`;
+export const Table = ({ columns, data, isVariant }) => {
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
-// const Th = styled.th`
-//   background-color: #fff;
-//   padding: 8px;
-//   text-align: left;
-//   border-bottom: 1px solid #d9d9d9;
-// `;
+  return (
+    <StyledTableContainer>
+      <MuiTable {...getTableProps()}>
+        <TableHead>
+          {headerGroups.map((headerGroup) => (
+            <TableRow
+              {...headerGroup.getHeaderGroupProps()}
+              key={headerGroup.id}
+            >
+              <TableCell colSpan={6}>
+                <RowContainer>
+                  <div className="left-content">
+                    {headerGroup.headers
+                      .slice(0, isVariant === "outlined" ? 6 : 4)
+                      .map((column) => (
+                        <span {...column.getHeaderProps()} key={column.id}>
+                          {column.render("Header")}
+                        </span>
+                      ))}
+                  </div>
+                  <div className="right-content">
+                    {headerGroup.headers
+                      .slice(isVariant === "outlined" ? 6 : 4)
+                      .map((column) => (
+                        <span {...column.getHeaderProps()} key={column.id}>
+                          {column.render("Header")}
+                        </span>
+                      ))}
+                  </div>
+                </RowContainer>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableHead>
+        <TableBody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <TableRow {...row.getRowProps()} key={row.id}>
+                <TableCell colSpan={6}>
+                  <RowContainer>
+                    <div className="left-content">
+                      {row.cells
+                        .slice(0, isVariant === "outlined" ? 6 : 4)
+                        .map((cell) => (
+                          <span {...cell.getCellProps()} key={cell.column.id}>
+                            {cell.render("Cell")}
+                          </span>
+                        ))}
+                    </div>
+                    <div className="right-content">
+                      {row.cells
+                        .slice(isVariant === "outlined" ? 6 : 4)
+                        .map((cell) => (
+                          <span {...cell.getCellProps()} key={cell.column.id}>
+                            {cell.render("Cell")}
+                          </span>
+                        ))}
+                    </div>
+                  </RowContainer>
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </MuiTable>
+    </StyledTableContainer>
+  );
+};
 
-// const Td = styled.td`
-//   padding: 8px;
-//   border-bottom: 1px solid #d9d9d9;
-// `;
-
-export const SpecialistCell = styled.div`
+const RowContainer = styled.div`
   display: flex;
-  align-items: center;
-`;
 
-export const SpecialistImage = styled.img`
-  border-radius: 50%;
-  margin-right: 10px;
-  width: 40px;
-  height: 40px;
-`;
+  width: 99%;
+  justify-content: space-between;
+  border-bottom: "1px solid black";
 
-export const RoleText = styled.div`
-  font-size: 12px;
-  color: gray;
-`;
+  .left-content {
+    display: flex;
+    /* gap: 5px; */
+    align-items: center;
 
-export const ActionsCell = styled.div`
-  display: flex;
-  align-items: center;
-`;
+    span:last-child {
+      width: 150px;
+    }
+    span {
+      width: 100px;
+      span:last-child {
+        font-weight: 500;
+        font-size: 14px;
+        color: #959595;
+      }
+    }
+    span:first-child {
+      width: 50px;
+    }
+  }
 
-export const ActionButton = styled.button`
-  margin-right: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: #333;
-`;
+  .right-content {
+    display: flex;
+    gap: 40px;
+    span {
+      width: 100px;
+    }
 
-export const StatusToggle = styled.input.attrs({ type: "checkbox" })`
-  cursor: pointer;
-  appearance: none;
-  width: 40px;
-  height: 20px;
-  background-color: ${(props) => (props.checked ? "green" : "gray")};
-  border-radius: 20px;
-  position: relative;
-  outline: none;
-  transition: background-color 0.2s;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: ${(props) => (props.checked ? "20px" : "2px")};
-    width: 16px;
-    height: 16px;
-    background-color: white;
-    border-radius: 50%;
-    transition: left 0.2s;
+    span:last-of-type {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    span:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `;
 
-export const Table = ({ columns, data }) => {
-  const tableInstance = useTable({ columns, data });
+const StyledTableContainer = styled(TableContainer)({
+  borderRadius: "6px",
+  display: "flex",
+  justifyContent: "center",
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+  "& .MuiTableHead-root": {
+    height: "3.688rem",
+    borderBottom: "1px solid rgba(224, 224, 224, 1)",
+  },
 
-  return (
-    <StyledTable {...getTableProps()}>
-      <TableHead>
-        {headerGroups.map((headerGroup) => (
-          <TableRow {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <TableCell {...column.getHeaderProps()}>
-                {column.render("Header")}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableHead>
-      <TableBody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <TableRoww {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <TableCell {...cell.getCellProps()}>
-                  {cell.render("Cell")}
-                </TableCell>
-              ))}
-            </TableRoww>
-          );
-        })}
-      </TableBody>
-    </StyledTable>
-  );
-};
-const TableRoww = styled(TableRow)(() => ({
-  "& .css-10ukr6t-MuiTableCell-root": {
+  "& .MuiTableCell-root": {
+    fontWeight: "500",
+  },
+
+  "& .MuiTableRow-root:last-of-type": {
     borderBottom: "none",
   },
-}));
+
+  // "& .MuiTableRow-root:nth-of-type(even)": {
+  // backgroundColor: "#F5F5F59C",
+  // },
+});
