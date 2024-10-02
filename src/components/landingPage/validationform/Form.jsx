@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import { Input } from "../../UI/input/Input";
 import { Button } from "../../UI/button/Button";
@@ -7,6 +8,8 @@ import validation from "../../../assets/images/validation.png";
 import { styled } from "@mui/material";
 
 export const Form = () => {
+  const [inputError, setInputError] = useState({ name: false, phone: false });
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -15,14 +18,27 @@ export const Form = () => {
     validationSchema,
     onSubmit: (values) => {
       console.log("Form Submitted", values);
+      setInputError({ name: false, phone: false });
     },
   });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!formik.isValid) {
+      setInputError({
+        name: !formik.values.name,
+        phone: !formik.values.phone,
+      });
+    } else {
+      formik.handleSubmit();
+    }
+  };
 
   return (
     <StyledContainer>
       <FormWrapper>
         <div>
-          <StyledBox onSubmit={formik.handleSubmit}>
+          <StyledBox onSubmit={handleSubmit}>
             <section>
               <h1>Оставьте заявку</h1>
               <p>
@@ -43,7 +59,15 @@ export const Form = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.name}
                     placeholder="Введите имя"
+                    onKeyPress={(event) => {
+                      const allowedCharacters = /^[A-Za-zА-Яа-яЁё ]*$/;
+                      if (!allowedCharacters.test(event.key)) {
+                        event.preventDefault();
+                      }
+                    }}
+                    error={inputError.name}
                   />
+
                   {formik.touched.name && formik.errors.name ? (
                     <ErrorMessage style={{ fontsiz: "8px" }}>
                       {formik.errors.name}
@@ -58,12 +82,20 @@ export const Form = () => {
                     iconStart={<Icons.Phone />}
                     id="phone"
                     name="phone"
-                    type="number"
+                    type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.phone}
                     placeholder="+996 (___) ___-____"
+                    onKeyPress={(event) => {
+                      const allowedCharacters = /^[0-9+ ()-]*$/;
+                      if (!allowedCharacters.test(event.key)) {
+                        event.preventDefault();
+                      }
+                    }}
+                    error={inputError.phone}
                   />
+
                   {formik.touched.phone && formik.errors.phone ? (
                     <ErrorMessage>{formik.errors.phone}</ErrorMessage>
                   ) : null}
@@ -136,11 +168,12 @@ const StyledContainerInput = styled("form")(() => ({
   gap: "15px",
 }));
 
-const StyledInput = styled(Input)(() => ({
+const StyledInput = styled(Input)(({ error }) => ({
   width: "16.44rem",
   height: "2.625rem",
   background: "#FFFFFF",
   padding: "0.625rem",
+  border: error ? "2px solid red" : "1px solid #cd0e0e",
   "::placeholder": {
     color: "#C4C4C4",
   },
