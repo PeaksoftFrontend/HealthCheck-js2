@@ -1,10 +1,7 @@
-import { AdminHeader } from "./components/adminHeader/AdminHeader";
-
 export const App = () => {
   return (
     <div>
-      <h1>Healtcheck</h1>
-      <AdminHeader />
+      <h1> Healthcheck</h1>
     </div>
   );
 };
