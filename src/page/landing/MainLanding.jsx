@@ -1,3 +1,4 @@
+import { AdminHeader } from "../../components/adminHeader/AdminHeader";
 import { Doctors } from "../../components/landingPage/Doctors";
 import { Footer } from "../../components/landingPage/Footer";
 import { Header } from "../../components/landingPage/Header";
@@ -15,6 +16,7 @@ export const MainLanding = () => {
       <HealthCheck />
       <Doctors />
       <SliderReview />
+      <AdminHeader />
       <Footer />
     </>
   );
