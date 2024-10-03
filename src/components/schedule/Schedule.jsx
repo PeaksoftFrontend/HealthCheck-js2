@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 
 import { Button } from "../UI/button/Button";
 import { Datepicker } from "../UI/datePicker/DatePicker";
-import { days, doctors } from "../../utils/constants/constants";
+import { doctors } from "../../utils/constants/constants";
 import { useState } from "react";
 import { Modal } from "../UI/modal/Modal";
 import { SampleModal } from "./SampleModal";
@@ -34,6 +34,26 @@ export const Schedule = () => {
     setIsModalOpen(false);
     setModalType(null);
   };
+
+  const getCurrentMonthDates = () => {
+    const dates = [];
+    const today = dayjs();
+    const month = today.month();
+    const year = today.year();
+    const firstDay = dayjs(new Date(year, month, 1));
+    const lastDay = firstDay.endOf("month");
+
+    for (let day = firstDay.date(); day <= lastDay.date(); day++) {
+      const date = dayjs(new Date(year, month, day));
+      const dayOfWeek = date.format("dd").toUpperCase();
+      const formattedDate = `${dayOfWeek} ${day} ${today.format("MMMM").charAt(0).toUpperCase() + today.format("MMMM").slice(1).toLowerCase()}`; // Format date
+      dates.push(formattedDate);
+    }
+
+    return dates;
+  };
+
+  const days = getCurrentMonthDates();
 
   return (
     <StyledContainer>
@@ -66,7 +86,7 @@ export const Schedule = () => {
             <TableRow>
               <StyledHeader>СПЕЦИАЛИСТЫ</StyledHeader>
               {days.map((day, index) => (
-                <StyledHeaderCell colSpan={2} key={index}>
+                <StyledHeaderCell key={index}>
                   <p>{day.split(" ")[0]}</p>
                   <p>
                     {day.split(" ")[1]} {day.split(" ")[2]}
@@ -83,6 +103,10 @@ export const Schedule = () => {
                   <a>{specialist.name}</a>
                   <p>{specialist.role}</p>
                 </StyledBoxTableCell>
+
+                {days.map((_, dayIndex) => (
+                  <StyledEmptyCell key={dayIndex} />
+                ))}
               </TableRow>
             ))}
           </TableBody>
@@ -151,6 +175,7 @@ const StyledBtn = styled(Button)(() => ({
 
 const StyledTable = styled(Table)(() => ({
   minWidth: 650,
+  borderCollapse: "collapse",
 }));
 
 const StyledHeaderCell = styled(TableCell)(() => ({
@@ -162,12 +187,16 @@ const StyledHeaderCell = styled(TableCell)(() => ({
   textAlign: "start",
   padding: "6px 12px",
   fontFamily: "Manrope",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 }));
 
 const StyledBoxTableCell = styled(TableCell)(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent: "center",
   border: "1px solid #e0e0e0",
   fontFamily: "Manrope",
   width: "180px",
@@ -176,8 +205,9 @@ const StyledBoxTableCell = styled(TableCell)(() => ({
     fontSize: "14px",
     fontWeight: "500",
     color: "#222222",
+    whiteSpace: "nowrap",
+    textAlign: "center",
   },
-
   "& p": {
     fontSize: "12px",
     color: "#959595",
@@ -188,9 +218,15 @@ const StyledHeader = styled(TableCell)(() => ({
   width: "180px",
   fontSize: "12px",
   border: "1px solid #e0e0e0",
-  textAlign: "start",
+  textAlign: "center",
   padding: "12px 14px",
   fontWeight: "550",
   color: "#4D4E51",
   fontFamily: "Manrope",
+}));
+
+const StyledEmptyCell = styled(TableCell)(() => ({
+  width: "106px",
+  height: "44px",
+  border: "1px solid #e0e0e0",
 }));
