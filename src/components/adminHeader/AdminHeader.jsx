@@ -19,7 +19,7 @@ export const AdminHeader = () => {
           </StyledNavLinks>
           <StyledSelect>
             <select>
-              <option>Администратор</option>
+              <option>Администратор </option>
               <option>Профиль</option>
               <option>Войти</option>
             </select>
@@ -33,7 +33,7 @@ export const AdminHeader = () => {
 const StyledHeader = styled("header")(() => ({
   display: "contents",
   justifyContent: "normal",
-
+  boxShadow: "initial",
   width: "100%",
   height: "5rem",
   padding: "5rem",
@@ -46,15 +46,16 @@ const StyledNavContainer = styled("div")(() => ({
   alignItems: "center",
   justifyContent: "space-between",
   width: "100%",
-  padding: "5rem",
+  padding: "3rem",
 }));
 
 const StyledLogoContainer = styled("div")(() => ({
   width: "14rem",
   height: "4rem",
-  display: "block",
+  display: "flex",
   alignItems: "flex-start",
   justifyContent: "center",
+  marginTop: "-1rem",
 }));
 
 const StyledNavLinks = styled("div")(() => ({
@@ -84,14 +85,13 @@ const StyledSelect = styled("div")(() => ({
   "& select": {
     padding: "0.5rem 1rem",
     fontSize: "1rem",
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#fff",
     borderRadius: "0.375rem",
-    border: "1px solid #ccc",
-    color: "#333",
+    border: "none",
+    color: "#090808",
     cursor: "pointer",
     transition: "border-color 0.3s",
     "&:focus": {
-      borderColor: "#1976d2",
       outline: "none",
     },
   },
