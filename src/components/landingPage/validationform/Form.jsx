@@ -24,13 +24,25 @@ export const Form = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!formik.isValid) {
+
+    const isNameEmpty = !formik.values.name;
+    const isPhoneEmpty = !formik.values.phone;
+
+    if (isNameEmpty || isPhoneEmpty) {
       setInputError({
-        name: !formik.values.name,
-        phone: !formik.values.phone,
+        name: isNameEmpty,
+        phone: isPhoneEmpty,
       });
     } else {
       formik.handleSubmit();
+    }
+  };
+
+  const handleInputChange = (e) => {
+    formik.handleChange(e);
+    const { name, value } = e.target;
+    if (value) {
+      setInputError((prev) => ({ ...prev, [name]: false }));
     }
   };
 
@@ -48,14 +60,14 @@ export const Form = () => {
             </section>
             <StyledContainerInput>
               <div>
-                <label htmlFor="name">Как к Вам обратиться?</label>
+                <label htmlFor="name">Как к вам обратиться?</label>
                 <StyledContainerInputMassage>
                   <StyledInput
                     iconStart={<Icons.Users2 />}
                     id="name"
                     name="name"
                     type="text"
-                    onChange={formik.handleChange}
+                    onChange={handleInputChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.name}
                     placeholder="Введите имя"
@@ -68,11 +80,9 @@ export const Form = () => {
                     error={inputError.name}
                   />
 
-                  {formik.touched.name && formik.errors.name ? (
-                    <ErrorMessage style={{ fontsiz: "8px" }}>
-                      {formik.errors.name}
-                    </ErrorMessage>
-                  ) : null}
+                  {inputError.name && (
+                    <ErrorMessage>Пожалуйста, введите имя</ErrorMessage>
+                  )}
                 </StyledContainerInputMassage>
               </div>
               <div>
@@ -83,7 +93,7 @@ export const Form = () => {
                     id="phone"
                     name="phone"
                     type="text"
-                    onChange={formik.handleChange}
+                    onChange={handleInputChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.phone}
                     placeholder="+996 (___) ___-____"
@@ -96,13 +106,18 @@ export const Form = () => {
                     error={inputError.phone}
                   />
 
-                  {formik.touched.phone && formik.errors.phone ? (
-                    <ErrorMessage>{formik.errors.phone}</ErrorMessage>
-                  ) : null}
+                  {inputError.phone && (
+                    <ErrorMessage>
+                      {" "}
+                      Пожалуйста, введите номер телефона
+                    </ErrorMessage>
+                  )}
                 </StyledContainerInputMassage>
               </div>
             </StyledContainerInput>
-            <StyledButton type="submit">ОТПРАВИТЬ ЗАЯВКУ</StyledButton>
+            <StyledButton type="submit" onClick={handleSubmit}>
+              ОТПРАВИТЬ ЗАЯВКУ
+            </StyledButton>
           </StyledBox>
         </div>
       </FormWrapper>
@@ -111,7 +126,7 @@ export const Form = () => {
           src={validation}
           alt="validation"
           style={{
-            Height: " 530px",
+            height: "530px",
             width: "582px",
             backgroundColor: "transparent",
             borderRadius: "0.5rem",
@@ -173,7 +188,7 @@ const StyledInput = styled(Input)(({ error }) => ({
   height: "2.625rem",
   background: "#FFFFFF",
   padding: "0.625rem",
-  border: error ? "2px solid red" : "1px solid #cd0e0e",
+  border: error ? "1px solid red" : "1px solid #218838",
   "::placeholder": {
     color: "#C4C4C4",
   },
@@ -185,6 +200,8 @@ const ErrorMessage = styled("div")(() => ({
   position: "absolute",
   top: "40px",
   fontSize: "15px",
+  height: "18px",
+  lineHeight: "18px",
 }));
 
 const StyledButton = styled(Button)(() => ({
@@ -206,7 +223,7 @@ const StyledContainerInputMassage = styled("section")(() => ({
 }));
 
 const StyledImg = styled("div")(() => ({
-  Height: " 530px",
+  height: "530px",
   width: "582px",
   backgroundColor: "transparent",
   borderRadius: "0.5rem",
