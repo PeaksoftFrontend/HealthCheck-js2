@@ -26,12 +26,12 @@ export const Form = () => {
     event.preventDefault();
 
     const isNameEmpty = !formik.values.name;
-    const isPhoneEmpty = !formik.values.phone;
+    const isPhoneValid = /^\+996\d{9}$/.test(formik.values.phone);
 
-    if (isNameEmpty || isPhoneEmpty) {
+    if (isNameEmpty || !isPhoneValid) {
       setInputError({
         name: isNameEmpty,
-        phone: isPhoneEmpty,
+        phone: !isPhoneValid,
       });
     } else {
       formik.handleSubmit();
@@ -39,8 +39,16 @@ export const Form = () => {
   };
 
   const handleInputChange = (e) => {
-    formik.handleChange(e);
     const { name, value } = e.target;
+    formik.handleChange(e);
+
+    if (name === "phone") {
+      const formattedPhone = value
+        .replace(/[^\d+]/g, "")
+        .replace(/(\+996)(\d{0,9})?.*/, "$1$2");
+      formik.setFieldValue("phone", formattedPhone);
+    }
+
     if (value) {
       setInputError((prev) => ({ ...prev, [name]: false }));
     }
@@ -80,9 +88,7 @@ export const Form = () => {
                     error={inputError.name}
                   />
 
-                  {inputError.name && (
-                    <ErrorMessage>Пожалуйста, введите имя</ErrorMessage>
-                  )}
+                  {inputError.name && <ErrorMessage>Введите имя</ErrorMessage>}
                 </StyledContainerInputMassage>
               </div>
               <div>
@@ -98,7 +104,7 @@ export const Form = () => {
                     value={formik.values.phone}
                     placeholder="+996 (___) ___-____"
                     onKeyPress={(event) => {
-                      const allowedCharacters = /^[0-9+ ()-]*$/;
+                      const allowedCharacters = /^[0-9+]*$/;
                       if (!allowedCharacters.test(event.key)) {
                         event.preventDefault();
                       }
@@ -108,8 +114,9 @@ export const Form = () => {
 
                   {inputError.phone && (
                     <ErrorMessage>
-                      {" "}
-                      Пожалуйста, введите номер телефона
+                      {formik.values.phone === ""
+                        ? "Введите номер телефона"
+                        : "Номер неправильный"}
                     </ErrorMessage>
                   )}
                 </StyledContainerInputMassage>
@@ -189,8 +196,10 @@ const StyledInput = styled(Input)(({ error }) => ({
   background: "#FFFFFF",
   padding: "0.625rem",
   border: error ? "1px solid red" : "1px solid #218838",
-  "::placeholder": {
-    color: "#C4C4C4",
+  color: error ? "#000" : "#000",
+  "&::placeholder": {
+    color: "#141313",
+    opacity: 1,
   },
 }));
 
