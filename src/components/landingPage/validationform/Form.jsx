@@ -201,6 +201,9 @@ const StyledInput = styled(Input)(({ error }) => ({
     color: "#141313",
     opacity: 1,
   },
+  "&:focus::placeholder": {
+    opacity: 1,
+  },
 }));
 
 const ErrorMessage = styled("div")(() => ({
