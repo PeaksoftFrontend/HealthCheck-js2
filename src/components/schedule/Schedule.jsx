@@ -10,50 +10,87 @@ import {
   TableRow,
 } from "@mui/material";
 import dayjs from "dayjs";
-
+import { useState } from "react";
+import { doctors } from "../../utils/constants/constants";
+import { Modal } from "../UI/modal/Modal";
+import { ScheduleModal } from "./ScheduleModal";
 import { Button } from "../UI/button/Button";
 import { Datepicker } from "../UI/datePicker/DatePicker";
-import { doctors } from "../../utils/constants/constants";
-import { useState } from "react";
-import { Modal } from "../UI/modal/Modal";
-import { SampleModal } from "./SampleModal";
-import { ScheduleModal } from "./ScheduleModal";
 
 export const Schedule = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDoctorsId, setSelectedDoctorsId] = useState(null);
+  const [selectedCell, setSelectedCell] = useState({ doctor: null, day: null });
+  const [stateDoctors, setStateDoctors] = useState(doctors);
+  const [modalType, setModalType] = useState("setTemplate");
 
-  const handleOpenModal = (type, date = null) => {
-    setSelectedDate(date);
-    setModalType(type);
-    setIsModalOpen(true);
+  const handleOpenModal = (type) => {
+    if (selectedCell.doctor && selectedCell.day) {
+      setSelectedDoctor(selectedCell.doctor);
+      setSelectedDate(selectedCell.day);
+      setSelectedDoctorsId(selectedCell.dataId);
+      setModalType(type);
+      setIsModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setModalType(null);
+    setSelectedDoctor(null);
+    setSelectedDate(null);
+    setSelectedCell({ doctor: null, day: null, dataId: null });
   };
 
   const getCurrentMonthDates = () => {
-    const dates = [];
     const today = dayjs();
     const month = today.month();
     const year = today.year();
     const firstDay = dayjs(new Date(year, month, 1));
     const lastDay = firstDay.endOf("month");
 
-    for (let day = firstDay.date(); day <= lastDay.date(); day++) {
-      const date = dayjs(new Date(year, month, day));
+    return Array.from({ length: lastDay.date() }, (_, day) => {
+      const date = dayjs(new Date(year, month, day + 1));
       const dayOfWeek = date.format("dd").toUpperCase();
-      const formattedDate = `${dayOfWeek} ${day} ${today.format("MMMM").charAt(0).toUpperCase() + today.format("MMMM").slice(1).toLowerCase()}`; // Format date
-      dates.push(formattedDate);
-    }
-
-    return dates;
+      return `${dayOfWeek} ${day + 1} ${today.format("MMMM").charAt(0).toUpperCase() + today.format("MMMM").slice(1).toLowerCase()}`;
+    });
   };
 
   const days = getCurrentMonthDates();
+
+  const renderScheduleCell = (specialist, day) => {
+    const dayNumber = parseInt(day.split(" ")[1]);
+    const daySchedule = specialist.schedule.find(
+      (item) => item.day === dayNumber
+    );
+
+    return (
+      <StyledCell
+        key={day}
+        hasSchedule={!!daySchedule}
+        onClick={() => {
+          setSelectedCell({
+            dataId: specialist.id,
+            doctor: specialist,
+            day: dayjs().date(dayNumber),
+          });
+        }}
+        isSelected={
+          selectedCell.doctor === specialist &&
+          selectedCell.day?.date() === dayNumber
+        }
+      >
+        {daySchedule
+          ? daySchedule.times.map((time, timeIndex) => (
+              <div key={timeIndex}>
+                <p>{time}</p>
+              </div>
+            ))
+          : null}
+      </StyledCell>
+    );
+  };
 
   return (
     <StyledContainer>
@@ -61,14 +98,13 @@ export const Schedule = () => {
         <section>
           <StyledButton
             variant={"outlined"}
-            onClick={() => handleOpenModal("schedule", dayjs())}
+            onClick={() => handleOpenModal("update")}
           >
             Изменить день
           </StyledButton>
-
           <StyledBtn
             variant={"outlined"}
-            onClick={() => handleOpenModal("sample")}
+            onClick={() => handleOpenModal("setTemplate")}
           >
             Установить по шаблону
           </StyledBtn>
@@ -96,48 +132,44 @@ export const Schedule = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {doctors.map((specialist, index) => (
+            {stateDoctors?.map((specialist, index) => (
               <TableRow key={`${specialist.name}-${index}`}>
                 <StyledBoxTableCell>
                   <Avatar alt={specialist.name} src={specialist.avatar} />
                   <a>{specialist.name}</a>
                   <p>{specialist.role}</p>
                 </StyledBoxTableCell>
-
-                {days.map((_, dayIndex) => (
-                  <StyledEmptyCell key={dayIndex} />
-                ))}
+                {days.map((day) => renderScheduleCell(specialist, day))}
               </TableRow>
             ))}
           </TableBody>
         </StyledTable>
       </TableContainer>
 
-      <Modal
-        isOpen={isModalOpen && modalType === "sample"}
-        onClose={handleCloseModal}
-      >
-        <SampleModal />
-      </Modal>
-
-      <Modal
-        isOpen={isModalOpen && modalType === "schedule"}
-        onClose={handleCloseModal}
-      >
-        <ScheduleModal selectedDate={selectedDate} />
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <ScheduleModal
+          handleCloseModal={handleCloseModal}
+          selectedDate={selectedDate}
+          selectedDoctor={selectedDoctor}
+          selectedDoctorsId={selectedDoctorsId}
+          setStateDoctors={setStateDoctors}
+          stateDoctors={stateDoctors}
+          modalType={modalType}
+          setPreviousModalType={setModalType}
+        />
       </Modal>
     </StyledContainer>
   );
 };
 
 const StyledContainer = styled("div")(() => ({
-  maxWidth: "1350px",
+  maxWidth: "100%",
   display: "flex",
   flexDirection: "column",
 }));
 
 const StyledBox = styled("div")(() => ({
-  maxWidth: "1350px",
+  maxWidth: "100%",
   height: "fit-content",
   display: "flex",
   justifyContent: "space-between",
@@ -220,13 +252,35 @@ const StyledHeader = styled(TableCell)(() => ({
   border: "1px solid #e0e0e0",
   textAlign: "center",
   padding: "12px 14px",
-  fontWeight: "550",
+  fontWeight: 550,
   color: "#4D4E51",
   fontFamily: "Manrope",
 }));
 
-const StyledEmptyCell = styled(TableCell)(() => ({
+const StyledCell = styled(TableCell)(({ hasSchedule }) => ({
   width: "106px",
   height: "44px",
   border: "1px solid #e0e0e0",
+  padding: "8px",
+  fontStyle: "italic",
+  cursor: "pointer",
+  "&:active": {
+    boxShadow: "0 0 5px rgb(0 0 0 /0.1)",
+  },
+
+  "& div": {
+    width: "90px",
+    height: "fit-content",
+    backgroundColor: hasSchedule ? "#DBEBFF" : "transparent",
+    borderLeft: "4px solid #1F6ED4",
+  },
+  "& p": {
+    lineHeight: "18px",
+    color: "#1F6ED4",
+    fontFamily: "Open Sans",
+    fontWeight: 500,
+    fontSize: "12px",
+    margin: 0,
+    textAlign: "center",
+  },
 }));
