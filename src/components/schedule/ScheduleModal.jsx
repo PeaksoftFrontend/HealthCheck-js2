@@ -28,10 +28,10 @@ export const ScheduleModal = ({
             return { hour, minute };
           });
           return { start, end };
-        }) || [{ start: { hour: 9, minute: 0 }, end: { hour: 10, minute: 0 } }]
+        }) || [{ start: { hour: 0, minute: 0 }, end: { hour: 10, minute: 0 } }]
       );
     }
-    return [{ start: { hour: 9, minute: 0 }, end: { hour: 10, minute: 0 } }];
+    return [{ start: { hour: 0, minute: 0 }, end: { hour: 0, minute: 0 } }];
   });
 
   const handleAddInterval = () => {
@@ -87,7 +87,7 @@ export const ScheduleModal = ({
         {modalType === "update" ? "Изменить шаблон" : "Установить шаблон"}
       </StyledTitle>
       <StyledWrapper>
-        {modalType === "update" ? (
+        {modalType === "update" && (
           <>
             <StyledDepartment>
               <StyledText>
@@ -107,82 +107,51 @@ export const ScheduleModal = ({
                 {selectedDate ? selectedDate.format("DD.MM.YYYY") : ""}
               </span>
             </StyledDate>
-            {intervals.map((interval, index) => (
-              <StyledSchedule key={index}>
-                <StyledText>График:</StyledText>
-                <StyledTimePicker>
-                  <TimePicker
-                    hourValue={interval.start.hour}
-                    minuteValue={interval.start.minute}
-                    onHourChange={(hour) =>
-                      handleTimeChange(
-                        index,
-                        "start",
-                        hour,
-                        interval.start.minute
-                      )
-                    }
-                    onMinuteChange={(minute) =>
-                      handleTimeChange(
-                        index,
-                        "start",
-                        interval.start.hour,
-                        minute
-                      )
-                    }
-                  />
-                  <span>-</span>
-                  <TimePicker
-                    hourValue={interval.end.hour}
-                    minuteValue={interval.end.minute}
-                    onHourChange={(hour) =>
-                      handleTimeChange(index, "end", hour, interval.end.minute)
-                    }
-                    onMinuteChange={(minute) =>
-                      handleTimeChange(index, "end", interval.end.hour, minute)
-                    }
-                  />
-                  {index > 0 && (
-                    <IconButton
-                      onClick={() => handleRemoveInterval(index)}
-                      aria-label="delete"
-                      color="error"
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  )}
-                </StyledTimePicker>
-              </StyledSchedule>
-            ))}
-            <StyledInterval onClick={handleAddInterval}>
-              <Icons.Plus1 />
-              <p>Добавить интервал</p>
-            </StyledInterval>
           </>
-        ) : (
-          <>
-            <StyledTimePicker>
-              <StyledText>График:</StyledText>
+        )}
+
+        <StyledSchedule>
+          <StyledText>График:</StyledText>
+          {intervals.map((interval, index) => (
+            <StyledTimePicker key={index}>
               <TimePicker
-                hourValue={0}
-                minuteValue={0}
-                onHourChange={() => {}}
-                onMinuteChange={() => {}}
+                hourValue={interval.start.hour}
+                minuteValue={interval.start.minute}
+                onHourChange={(hour) =>
+                  handleTimeChange(index, "start", hour, interval.start.minute)
+                }
+                onMinuteChange={(minute) =>
+                  handleTimeChange(index, "start", interval.start.hour, minute)
+                }
               />
               <span>-</span>
               <TimePicker
-                hourValue={0}
-                minuteValue={0}
-                onHourChange={() => {}}
-                onMinuteChange={() => {}}
+                hourValue={interval.end.hour}
+                minuteValue={interval.end.minute}
+                onHourChange={(hour) =>
+                  handleTimeChange(index, "end", hour, interval.end.minute)
+                }
+                onMinuteChange={(minute) =>
+                  handleTimeChange(index, "end", interval.end.hour, minute)
+                }
               />
+              {index > 0 && (
+                <IconButton
+                  onClick={() => handleRemoveInterval(index)}
+                  aria-label="delete"
+                  color="error"
+                >
+                  <DeleteIcon />
+                </IconButton>
+              )}
             </StyledTimePicker>
-            <StyledInterval>
-              <Icons.Plus1 />
-              <p>Добавить интервал</p>
-            </StyledInterval>
-          </>
-        )}
+          ))}
+        </StyledSchedule>
+
+        <StyledInterval onClick={handleAddInterval}>
+          <Icons.Plus1 />
+          <p>Добавить интервал</p>
+        </StyledInterval>
       </StyledWrapper>
 
       <StyledContainerButton>
@@ -264,8 +233,9 @@ const StyledTimePicker = styled("div")(() => ({
 
 const StyledSchedule = styled("div")(() => ({
   display: "flex",
-  alignItems: "center",
-  gap: "24px",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: "8px",
   paddingLeft: "45px",
 }));
 
