@@ -25,6 +25,8 @@ export const Schedule = () => {
   const [selectedCell, setSelectedCell] = useState({ doctor: null, day: null });
   const [stateDoctors, setStateDoctors] = useState(doctors);
   const [modalType, setModalType] = useState("setTemplate");
+  const [startDate, setStartDate] = useState(dayjs());
+  const [endDate, setEndDate] = useState(dayjs().add(1, "month"));
 
   const handleOpenModal = (type) => {
     if (selectedCell.doctor && selectedCell.day) {
@@ -43,37 +45,40 @@ export const Schedule = () => {
     setSelectedCell({ doctor: null, day: null, dataId: null });
   };
 
-  const getCurrentMonthDates = () => {
-    const today = dayjs();
-    const month = today.month();
-    const year = today.year();
-    const firstDay = dayjs(new Date(year, month, 1));
-    const lastDay = firstDay.endOf("month");
+  const getDaysInRange = (start, end) => {
+    const days = [];
+    let currentDate = start;
 
-    return Array.from({ length: lastDay.date() }, (_, day) => {
-      const date = dayjs(new Date(year, month, day + 1));
-      const dayOfWeek = date.format("dd").toUpperCase();
-      return `${dayOfWeek} ${day + 1} ${today.format("MMMM").charAt(0).toUpperCase() + today.format("MMMM").slice(1).toLowerCase()}`;
-    });
+    while (currentDate.isBefore(end) || currentDate.isSame(end, "day")) {
+      const dayOfWeek = currentDate.format("dd").toUpperCase();
+      const dayString = `${dayOfWeek} ${currentDate.date()} ${currentDate.format("MMMM")}`;
+      days.push({
+        display: dayString,
+        date: currentDate,
+      });
+      currentDate = currentDate.add(1, "day");
+    }
+
+    return days;
   };
 
-  const days = getCurrentMonthDates();
+  const days = getDaysInRange(startDate, endDate);
 
   const renderScheduleCell = (specialist, day) => {
-    const dayNumber = parseInt(day.split(" ")[1]);
+    const dayNumber = day.date.date();
     const daySchedule = specialist.schedule.find(
       (item) => item.day === dayNumber
     );
 
     return (
       <StyledCell
-        key={day}
+        key={day.display}
         hasSchedule={!!daySchedule}
         onClick={() => {
           setSelectedCell({
             dataId: specialist.id,
             doctor: specialist,
-            day: dayjs().date(dayNumber),
+            day: day.date,
           });
         }}
         isSelected={
@@ -110,9 +115,15 @@ export const Schedule = () => {
           </StyledBtn>
         </section>
         <section>
-          <Datepicker />
+          <Datepicker
+            value={startDate}
+            onChange={(newValue) => setStartDate(newValue)}
+          />
           <p>-</p>
-          <Datepicker />
+          <Datepicker
+            value={endDate}
+            onChange={(newValue) => setEndDate(newValue)}
+          />
         </section>
       </StyledBox>
 
@@ -123,9 +134,9 @@ export const Schedule = () => {
               <StyledHeader>СПЕЦИАЛИСТЫ</StyledHeader>
               {days.map((day, index) => (
                 <StyledHeaderCell key={index}>
-                  <p>{day.split(" ")[0]}</p>
+                  <p>{day.display.split(" ")[0]}</p>
                   <p>
-                    {day.split(" ")[1]} {day.split(" ")[2]}
+                    {day.display.split(" ")[1]} {day.display.split(" ")[2]}
                   </p>
                 </StyledHeaderCell>
               ))}
