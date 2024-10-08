@@ -18,9 +18,15 @@ import { Button } from "../UI/button/Button";
 import { Datepicker } from "../UI/datePicker/DatePicker";
 
 export const Schedule = () => {
+  const initialStartDate = dayjs().startOf("month");
+  const initialEndDate = dayjs().endOf("month");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDateRange, setSelectedDateRange] = useState({
+    startDate: initialStartDate,
+    endDate: initialEndDate,
+  });
   const [selectedDoctorsId, setSelectedDoctorsId] = useState(null);
   const [selectedCell, setSelectedCell] = useState({ doctor: null, day: null });
   const [stateDoctors, setStateDoctors] = useState(doctors);
@@ -29,7 +35,6 @@ export const Schedule = () => {
   const handleOpenModal = (type) => {
     if (selectedCell.doctor && selectedCell.day) {
       setSelectedDoctor(selectedCell.doctor);
-      setSelectedDate(selectedCell.day);
       setSelectedDoctorsId(selectedCell.dataId);
       setModalType(type);
       setIsModalOpen(true);
@@ -39,28 +44,22 @@ export const Schedule = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedDoctor(null);
-    setSelectedDate(null);
     setSelectedCell({ doctor: null, day: null, dataId: null });
   };
 
-  const getCurrentMonthDates = () => {
-    const today = dayjs();
-    const month = today.month();
-    const year = today.year();
-    const firstDay = dayjs(new Date(year, month, 1));
-    const lastDay = firstDay.endOf("month");
-
-    return Array.from({ length: lastDay.date() }, (_, day) => {
-      const date = dayjs(new Date(year, month, day + 1));
-      const dayOfWeek = date.format("dd").toUpperCase();
-      return `${dayOfWeek} ${day + 1} ${today.format("MMMM").charAt(0).toUpperCase() + today.format("MMMM").slice(1).toLowerCase()}`;
-    });
+  const getDatesInRange = (startDate, endDate) => {
+    const dates = [];
+    let current = dayjs(startDate);
+    const end = dayjs(endDate);
+    while (current.isBefore(end) || current.isSame(end)) {
+      dates.push(current);
+      current = current.add(1, "day");
+    }
+    return dates;
   };
 
-  const days = getCurrentMonthDates();
-
   const renderScheduleCell = (specialist, day) => {
-    const dayNumber = parseInt(day.split(" ")[1]);
+    const dayNumber = day.date();
     const daySchedule = specialist.schedule.find(
       (item) => item.day === dayNumber
     );
@@ -68,12 +67,11 @@ export const Schedule = () => {
     return (
       <StyledCell
         key={day}
-        hasSchedule={!!daySchedule}
         onClick={() => {
           setSelectedCell({
             dataId: specialist.id,
             doctor: specialist,
-            day: dayjs().date(dayNumber),
+            day: day,
           });
         }}
         isSelected={
@@ -109,10 +107,21 @@ export const Schedule = () => {
             Установить по шаблону
           </StyledBtn>
         </section>
+
         <section>
-          <Datepicker />
+          <Datepicker
+            selectedDate={selectedDateRange.startDate}
+            onDateChange={(date) =>
+              setSelectedDateRange((prev) => ({ ...prev, startDate: date }))
+            }
+          />
           <p>-</p>
-          <Datepicker />
+          <Datepicker
+            selectedDate={selectedDateRange.endDate}
+            onDateChange={(date) =>
+              setSelectedDateRange((prev) => ({ ...prev, endDate: date }))
+            }
+          />
         </section>
       </StyledBox>
 
@@ -121,14 +130,17 @@ export const Schedule = () => {
           <TableHead>
             <TableRow>
               <StyledHeader>СПЕЦИАЛИСТЫ</StyledHeader>
-              {days.map((day, index) => (
-                <StyledHeaderCell key={index}>
-                  <p>{day.split(" ")[0]}</p>
-                  <p>
-                    {day.split(" ")[1]} {day.split(" ")[2]}
-                  </p>
-                </StyledHeaderCell>
-              ))}
+              {selectedDateRange.startDate &&
+                selectedDateRange.endDate &&
+                getDatesInRange(
+                  selectedDateRange.startDate,
+                  selectedDateRange.endDate
+                ).map((day, index) => (
+                  <StyledHeaderCell key={index}>
+                    <p>{day.format("dd").toUpperCase()}</p>
+                    <p>{day.format("D MMMM")}</p>
+                  </StyledHeaderCell>
+                ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -139,7 +151,12 @@ export const Schedule = () => {
                   <a>{specialist.name}</a>
                   <p>{specialist.role}</p>
                 </StyledBoxTableCell>
-                {days.map((day) => renderScheduleCell(specialist, day))}
+                {selectedDateRange.startDate &&
+                  selectedDateRange.endDate &&
+                  getDatesInRange(
+                    selectedDateRange.startDate,
+                    selectedDateRange.endDate
+                  ).map((day) => renderScheduleCell(specialist, day))}
               </TableRow>
             ))}
           </TableBody>
@@ -149,7 +166,7 @@ export const Schedule = () => {
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <ScheduleModal
           handleCloseModal={handleCloseModal}
-          selectedDate={selectedDate}
+          selectedDate={selectedCell.day}
           selectedDoctor={selectedDoctor}
           selectedDoctorsId={selectedDoctorsId}
           setStateDoctors={setStateDoctors}
@@ -206,12 +223,12 @@ const StyledBtn = styled(Button)(() => ({
 }));
 
 const StyledTable = styled(Table)(() => ({
-  minWidth: 650,
+  minWidth: "650px",
   borderCollapse: "collapse",
 }));
 
 const StyledHeaderCell = styled(TableCell)(() => ({
-  width: "106px",
+  maxWidth: "106px",
   height: "44px",
   color: "#4D4E51",
   fontWeight: "600",
@@ -252,12 +269,12 @@ const StyledHeader = styled(TableCell)(() => ({
   border: "1px solid #e0e0e0",
   textAlign: "center",
   padding: "12px 14px",
-  fontWeight: 550,
+  fontWeight: "600",
   color: "#4D4E51",
   fontFamily: "Manrope",
 }));
 
-const StyledCell = styled(TableCell)(({ hasSchedule }) => ({
+const StyledCell = styled(({ ...rest }) => <TableCell {...rest} />)(() => ({
   width: "106px",
   height: "44px",
   border: "1px solid #e0e0e0",
@@ -267,11 +284,10 @@ const StyledCell = styled(TableCell)(({ hasSchedule }) => ({
   "&:active": {
     boxShadow: "0 0 5px rgb(0 0 0 /0.1)",
   },
-
   "& div": {
     width: "90px",
     height: "fit-content",
-    backgroundColor: hasSchedule ? "#DBEBFF" : "transparent",
+    backgroundColor: "#DBEBFF",
     borderLeft: "4px solid #1F6ED4",
   },
   "& p": {

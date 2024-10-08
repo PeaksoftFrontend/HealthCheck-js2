@@ -15,295 +15,240 @@ export const ScheduleModal = ({
   handleCloseModal,
   modalType,
 }) => {
-  const [intervals, setIntervals] = useState(() => {
-    if (modalType === "update") {
-      const doctor = stateDoctors.find((doc) => doc.id === selectedDoctorsId);
-      const existingSchedule = doctor.schedule.find(
-        (schedule) => schedule.day === selectedDate.date()
-      );
-      return (
-        existingSchedule?.times.map((time) => {
-          const [start, end] = time.split(" - ").map((t) => {
-            const [hour, minute] = t.split(":").map(Number);
-            return { hour, minute };
-          });
-          return { start, end };
-        }) || [{ start: { hour: 9, minute: 0 }, end: { hour: 10, minute: 0 } }]
-      );
-    }
-    return [{ start: { hour: 9, minute: 0 }, end: { hour: 10, minute: 0 } }];
+  const getDefaultInterval = () => ({
+    start: { hour: 9, minute: 0 },
+    end: { hour: 10, minute: 0 },
   });
 
+  const initializeIntervals = () => {
+    if (modalType !== "update") return [getDefaultInterval()];
+    const doctor = stateDoctors.find((doc) => doc.id === selectedDoctorsId);
+    const schedule = doctor?.schedule.find(
+      (s) => s.day === selectedDate.date()
+    );
+    return schedule
+      ? schedule.times.map((time) => {
+          const [start, end] = time
+            .split(" - ")
+            .map((t) => t.split(":").map(Number));
+          return {
+            start: { hour: start[0], minute: start[1] },
+            end: { hour: end[0], minute: end[1] },
+          };
+        })
+      : [getDefaultInterval()];
+  };
+
+  const [intervals, setIntervals] = useState(initializeIntervals);
+
   const handleAddInterval = () => {
-    setIntervals([
-      ...intervals,
-      { start: { hour: 9, minute: 0 }, end: { hour: 10, minute: 0 } },
-    ]);
+    setIntervals([...intervals, getDefaultInterval()]);
   };
 
-  const handleRemoveInterval = (indexToRemove) => {
-    setIntervals(intervals.filter((_, index) => index !== indexToRemove));
+  const handleRemoveInterval = (index) => {
+    setIntervals(intervals.filter((_, i) => i !== index));
   };
 
-  const handleTimeChange = (index, timeType, hour, minute) => {
-    setIntervals((prevIntervals) => {
-      const newIntervals = [...prevIntervals];
-      newIntervals[index][timeType] = { hour, minute };
-      return newIntervals;
-    });
+  const handleTimeChange = (index, type, hour, minute) => {
+    setIntervals((prev) =>
+      prev.map((interval, i) =>
+        i === index ? { ...interval, [type]: { hour, minute } } : interval
+      )
+    );
   };
 
-  const addTimeToDoctors = () => {
-    const res = stateDoctors.map((item) => {
-      if (item.id === selectedDoctorsId) {
-        return {
-          ...item,
-          schedule: [
-            ...item.schedule.filter((s) => s.day !== selectedDate.date()),
-            {
-              day: selectedDate.date(),
-              times: intervals.map(
-                (interval) =>
-                  `${interval.start.hour}:${String(interval.start.minute).padStart(2, "0")} - ${interval.end.hour}:${String(interval.end.minute).padStart(2, "0")}`
-              ),
-            },
-          ],
-        };
-      }
-      return item;
-    });
-
-    setStateDoctors(res);
+  const saveIntervals = () => {
+    const updatedDoctors = stateDoctors.map((doctor) =>
+      doctor.id === selectedDoctorsId
+        ? {
+            ...doctor,
+            schedule: [
+              ...doctor.schedule.filter((s) => s.day !== selectedDate.date()),
+              {
+                day: selectedDate.date(),
+                times: intervals.map(
+                  ({ start, end }) =>
+                    `${start.hour}:${String(start.minute).padStart(2, "0")} - ${end.hour}:${String(end.minute).padStart(2, "0")}`
+                ),
+              },
+            ],
+          }
+        : doctor
+    );
+    setStateDoctors(updatedDoctors);
     handleCloseModal(false);
   };
 
-  const handleSaveTemplate = () => {
-    addTimeToDoctors();
-  };
-
   return (
-    <StyledModalContainer>
-      <StyledTitle>
+    <ModalContainer>
+      <Title>
         {modalType === "update" ? "Изменить шаблон" : "Установить шаблон"}
-      </StyledTitle>
-      <StyledWrapper>
-        {modalType === "update" ? (
+      </Title>
+      <ContentWrapper>
+        {modalType === "update" && (
           <>
-            <StyledDepartment>
-              <StyledText>
-                Отделение <span>:</span>
-              </StyledText>
-              <span>{selectedDoctor ? selectedDoctor.role : ""}</span>
-            </StyledDepartment>
-            <StyledSpecialist>
-              <StyledText>
-                Специалист <span>:</span>
-              </StyledText>
-              <span>{selectedDoctor ? selectedDoctor.name : ""}</span>
-            </StyledSpecialist>
-            <StyledDate>
-              <StyledText>Дата:</StyledText>
-              <span>
-                {selectedDate ? selectedDate.format("DD.MM.YYYY") : ""}
-              </span>
-            </StyledDate>
-            {intervals.map((interval, index) => (
-              <StyledSchedule key={index}>
-                <StyledText>График:</StyledText>
-                <StyledTimePicker>
-                  <TimePicker
-                    hourValue={interval.start.hour}
-                    minuteValue={interval.start.minute}
-                    onHourChange={(hour) =>
-                      handleTimeChange(
-                        index,
-                        "start",
-                        hour,
-                        interval.start.minute
-                      )
-                    }
-                    onMinuteChange={(minute) =>
-                      handleTimeChange(
-                        index,
-                        "start",
-                        interval.start.hour,
-                        minute
-                      )
-                    }
-                  />
-                  <span>-</span>
-                  <TimePicker
-                    hourValue={interval.end.hour}
-                    minuteValue={interval.end.minute}
-                    onHourChange={(hour) =>
-                      handleTimeChange(index, "end", hour, interval.end.minute)
-                    }
-                    onMinuteChange={(minute) =>
-                      handleTimeChange(index, "end", interval.end.hour, minute)
-                    }
-                  />
-                  {index > 0 && (
-                    <IconButton
-                      onClick={() => handleRemoveInterval(index)}
-                      aria-label="delete"
-                      color="error"
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  )}
-                </StyledTimePicker>
-              </StyledSchedule>
-            ))}
-            <StyledInterval onClick={handleAddInterval}>
-              <Icons.Plus1 />
-              <p>Добавить интервал</p>
-            </StyledInterval>
-          </>
-        ) : (
-          <>
-            <StyledTimePicker>
-              <StyledText>График:</StyledText>
-              <TimePicker
-                hourValue={0}
-                minuteValue={0}
-                onHourChange={() => {}}
-                onMinuteChange={() => {}}
-              />
-              <span>-</span>
-              <TimePicker
-                hourValue={0}
-                minuteValue={0}
-                onHourChange={() => {}}
-                onMinuteChange={() => {}}
-              />
-            </StyledTimePicker>
-            <StyledInterval>
-              <Icons.Plus1 />
-              <p>Добавить интервал</p>
-            </StyledInterval>
+            <Detail label="Отделение" value={selectedDoctor?.role || ""} />
+            <Detail label="Специалист" value={selectedDoctor?.name || ""} />
+            <Detail
+              label="Дата"
+              value={selectedDate?.format("DD.MM.YYYY") || ""}
+            />
           </>
         )}
-      </StyledWrapper>
 
-      <StyledContainerButton>
-        <StyledButton variant={"outlined"} onClick={handleCloseModal}>
-          Отменить
-        </StyledButton>
-        <StyledBtn
-          onClick={
-            modalType === "update" ? addTimeToDoctors : handleSaveTemplate
-          }
-        >
-          Сохранить
-        </StyledBtn>
-      </StyledContainerButton>
-    </StyledModalContainer>
+        <WrapperList>
+          <StyledText>График:</StyledText>
+          <ContentWrapper>
+            {intervals.map((interval, index) => (
+              <ScheduleRow key={index}>
+                <TimePickerBlock
+                  interval={interval}
+                  index={index}
+                  onTimeChange={handleTimeChange}
+                  onRemove={handleRemoveInterval}
+                  removable={index > 0}
+                />
+              </ScheduleRow>
+            ))}
+          </ContentWrapper>
+        </WrapperList>
+        <AddInterval onClick={handleAddInterval}>
+          <Icons.Plus1 />
+          <p>Добавить интервал</p>
+        </AddInterval>
+      </ContentWrapper>
+      <ButtonContainer>
+        <ActionButton onClick={handleCloseModal}>Отменить</ActionButton>
+        <ActionButton onClick={saveIntervals}>Сохранить</ActionButton>
+      </ButtonContainer>
+    </ModalContainer>
   );
 };
 
-const StyledModalContainer = styled("div")(() => ({
+const TimePickerBlock = ({
+  interval,
+  index,
+  onTimeChange,
+  onRemove,
+  removable,
+}) => (
+  <TimePickerWrapper>
+    <TimePicker
+      hourValue={interval.start.hour}
+      minuteValue={interval.start.minute}
+      onHourChange={(hour) =>
+        onTimeChange(index, "start", hour, interval.start.minute)
+      }
+      onMinuteChange={(minute) =>
+        onTimeChange(index, "start", interval.start.hour, minute)
+      }
+    />
+    <span>-</span>
+    <TimePicker
+      hourValue={interval.end.hour}
+      minuteValue={interval.end.minute}
+      onHourChange={(hour) =>
+        onTimeChange(index, "end", hour, interval.end.minute)
+      }
+      onMinuteChange={(minute) =>
+        onTimeChange(index, "end", interval.end.hour, minute)
+      }
+    />
+    {removable && (
+      <IconButton
+        onClick={() => onRemove(index)}
+        aria-label="delete"
+        color="error"
+      >
+        <DeleteIcon />
+      </IconButton>
+    )}
+  </TimePickerWrapper>
+);
+
+const Detail = ({ label, value }) => (
+  <DetailRow>
+    <DetailLabel>{label}</DetailLabel>
+    <span>{value}</span>
+  </DetailRow>
+);
+
+const ModalContainer = styled("div")({
   width: "585px",
-  height: "fit-content",
+  padding: "20px",
   fontFamily: "Manrope",
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
   gap: "32px",
-  padding: "20px",
-}));
+});
 
-const StyledTitle = styled("h2")(() => ({
+const Title = styled("h2")({
   fontWeight: 500,
   fontSize: "24px",
   margin: 0,
-}));
+});
 
-const StyledWrapper = styled("div")(() => ({
+const ContentWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
   gap: "18px",
-}));
+});
 
-const StyledDepartment = styled("div")(() => ({
-  display: "flex",
-  gap: "25px",
-  paddingLeft: "30px",
-  "& span": {
-    color: "#4D4E51",
-  },
-}));
-
-const StyledSpecialist = styled("div")(() => ({
-  display: "flex",
-  gap: "25px",
-  paddingLeft: "15px",
-  "& span": {
-    color: "#4D4E51",
-  },
-}));
-
-const StyledDate = styled("div")(() => ({
-  display: "flex",
-  gap: "25px",
-  paddingLeft: "70px",
-  "& span": {
-    color: "#4D4E51",
-  },
-}));
-
-const StyledText = styled("p")(() => ({
-  fontWeight: 600,
-  fontSize: "14px",
-}));
-
-const StyledTimePicker = styled("div")(() => ({
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-}));
-
-const StyledSchedule = styled("div")(() => ({
+const ScheduleRow = styled("div")({
   display: "flex",
   alignItems: "center",
   gap: "24px",
-  paddingLeft: "45px",
-}));
+});
 
-const StyledInterval = styled("div")(() => ({
+const WrapperList = styled("div")({
+  display: "flex",
+  gap: "24px",
+});
+
+const TimePickerWrapper = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+});
+
+const DetailRow = styled("div")({
+  display: "flex",
+  gap: "25px",
+  "& span": { color: "#4D4E51" },
+});
+
+const DetailLabel = styled("p")({
+  fontWeight: 600,
+  fontSize: "14px",
+});
+
+const AddInterval = styled("div")({
   display: "flex",
   alignItems: "center",
   gap: "6px",
-  paddingLeft: "140px",
   cursor: "pointer",
-  "& p": {
-    color: "#048741",
-    fontWeight: 500,
-    fontSize: "14px",
-  },
-}));
+  "& p": { color: "#048741", fontWeight: 500, fontSize: "14px" },
+});
 
-const StyledContainerButton = styled("section")(() => ({
+const ButtonContainer = styled("section")({
   display: "flex",
   justifyContent: "center",
   gap: "18px",
-  padding: "5px",
-}));
+});
 
-const StyledButton = styled(Button)(() => ({
-  width: "243px",
-  height: "39px",
-  borderRadius: "8px",
-  border: "1px solid #959595",
-  color: "#959595",
-}));
-
-const StyledBtn = styled(Button)(() => ({
+const ActionButton = styled(Button)({
   width: "244px",
   height: "39px",
   borderRadius: "10px",
   backgroundColor: "#1F6ED4",
   color: "#fff",
-  "&:hover": {
-    backgroundColor: "#165ab1",
-  },
+  "&:hover": { backgroundColor: "#165ab1" },
+});
+
+const StyledText = styled("p")(() => ({
+  fontWeight: "500",
+  fontSize: "14px",
+  color: "#464444",
+  paddingTop: "7px",
 }));
