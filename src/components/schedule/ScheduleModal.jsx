@@ -118,7 +118,9 @@ export const ScheduleModal = ({
         </AddInterval>
       </ContentWrapper>
       <ButtonContainer>
-        <ActionButton onClick={handleCloseModal}>Отменить</ActionButton>
+        <StyledButton variant={"outlined"} onClick={handleCloseModal}>
+          Отменить
+        </StyledButton>
         <ActionButton onClick={saveIntervals}>Сохранить</ActionButton>
       </ButtonContainer>
     </ModalContainer>
@@ -225,9 +227,9 @@ const DetailLabel = styled("p")({
 
 const AddInterval = styled("div")({
   display: "flex",
-  alignItems: "center",
   gap: "6px",
   cursor: "pointer",
+  paddingLeft: "90px",
   "& p": { color: "#048741", fontWeight: 500, fontSize: "14px" },
 });
 
@@ -236,6 +238,12 @@ const ButtonContainer = styled("section")({
   justifyContent: "center",
   gap: "18px",
 });
+const StyledButton = styled(Button)(() => ({
+  width: "243px",
+  height: "39px",
+  border: "1px solid #959595",
+  color: "#959595",
+}));
 
 const ActionButton = styled(Button)({
   width: "244px",
@@ -247,8 +255,7 @@ const ActionButton = styled(Button)({
 });
 
 const StyledText = styled("p")(() => ({
-  fontWeight: "500",
+  fontWeight: "600",
   fontSize: "14px",
-  color: "#464444",
   paddingTop: "7px",
 }));

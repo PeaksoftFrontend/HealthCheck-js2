@@ -137,8 +137,17 @@ export const Schedule = () => {
                   selectedDateRange.endDate
                 ).map((day, index) => (
                   <StyledHeaderCell key={index}>
-                    <p>{day.format("dd").toUpperCase()}</p>
-                    <p>{day.format("D MMMM")}</p>
+                    {/* Жуманын аттарын 2 тамгадан жазабыз */}
+                    <div>
+                      <p>{day.format("dd").toUpperCase()}</p>{" "}
+                      {/* Жуманын аты */}
+                      <p>
+                        {day.format("D")}{" "}
+                        {day.format("MMMM").charAt(0).toUpperCase() +
+                          day.format("MMMM").slice(1)}
+                      </p>{" "}
+                      {/* Күн жана айдын аты */}
+                    </div>
                   </StyledHeaderCell>
                 ))}
             </TableRow>
@@ -229,7 +238,7 @@ const StyledTable = styled(Table)(() => ({
 
 const StyledHeaderCell = styled(TableCell)(() => ({
   maxWidth: "106px",
-  height: "44px",
+  height: "60px", // Ячейканын бийиктигин көбөйттүк
   color: "#4D4E51",
   fontWeight: "600",
   border: "1px solid #e0e0e0",
@@ -264,7 +273,7 @@ const StyledBoxTableCell = styled(TableCell)(() => ({
 }));
 
 const StyledHeader = styled(TableCell)(() => ({
-  width: "180px",
+  width: "80px",
   fontSize: "12px",
   border: "1px solid #e0e0e0",
   textAlign: "center",
@@ -275,7 +284,6 @@ const StyledHeader = styled(TableCell)(() => ({
 }));
 
 const StyledCell = styled(({ ...rest }) => <TableCell {...rest} />)(() => ({
-  width: "106px",
   height: "44px",
   border: "1px solid #e0e0e0",
   padding: "8px",
