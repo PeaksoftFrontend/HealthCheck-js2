@@ -26,7 +26,7 @@ export const Form = () => {
     event.preventDefault();
 
     const isNameEmpty = !formik.values.name;
-    const isPhoneValid = /^\+996\d{9}$/.test(formik.values.phone);
+    const isPhoneValid = /^\+7\d{10}$/.test(formik.values.phone);
 
     if (isNameEmpty || !isPhoneValid) {
       setInputError({
@@ -45,7 +45,7 @@ export const Form = () => {
     if (name === "phone") {
       const formattedPhone = value
         .replace(/[^\d+]/g, "")
-        .replace(/(\+996)(\d{0,9})?.*/, "$1$2");
+        .replace(/(\+7)(\d{10})?.*/, "$1$2");
       formik.setFieldValue("phone", formattedPhone);
     }
 
@@ -102,7 +102,7 @@ export const Form = () => {
                     onChange={handleInputChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.phone}
-                    placeholder="+996 (___) ___-____"
+                    placeholder="+7 (___) ___-____"
                     onKeyPress={(event) => {
                       const allowedCharacters = /^[0-9+]*$/;
                       if (!allowedCharacters.test(event.key)) {
@@ -214,6 +214,7 @@ const ErrorMessage = styled("div")(() => ({
   fontSize: "15px",
   height: "18px",
   lineHeight: "18px",
+  left: "0",
 }));
 
 const StyledButton = styled(Button)(() => ({
