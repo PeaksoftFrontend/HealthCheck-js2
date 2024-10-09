@@ -9,67 +9,75 @@ export const AddSpecialist = () => {
   return (
     <StyledContainer>
       <span>Добавление специалиста</span>
-      <StyledBoxContainer>
-        <StyledImage>
-          <StyledContainerImg>
-            <img src={Specialsit} alt="Specialsit" />
-          </StyledContainerImg>
-          <p>Сменить фото</p>
-        </StyledImage>
-        <div>
-          <StyledMain>
-            <p>Добавление специалиста</p>
-            <StyledForm>
-              <StyledWrapper>
-                <StyledContainerLabelInput>
-                  <label htmlFor="firstName">Имя</label>
-                  <StyledInput placeholder="Напишите имя" />
-                </StyledContainerLabelInput>
-                <StyledContainerLabelInput>
-                  <label htmlFor="department">Отделение</label>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <StyledBoxContainer>
+          <StyledImage>
+            <StyledContainerImg>
+              <img src={Specialsit} alt="Specialsit" />
+            </StyledContainerImg>
+            <p>Сменить фото</p>
+          </StyledImage>
+          <div>
+            <StyledMain>
+              <p>Добавление специалиста</p>
+              <StyledForm>
+                <StyledWrapper>
+                  <StyledContainerLabelInput>
+                    <label htmlFor="firstName">Имя</label>
+                    <StyledInput placeholder="Напишите имя" />
+                  </StyledContainerLabelInput>
+                  <StyledContainerLabelInput>
+                    <label htmlFor="department">Отделение</label>
 
-                  <StyledInput placeholder="Напишите отделение" />
-                </StyledContainerLabelInput>
-              </StyledWrapper>
-              <StyledWrapper>
-                <StyledContainerLabelInput>
-                  <label htmlFor="lastName">Фамилия</label>
+                    <StyledInput placeholder="Напишите отделение" />
+                  </StyledContainerLabelInput>
+                </StyledWrapper>
+                <StyledWrapper>
+                  <StyledContainerLabelInput>
+                    <label htmlFor="lastName">Фамилия</label>
 
-                  <StyledInput placeholder="Напишите фамилию" />
-                </StyledContainerLabelInput>
-                <StyledContainerLabelInput>
-                  <label htmlFor="position">Должность</label>
-                  <StyledInput placeholder="Напишите должность" />
-                </StyledContainerLabelInput>
-              </StyledWrapper>
-            </StyledForm>
-            <a>Описание</a>
-          </StyledMain>
-          <StyledContainerIcons>
-            <StyledIcons>
-              <Icons.Bicons />
-              <Icons.Iicons />
-              <Icons.Frame />
-              <Icons.MenuLi />
-              <Icons.MenuOl />
-            </StyledIcons>
-            <hr />
-            <StyledList>
-              {specialist.map((item) => (
-                <div key={item.id}>
-                  <b>{item.title}</b>
-                  <p>{item.list}</p>
-                </div>
-              ))}
-            </StyledList>
-          </StyledContainerIcons>
+                    <StyledInput placeholder="Напишите фамилию" />
+                  </StyledContainerLabelInput>
+                  <StyledContainerLabelInput>
+                    <label htmlFor="position">Должность</label>
+                    <StyledInput placeholder="Напишите должность" />
+                  </StyledContainerLabelInput>
+                </StyledWrapper>
+              </StyledForm>
+              <a>Описание</a>
+            </StyledMain>
+            <StyledContainerIcons>
+              <StyledIcons>
+                <Icons.Bicons />
+                <Icons.Iicons />
+                <Icons.Frame />
+                <Icons.MenuLi />
+                <Icons.MenuOl />
+              </StyledIcons>
+              <hr />
+              <StyledList>
+                {specialist.map((item) => (
+                  <div key={item.id}>
+                    <b>{item.title}</b>
+                    <p>{item.list}</p>
+                  </div>
+                ))}
+              </StyledList>
+            </StyledContainerIcons>
 
-          <StyledContainerButton>
-            <StyledButton variant={"outlined"}>отменить</StyledButton>
-            <StyledBtn>сохранить</StyledBtn>
-          </StyledContainerButton>
-        </div>
-      </StyledBoxContainer>
+            <StyledContainerButton>
+              <StyledButton variant={"outlined"}>отменить</StyledButton>
+              <StyledBtn>сохранить</StyledBtn>
+            </StyledContainerButton>
+          </div>
+        </StyledBoxContainer>
+      </div>
     </StyledContainer>
   );
 };
@@ -106,7 +114,7 @@ const StyledBoxContainer = styled("section")(() => ({
   background: "#fff",
   height: "fit-content",
   display: "flex",
-  justifyContent: "space-around",
+  gap: "45px",
   boxShadow: "4px 4px 8px 0px rgba(34, 60, 80, 0.1)",
   padding: "40px",
 }));
