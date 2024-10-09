@@ -137,16 +137,13 @@ export const Schedule = () => {
                   selectedDateRange.endDate
                 ).map((day, index) => (
                   <StyledHeaderCell key={index}>
-                    {/* Жуманын аттарын 2 тамгадан жазабыз */}
                     <div>
                       <p>{day.format("dd").toUpperCase()}</p>{" "}
-                      {/* Жуманын аты */}
                       <p>
                         {day.format("D")}{" "}
                         {day.format("MMMM").charAt(0).toUpperCase() +
                           day.format("MMMM").slice(1)}
                       </p>{" "}
-                      {/* Күн жана айдын аты */}
                     </div>
                   </StyledHeaderCell>
                 ))}
@@ -238,7 +235,7 @@ const StyledTable = styled(Table)(() => ({
 
 const StyledHeaderCell = styled(TableCell)(() => ({
   maxWidth: "106px",
-  height: "60px", // Ячейканын бийиктигин көбөйттүк
+  height: "60px",
   color: "#4D4E51",
   fontWeight: "600",
   border: "1px solid #e0e0e0",
