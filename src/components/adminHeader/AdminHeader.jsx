@@ -1,7 +1,19 @@
-import { styled, MenuItem, Select, FormControl } from "@mui/material";
+import { styled, FormControl, MenuItem, Fade } from "@mui/material";
 import { Icons } from "../../assets/icons";
+import Menu from "@mui/material/Menu";
+import { useState } from "react";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export const AdminHeader = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <StyledHeader>
       <StyledNavContainer>
@@ -17,30 +29,41 @@ export const AdminHeader = () => {
           </StyledNavLinks>
         </StyledContainerNav>
         <FormControlStyled>
-          <Select defaultValue="Администратор">
-            <MenuItem value="Администратор">Администратор</MenuItem>
-            <MenuItem value="Профиль">Профиль</MenuItem>
-            <MenuItem value="Выйти">Выйти</MenuItem>
-          </Select>
+          <StyledText onClick={handleClick}>
+            <span>Администратор</span>
+            <KeyboardArrowDownIcon />
+          </StyledText>
+          <Menu
+            anchorEl={anchorEl}
+            id="fade-menu"
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={Fade}
+          >
+            <StyledMenuItem onClick={handleClose}>Профиль</StyledMenuItem>
+            <StyledMenuItem onClick={handleClose}>Выйти</StyledMenuItem>
+          </Menu>
         </FormControlStyled>
       </StyledNavContainer>
     </StyledHeader>
   );
 };
-
 const StyledHeader = styled("header")(() => ({
   width: "100%",
   display: "flex",
   justifyContent: "center",
-  boxShadow: "0 0 5px rgb(0 0 0 /0.1)",
+  alignItems: "center",
+  boxShadow: "0 0 5px rgb(0 0 0 / 0.1)",
   paddingBottom: "8px",
 }));
 
 const StyledNavContainer = styled("nav")(() => ({
   maxWidth: "1450px",
-  height: "80px",
+  width: "100%",
   display: "flex",
-  gap: "227px",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "0 1.5rem",
 }));
 
 const StyledNavLinks = styled("div")(() => ({
@@ -59,29 +82,9 @@ const StyledNavLinks = styled("div")(() => ({
 
 const FormControlStyled = styled(FormControl)(() => ({
   minWidth: "160px",
+  display: "flex",
+  alignItems: "center",
   padding: "1rem",
-
-  "& .MuiInputBase-root": {
-    padding: " 1rem",
-    fontSize: "1rem",
-    borderRadius: "0.375rem",
-    backgroundColor: "#fff",
-    color: "#090808",
-    border: "none",
-    boxShadow: "none",
-  },
-
-  "& .MuiOutlinedInput-notchedOutline": {
-    border: "none",
-  },
-
-  "& .MuiSelect-root:hover": {
-    backgroundColor: "#fff",
-  },
-
-  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-    border: "none",
-  },
 }));
 
 const StyledContainerNav = styled("div")(() => ({
@@ -89,4 +92,19 @@ const StyledContainerNav = styled("div")(() => ({
   alignItems: "center",
   gap: "160px",
   paddingTop: "16px",
+}));
+
+const StyledMenuItem = styled(MenuItem)({
+  padding: "6px 30px",
+  "&:hover": {
+    color: "#048741",
+  },
+});
+const StyledText = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  cursor: "pointer",
+  gap: "8px",
+  border: "none",
+  paddingTop: "15px",
 }));
