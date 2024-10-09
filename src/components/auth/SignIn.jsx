@@ -143,7 +143,6 @@ const Error = styled("div")(() => ({
 }));
 
 const StyleInput = styled(Input)(({ error }) => ({
-  padding: "5px",
   border: `1px solid ${error ? "red" : "#ccc"}`,
   borderRadius: "4px",
   "&:focus": {

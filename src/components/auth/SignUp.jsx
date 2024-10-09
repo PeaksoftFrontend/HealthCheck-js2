@@ -209,12 +209,11 @@ const StyledDivContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   height: "46px",
-  gap: "8px",
+  gap: "9px",
 }));
 
 const StyledInput = styled(Input)(({ isError }) => ({
   width: "100%",
-  padding: "5px",
   borderRadius: "8px",
   border: `1px solid ${isError ? "red" : "#ccc"}`,
   outline: "none",
