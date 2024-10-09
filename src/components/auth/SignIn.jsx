@@ -143,8 +143,9 @@ const Error = styled("div")(() => ({
 }));
 
 const StyleInput = styled(Input)(({ error }) => ({
-  padding: "5px",
   border: `1px solid ${error ? "red" : "#ccc"}`,
+  display: "flex",
+  justifyContent: "center",
   borderRadius: "4px",
   "&:focus": {
     borderColor: error ? "red" : "#000",
@@ -155,5 +156,5 @@ const ContainerDiv = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-  height: "60px",
+  height: "70px",
 }));

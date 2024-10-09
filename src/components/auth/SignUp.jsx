@@ -139,7 +139,7 @@ const StyledContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "24px",
+  gap: "20px",
   maxWidth: "414px",
   "& h3": {
     width: "127px",
@@ -168,7 +168,7 @@ const StyledForm = styled("form")(() => ({
   width: "414px",
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
+  gap: "8px",
 }));
 
 const StyledButton = styled(Button)(() => ({
@@ -208,13 +208,13 @@ const Container = styled("div")(() => ({
 const StyledDivContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  height: "46px",
-  gap: "8px",
+  height: "60px",
 }));
 
 const StyledInput = styled(Input)(({ isError }) => ({
   width: "100%",
-  padding: "5px",
+  display: "flex",
+  justifyContent: "center",
   borderRadius: "8px",
   border: `1px solid ${isError ? "red" : "#ccc"}`,
   outline: "none",
@@ -224,6 +224,4 @@ const StyledInput = styled(Input)(({ isError }) => ({
 const Error = styled("div")(() => ({
   color: "red",
   fontSize: "12px",
-  marginTop: "-10px",
-  marginBottom: "10px",
 }));

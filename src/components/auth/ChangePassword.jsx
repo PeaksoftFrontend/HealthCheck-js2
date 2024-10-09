@@ -85,7 +85,8 @@ const StyledForm = styled("form")(() => ({
 const StyledInput = styled(Input)(({ error }) => ({
   width: "100%",
   border: `1px solid ${error ? "red" : "#ccc"}`,
-  padding: "5px",
+  display: "flex",
+  justifyContent: "center",
   borderRadius: "4px",
   "&::placeholder": {
     color: error ? "red" : "#ccc",
