@@ -18,19 +18,16 @@ import { Button } from "../UI/button/Button";
 import { Datepicker } from "../UI/datePicker/DatePicker";
 
 export const Schedule = () => {
-  const initialStartDate = dayjs().startOf("month");
-  const initialEndDate = dayjs().endOf("month");
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const [selectedDateRange, setSelectedDateRange] = useState({
-    startDate: initialStartDate,
-    endDate: initialEndDate,
-  });
-  const [selectedDoctorsId, setSelectedDoctorsId] = useState(null);
   const [selectedCell, setSelectedCell] = useState({ doctor: null, day: null });
-  const [stateDoctors, setStateDoctors] = useState(doctors);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDoctorsId, setSelectedDoctorsId] = useState(null);
   const [modalType, setModalType] = useState("setTemplate");
+  const [stateDoctors, setStateDoctors] = useState(doctors);
+  const [selectedDateRange, setSelectedDateRange] = useState({
+    startDate: dayjs().startOf("month"),
+    endDate: dayjs().endOf("month"),
+  });
 
   const handleOpenModal = (type) => {
     if (selectedCell.doctor && selectedCell.day) {
@@ -44,7 +41,7 @@ export const Schedule = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedDoctor(null);
-    setSelectedCell({ doctor: null, day: null, dataId: null });
+    setSelectedCell({ doctor: null, day: null });
   };
 
   const getDatesInRange = (startDate, endDate) => {
@@ -59,33 +56,26 @@ export const Schedule = () => {
   };
 
   const renderScheduleCell = (specialist, day) => {
-    const dayNumber = day.date();
     const daySchedule = specialist.schedule.find(
-      (item) => item.day === dayNumber
+      (item) => item.day === day.date()
     );
 
     return (
       <StyledCell
         key={day}
-        onClick={() => {
-          setSelectedCell({
-            dataId: specialist.id,
-            doctor: specialist,
-            day: day,
-          });
-        }}
+        onClick={() =>
+          setSelectedCell({ dataId: specialist.id, doctor: specialist, day })
+        }
         isSelected={
           selectedCell.doctor === specialist &&
-          selectedCell.day?.date() === dayNumber
+          selectedCell.day?.date() === day.date()
         }
       >
-        {daySchedule
-          ? daySchedule.times.map((time, timeIndex) => (
-              <div key={timeIndex}>
-                <p>{time}</p>
-              </div>
-            ))
-          : null}
+        {daySchedule?.times.map((time, index) => (
+          <div key={index}>
+            <p>{time}</p>
+          </div>
+        ))}
       </StyledCell>
     );
   };
@@ -95,13 +85,13 @@ export const Schedule = () => {
       <StyledBox>
         <section>
           <StyledButton
-            variant={"outlined"}
+            variant="outlined"
             onClick={() => handleOpenModal("update")}
           >
             Изменить день
           </StyledButton>
           <StyledBtn
-            variant={"outlined"}
+            variant="outlined"
             onClick={() => handleOpenModal("setTemplate")}
           >
             Установить по шаблону
@@ -130,39 +120,34 @@ export const Schedule = () => {
           <TableHead>
             <TableRow>
               <StyledHeader>СПЕЦИАЛИСТЫ</StyledHeader>
-              {selectedDateRange.startDate &&
-                selectedDateRange.endDate &&
-                getDatesInRange(
-                  selectedDateRange.startDate,
-                  selectedDateRange.endDate
-                ).map((day, index) => (
-                  <StyledHeaderCell key={index}>
-                    <div>
-                      <p>{day.format("dd").toUpperCase()}</p>{" "}
-                      <p>
-                        {day.format("D")}{" "}
-                        {day.format("MMMM").charAt(0).toUpperCase() +
-                          day.format("MMMM").slice(1)}
-                      </p>{" "}
-                    </div>
-                  </StyledHeaderCell>
-                ))}
+              {getDatesInRange(
+                selectedDateRange.startDate,
+                selectedDateRange.endDate
+              ).map((day, index) => (
+                <StyledHeaderCell key={index}>
+                  <div>
+                    <p>{day.format("dd").toUpperCase()}</p>
+                    <p>{`${day.format("D")} ${
+                      day.format("MMMM").charAt(0).toUpperCase() +
+                      day.format("MMMM").slice(1)
+                    }`}</p>
+                  </div>
+                </StyledHeaderCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {stateDoctors?.map((specialist, index) => (
+            {stateDoctors.map((specialist, index) => (
               <TableRow key={`${specialist.name}-${index}`}>
                 <StyledBoxTableCell>
                   <Avatar alt={specialist.name} src={specialist.avatar} />
                   <a>{specialist.name}</a>
                   <p>{specialist.role}</p>
                 </StyledBoxTableCell>
-                {selectedDateRange.startDate &&
-                  selectedDateRange.endDate &&
-                  getDatesInRange(
-                    selectedDateRange.startDate,
-                    selectedDateRange.endDate
-                  ).map((day) => renderScheduleCell(specialist, day))}
+                {getDatesInRange(
+                  selectedDateRange.startDate,
+                  selectedDateRange.endDate
+                ).map((day) => renderScheduleCell(specialist, day))}
               </TableRow>
             ))}
           </TableBody>
@@ -185,123 +170,123 @@ export const Schedule = () => {
   );
 };
 
-const StyledContainer = styled("div")(() => ({
+const StyledContainer = styled("div")({
   maxWidth: "100%",
   display: "flex",
   flexDirection: "column",
-}));
+});
 
-const StyledBox = styled("div")(() => ({
+const StyledBox = styled("div")({
   maxWidth: "100%",
   height: "fit-content",
   display: "flex",
   justifyContent: "space-between",
-  padding: "18px 20px",
+  padding: "1.125rem 1.25rem",
   border: "1px solid #D9D9D9",
   "& section": {
     display: "flex",
     alignItems: "center",
-    gap: "10px",
+    gap: "0.625rem",
     color: "#000000",
   },
-}));
+});
 
-const StyledButton = styled(Button)(() => ({
-  width: "141px",
-  height: "36px",
+const StyledButton = styled(Button)({
+  width: "8.8125rem",
+  height: "2.25rem",
   background: "#E0E2E7",
   border: "none",
   color: "#4D4E51",
-  fontSize: "14px",
+  fontSize: "0.875rem",
   textTransform: "none",
-  borderRadius: "4px",
-}));
+  borderRadius: "0.25rem",
+});
 
-const StyledBtn = styled(Button)(() => ({
-  width: "200px",
-  height: "36px",
+const StyledBtn = styled(Button)({
+  width: "12.5rem",
+  height: "2.25rem",
   background: "#E0E2E7",
   border: "none",
   color: "#4D4E51",
-  fontSize: "14px",
+  fontSize: "0.875rem",
   textTransform: "none",
-  borderRadius: "4px",
-}));
+  borderRadius: "0.25rem",
+});
 
-const StyledTable = styled(Table)(() => ({
-  minWidth: "650px",
+const StyledTable = styled(Table)({
+  minWidth: "40.625rem",
   borderCollapse: "collapse",
-}));
+});
 
-const StyledHeaderCell = styled(TableCell)(() => ({
-  maxWidth: "106px",
-  height: "60px",
+const StyledHeaderCell = styled(TableCell)({
+  maxWidth: "6.625rem",
+  height: "3.75rem",
   color: "#4D4E51",
   fontWeight: "600",
   border: "1px solid #e0e0e0",
   textAlign: "start",
-  padding: "6px 12px",
+  padding: "0.375rem 0.75rem",
   fontFamily: "Manrope",
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
-}));
+});
 
-const StyledBoxTableCell = styled(TableCell)(() => ({
+const StyledBoxTableCell = styled(TableCell)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
   border: "1px solid #e0e0e0",
   fontFamily: "Manrope",
-  width: "180px",
-  height: "150px",
+  width: "11.25rem",
+  height: "9.375rem",
   "& a": {
-    fontSize: "14px",
+    fontSize: "0.875rem",
     fontWeight: "500",
     color: "#222222",
     whiteSpace: "nowrap",
     textAlign: "center",
   },
   "& p": {
-    fontSize: "12px",
+    fontSize: "0.75rem",
     color: "#959595",
   },
-}));
+});
 
-const StyledHeader = styled(TableCell)(() => ({
-  width: "80px",
-  fontSize: "12px",
+const StyledHeader = styled(TableCell)({
+  width: "5rem",
+  fontSize: "0.75rem",
   border: "1px solid #e0e0e0",
   textAlign: "center",
-  padding: "12px 14px",
+  padding: "0.75rem 0.875rem",
   fontWeight: "600",
   color: "#4D4E51",
   fontFamily: "Manrope",
-}));
+});
 
-const StyledCell = styled(({ ...rest }) => <TableCell {...rest} />)(() => ({
-  height: "44px",
+const StyledCell = styled(({ ...rest }) => <TableCell {...rest} />)({
+  height: "2.75rem",
   border: "1px solid #e0e0e0",
-  padding: "8px",
+  padding: "0.5rem",
   fontStyle: "italic",
   cursor: "pointer",
   "&:active": {
-    boxShadow: "0 0 5px rgb(0 0 0 /0.1)",
+    boxShadow: "0 0 5px rgb(0 0 0 / 0.1)",
   },
   "& div": {
-    width: "90px",
+    width: "5.625rem",
     height: "fit-content",
     backgroundColor: "#DBEBFF",
-    borderLeft: "4px solid #1F6ED4",
+    borderLeft: "0.25rem solid #1F6ED4",
   },
   "& p": {
-    lineHeight: "18px",
+    lineHeight: "1.125rem",
     color: "#1F6ED4",
     fontFamily: "Open Sans",
     fontWeight: 500,
-    fontSize: "12px",
+    fontSize: "0.75rem",
     margin: 0,
     textAlign: "center",
   },
-}));
+});

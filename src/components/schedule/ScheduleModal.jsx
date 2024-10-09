@@ -15,17 +15,19 @@ export const ScheduleModal = ({
   handleCloseModal,
   modalType,
 }) => {
-  const getDefaultInterval = () => ({
+  const defaultInterval = {
     start: { hour: 9, minute: 0 },
     end: { hour: 10, minute: 0 },
-  });
+  };
 
   const initializeIntervals = () => {
-    if (modalType !== "update") return [getDefaultInterval()];
+    if (modalType !== "update") return [defaultInterval];
+
     const doctor = stateDoctors.find((doc) => doc.id === selectedDoctorsId);
     const schedule = doctor?.schedule.find(
       (s) => s.day === selectedDate.date()
     );
+
     return schedule
       ? schedule.times.map((time) => {
           const [start, end] = time
@@ -36,18 +38,14 @@ export const ScheduleModal = ({
             end: { hour: end[0], minute: end[1] },
           };
         })
-      : [getDefaultInterval()];
+      : [defaultInterval];
   };
 
   const [intervals, setIntervals] = useState(initializeIntervals);
 
-  const handleAddInterval = () => {
-    setIntervals([...intervals, getDefaultInterval()]);
-  };
-
-  const handleRemoveInterval = (index) => {
+  const handleAddInterval = () => setIntervals([...intervals, defaultInterval]);
+  const handleRemoveInterval = (index) =>
     setIntervals(intervals.filter((_, i) => i !== index));
-  };
 
   const handleTimeChange = (index, type, hour, minute) => {
     setIntervals((prev) =>
@@ -75,6 +73,7 @@ export const ScheduleModal = ({
           }
         : doctor
     );
+
     setStateDoctors(updatedDoctors);
     handleCloseModal(false);
   };
@@ -95,22 +94,19 @@ export const ScheduleModal = ({
             />
           </>
         )}
-
         <WrapperList>
           <StyledText>График:</StyledText>
-          <ContentWrapper>
-            {intervals.map((interval, index) => (
-              <ScheduleRow key={index}>
-                <TimePickerBlock
-                  interval={interval}
-                  index={index}
-                  onTimeChange={handleTimeChange}
-                  onRemove={handleRemoveInterval}
-                  removable={index > 0}
-                />
-              </ScheduleRow>
-            ))}
-          </ContentWrapper>
+          {intervals.map((interval, index) => (
+            <ScheduleRow key={index}>
+              <TimePickerBlock
+                interval={interval}
+                index={index}
+                onTimeChange={handleTimeChange}
+                onRemove={handleRemoveInterval}
+                removable={index > 0}
+              />
+            </ScheduleRow>
+          ))}
         </WrapperList>
         <AddInterval onClick={handleAddInterval}>
           <Icons.Plus1 />
@@ -118,7 +114,7 @@ export const ScheduleModal = ({
         </AddInterval>
       </ContentWrapper>
       <ButtonContainer>
-        <StyledButton variant={"outlined"} onClick={handleCloseModal}>
+        <StyledButton variant="outlined" onClick={handleCloseModal}>
           Отменить
         </StyledButton>
         <ActionButton onClick={saveIntervals}>Сохранить</ActionButton>
@@ -176,86 +172,88 @@ const Detail = ({ label, value }) => (
 );
 
 const ModalContainer = styled("div")({
-  width: "585px",
-  padding: "20px",
+  width: "36.5625rem",
+  padding: "1.25rem",
   fontFamily: "Manrope",
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
-  gap: "32px",
+  gap: "2rem",
 });
 
 const Title = styled("h2")({
   fontWeight: 500,
-  fontSize: "24px",
+  fontSize: "1.5rem",
   margin: 0,
 });
 
 const ContentWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
-  gap: "18px",
+  gap: "1.125rem",
 });
 
 const ScheduleRow = styled("div")({
   display: "flex",
   alignItems: "center",
-  gap: "24px",
+  gap: "1.5rem",
 });
 
 const WrapperList = styled("div")({
   display: "flex",
-  gap: "24px",
+  gap: "1.5rem",
+  flexDirection: "column",
 });
 
 const TimePickerWrapper = styled("div")({
   display: "flex",
   alignItems: "center",
-  gap: "10px",
+  gap: "0.625rem",
 });
 
 const DetailRow = styled("div")({
   display: "flex",
-  gap: "25px",
+  gap: "1.5625rem",
   "& span": { color: "#4D4E51" },
 });
 
 const DetailLabel = styled("p")({
   fontWeight: 600,
-  fontSize: "14px",
+  fontSize: "0.875rem",
 });
 
 const AddInterval = styled("div")({
   display: "flex",
-  gap: "6px",
+  gap: "0.375rem",
   cursor: "pointer",
-  paddingLeft: "90px",
-  "& p": { color: "#048741", fontWeight: 500, fontSize: "14px" },
+  paddingLeft: "5.625rem",
+  "& p": { color: "#048741", fontWeight: 500, fontSize: "0.875rem" },
 });
 
 const ButtonContainer = styled("section")({
   display: "flex",
   justifyContent: "center",
-  gap: "18px",
+  gap: "1.125rem",
 });
-const StyledButton = styled(Button)(() => ({
-  width: "243px",
-  height: "39px",
+
+const StyledButton = styled(Button)({
+  width: "15.1875rem",
+  height: "2.4375rem",
   border: "1px solid #959595",
   color: "#959595",
-}));
+});
 
 const ActionButton = styled(Button)({
-  width: "244px",
-  height: "39px",
-  borderRadius: "10px",
+  width: "15.25rem",
+  height: "2.4375rem",
+  borderRadius: "0.625rem",
   backgroundColor: "#1F6ED4",
   color: "#fff",
   "&:hover": { backgroundColor: "#165ab1" },
 });
 
-const StyledText = styled("p")(() => ({
-  fontWeight: "600",
-  fontSize: "14px",
-  paddingTop: "7px",
-}));
+const StyledText = styled("p")({
+  fontWeight: 600,
+  fontSize: "0.875rem",
+  paddingTop: "0.4375rem",
+});
