@@ -4,11 +4,10 @@ import { Input } from "../UI/input/Input";
 import { Icons } from "../../assets/icons";
 import { Button } from "../UI/button/Button";
 import { useState } from "react";
-import { BorderBottom } from "@mui/icons-material";
 
 export const ChangeSpecialist = () => {
   const [selectedImage, setSelectedImage] = useState(Specialsit);
-  const [description, setDescription] = useState("");
+  const [descriptions, setDescription] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -38,8 +37,8 @@ export const ChangeSpecialist = () => {
             type="file"
             id="upload-photo"
             accept="image/*"
-            onChange={handleImageChange}
-            style={{ display: "none" }}
+            onChange={handleImageChange} // Trigger the image change handler
+            style={{ display: "none" }} // Hide the default file input
           />
         </StyledImage>
         <div>
@@ -70,9 +69,9 @@ export const ChangeSpecialist = () => {
                 </StyledContainerLabelInput>
               </StyledWrapper>
             </StyledForm>
+            <a>Описание</a>
           </StyledMain>
           <StyledTextareaText>
-            <a>Описание</a>
             <StyledContainerIcons>
               <StyledIcons>
                 <Icons.Bicons />
@@ -85,7 +84,11 @@ export const ChangeSpecialist = () => {
             </StyledContainerIcons>
           </StyledTextareaText>
           <StyledTextareaa>
-            <StyledTextarea placeholder="Введите описание специалиста" />
+            <StyledTextarea
+              placeholder="Введите описание специалиста"
+              value={descriptions}
+              onChange={handleDescriptionChange}
+            />
           </StyledTextareaa>
 
           <StyledContainerButton>
@@ -107,6 +110,7 @@ const StyledTextareaText = styled("div")(() => ({
     color: "#4D4E51",
   },
 }));
+
 const StyledContainer = styled("div")({
   width: "100%",
   display: "flex",
@@ -120,19 +124,15 @@ const StyledContainer = styled("div")({
   },
 });
 
-const StyledTextareaa = styled("textarea")({
+const StyledTextareaa = styled("div")({
   width: "100%",
-  height: "200px",
-  padding: "10px 20px",
-  fontSize: "14px",
-  border: "1px solid #D9D9D9",
-  outline: "none",
 });
 
 const StyledMain = styled("main")({
   display: "flex",
   flexDirection: "column",
   gap: "20px",
+
   "& p": {
     fontWeight: 600,
     fontSize: "18px",
@@ -141,6 +141,7 @@ const StyledMain = styled("main")({
   "& a": {
     fontSize: "14px",
     color: "#4D4E51",
+    paddingBottom: "4px",
   },
 });
 

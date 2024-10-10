@@ -3,6 +3,7 @@ import Specialsit from "../../assets/images/therapists.png";
 import { Input } from "../UI/input/Input";
 import { Button } from "../UI/button/Button";
 import { useState } from "react";
+import { ChangeSpecialist } from "./ChangeSpecialist";
 
 export const AddSpecialist = () => {
   const doctors = {
@@ -28,6 +29,7 @@ export const AddSpecialist = () => {
   });
 
   const [selectedImage, setSelectedImage] = useState(Specialsit);
+  const [showChangeSpecialist, setShowChangeSpecialist] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -35,6 +37,10 @@ export const AddSpecialist = () => {
       const imageURL = URL.createObjectURL(file);
       setSelectedImage(imageURL);
     }
+  };
+
+  const handleChangeSpecialist = () => {
+    setShowChangeSpecialist(true);
   };
 
   return (
@@ -109,10 +115,13 @@ export const AddSpecialist = () => {
 
           <StyledContainerButton>
             <StyledButton variant="outlined">назад</StyledButton>
-            <StyledBtn>Редактировать</StyledBtn>
+            <StyledBtn onClick={handleChangeSpecialist}>
+              Редактировать
+            </StyledBtn>
           </StyledContainerButton>
         </div>
       </StyledBoxContainer>
+      {showChangeSpecialist && <ChangeSpecialist />}
     </StyledContainer>
   );
 };
@@ -167,7 +176,7 @@ const StyledBoxContainer = styled("section")({
   padding: "40px",
 });
 
-const StyledInput = styled(Input)({
+const StyledInput = styled(Input)(() => ({
   width: "490px",
   height: "38px",
   padding: "6px",
@@ -176,7 +185,7 @@ const StyledInput = styled(Input)({
     color: "#959595",
     fontSize: "14px",
   },
-});
+}));
 
 const StyledImage = styled("div")({
   display: "flex",
@@ -237,14 +246,14 @@ const StyledContainerButton = styled("div")({
   padding: "68px 0px",
 });
 
-const StyledButton = styled(Button)({
+const StyledButton = styled(Button)(() => ({
   width: "243px",
   height: "39px",
   border: "1px solid #048741",
   color: "#048741",
-});
+}));
 
-const StyledBtn = styled(Button)({
+const StyledBtn = styled(Button)(() => ({
   width: "244px",
   height: "39px",
-});
+}));
