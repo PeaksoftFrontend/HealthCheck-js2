@@ -1,33 +1,14 @@
 import { styled } from "@mui/material";
 import Specialsit from "../../assets/images/therapists.png";
 import { Input } from "../UI/input/Input";
+import { Icons } from "../../assets/icons";
 import { Button } from "../UI/button/Button";
 import { useState } from "react";
+import { BorderBottom } from "@mui/icons-material";
 
-export const AddSpecialist = () => {
-  const doctors = {
-    id: "1",
-    name: "Манак Елена",
-    specialty: "Анестезиолог",
-    firstName: "Елена",
-    lastName: "Кущукина",
-    department: "Хирургия",
-    position: "Главный врач",
-    description:
-      "Преимущественно эстетическая хирургия лица: Специализация доктора: Сложное перелечивание корневых каналов зубов с применением операционного микроскопа. Художественная реставрация зубов с использованием самых современных пломбировочных материалов. Восстановление разрушенных зубов керамическими вкладками, коронками.",
-  };
-
-  const [selectedDoctor, setSelectedDoctor] = useState({
-    name: doctors.name,
-    specialty: doctors.specialty,
-    firstName: doctors.firstName,
-    lastName: doctors.lastName,
-    department: doctors.department,
-    position: doctors.position,
-    description: doctors.description,
-  });
-
+export const ChangeSpecialist = () => {
   const [selectedImage, setSelectedImage] = useState(Specialsit);
+  const [description, setDescription] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -37,9 +18,13 @@ export const AddSpecialist = () => {
     }
   };
 
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
+
   return (
     <StyledContainer>
-      <span>{selectedDoctor.name}</span>
+      <span>Добавление специалиста</span>
 
       <StyledBoxContainer>
         <StyledImage>
@@ -59,21 +44,16 @@ export const AddSpecialist = () => {
         </StyledImage>
         <div>
           <StyledMain>
-            <p>Личные данные</p>
+            <p>Добавление специалиста</p>
             <StyledForm>
               <StyledWrapper>
                 <StyledContainerLabelInput>
                   <label htmlFor="firstName">Имя</label>
-                  <StyledInput
-                    id="firstName"
-                    placeholder="Напишите имя"
-                    value={selectedDoctor.firstName}
-                  />
+                  <StyledInput id="firstName" placeholder="Напишите имя" />
                 </StyledContainerLabelInput>
                 <StyledContainerLabelInput>
                   <label htmlFor="department">Отделение</label>
                   <StyledInput
-                    value={selectedDoctor.department}
                     id="department"
                     placeholder="Напишите отделение"
                   />
@@ -82,34 +62,35 @@ export const AddSpecialist = () => {
               <StyledWrapper>
                 <StyledContainerLabelInput>
                   <label htmlFor="lastName">Фамилия</label>
-                  <StyledInput
-                    value={selectedDoctor.lastName}
-                    id="lastName"
-                    placeholder="Напишите фамилию"
-                  />
+                  <StyledInput id="lastName" placeholder="Напишите фамилию" />
                 </StyledContainerLabelInput>
                 <StyledContainerLabelInput>
                   <label htmlFor="position">Должность</label>
-                  <StyledInput
-                    value={selectedDoctor.position}
-                    id="position"
-                    placeholder="Напишите должность"
-                  />
+                  <StyledInput id="position" placeholder="Напишите должность" />
                 </StyledContainerLabelInput>
               </StyledWrapper>
             </StyledForm>
-            <StyledTextareaText>
-              <a>Описание</a>
-              <StyledTextarea
-                value={selectedDoctor.description}
-                placeholder="Введите описание специалиста"
-              />
-            </StyledTextareaText>
           </StyledMain>
+          <StyledTextareaText>
+            <a>Описание</a>
+            <StyledContainerIcons>
+              <StyledIcons>
+                <Icons.Bicons />
+                <Icons.Iicons />
+                <Icons.Frame />
+                <Icons.MenuLi />
+                <Icons.MenuOl />
+              </StyledIcons>
+              <hr />
+            </StyledContainerIcons>
+          </StyledTextareaText>
+          <StyledTextareaa>
+            <StyledTextarea placeholder="Введите описание специалиста" />
+          </StyledTextareaa>
 
           <StyledContainerButton>
-            <StyledButton variant="outlined">назад</StyledButton>
-            <StyledBtn>Редактировать</StyledBtn>
+            <StyledButton variant="outlined">отменить</StyledButton>
+            <StyledBtn>сохранить</StyledBtn>
           </StyledContainerButton>
         </div>
       </StyledBoxContainer>
@@ -126,7 +107,6 @@ const StyledTextareaText = styled("div")(() => ({
     color: "#4D4E51",
   },
 }));
-
 const StyledContainer = styled("div")({
   width: "100%",
   display: "flex",
@@ -140,6 +120,15 @@ const StyledContainer = styled("div")({
   },
 });
 
+const StyledTextareaa = styled("textarea")({
+  width: "100%",
+  height: "200px",
+  padding: "10px 20px",
+  fontSize: "14px",
+  border: "1px solid #D9D9D9",
+  outline: "none",
+});
+
 const StyledMain = styled("main")({
   display: "flex",
   flexDirection: "column",
@@ -149,15 +138,10 @@ const StyledMain = styled("main")({
     fontSize: "18px",
     color: "#222222",
   },
-});
-
-const StyledTextarea = styled("textarea")({
-  width: "100%",
-  height: "200px",
-  padding: "10px 20px",
-  fontSize: "14px",
-  border: "1px solid #D9D9D9",
-  outline: "none",
+  "& a": {
+    fontSize: "14px",
+    color: "#4D4E51",
+  },
 });
 
 const StyledBoxContainer = styled("section")({
@@ -167,7 +151,7 @@ const StyledBoxContainer = styled("section")({
   padding: "40px",
 });
 
-const StyledInput = styled(Input)({
+const StyledInput = styled(Input)(() => ({
   width: "490px",
   height: "38px",
   padding: "6px",
@@ -176,7 +160,7 @@ const StyledInput = styled(Input)({
     color: "#959595",
     fontSize: "14px",
   },
-});
+}));
 
 const StyledImage = styled("div")({
   display: "flex",
@@ -230,6 +214,31 @@ const StyledWrapper = styled("section")({
   gap: "20px",
 });
 
+const StyledTextarea = styled("textarea")({
+  width: "100%",
+  height: "200px",
+  padding: "10px 20px",
+  fontSize: "14px",
+  border: "1px solid #D9D9D9",
+  outline: "none",
+});
+
+const StyledIcons = styled("section")({
+  display: "flex",
+  gap: "80px",
+  padding: "20px 50px",
+});
+
+const StyledContainerIcons = styled("div")({
+  maxWidth: "1000px",
+  border: "1px solid #D9D9D9",
+  borderBottom: "none",
+
+  "& hr": {
+    borderBottom: "none",
+  },
+});
+
 const StyledContainerButton = styled("div")({
   display: "flex",
   justifyContent: "end",
@@ -237,14 +246,14 @@ const StyledContainerButton = styled("div")({
   padding: "68px 0px",
 });
 
-const StyledButton = styled(Button)({
+const StyledButton = styled(Button)(() => ({
   width: "243px",
   height: "39px",
-  border: "1px solid #048741",
-  color: "#048741",
-});
+  border: "1px solid #959595",
+  color: "#959595",
+}));
 
-const StyledBtn = styled(Button)({
+const StyledBtn = styled(Button)(() => ({
   width: "244px",
   height: "39px",
-});
+}));
