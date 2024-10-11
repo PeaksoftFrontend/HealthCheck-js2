@@ -102,15 +102,13 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
       WebkitTransitionDelay: "9999s",
     },
   "& fieldset": { border: "none" },
-  "& ::-webkit-input-placeholder": {
-    color: "#FFFF",
-  },
+
   "input[type='search']::-webkit-search-cancel-button": {
     display: "none",
   },
 
   "& .MuiInputBase-input": {
     border: "none",
-    padding: "0px",
+    padding: "0",
   },
 }));
