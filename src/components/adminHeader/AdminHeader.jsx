@@ -50,29 +50,29 @@ export const AdminHeader = () => {
 };
 const StyledHeader = styled("header")(() => ({
   width: "100%",
+  height: "80px",
   display: "flex",
-  justifyContent: "center",
+  justifyContent: "space-between",
   alignItems: "center",
-  boxShadow: "0 0 5px rgb(0 0 0 / 0.1)",
-  paddingBottom: "8px",
+  padding: "0 50px",
 }));
 
-const StyledNavContainer = styled("nav")(() => ({
-  maxWidth: "1450px",
+const StyledNavContainer = styled("div")(() => ({
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  padding: "0 1.5rem",
 }));
 
-const StyledNavLinks = styled("div")(() => ({
+const StyledNavLinks = styled("nav")(() => ({
   display: "flex",
-  gap: "30px",
-  fontWeight: "500",
-  color: "#333",
-  justifyContent: "center",
+  gap: "20px",
   alignItems: "center",
+  justifyContent: "center",
+  position: "absolute",
+  left: "50%",
+  transform: "translateX(-50%)",
+  top: "30px",
 
   "& a": {
     textDecoration: "none",
@@ -81,17 +81,23 @@ const StyledNavLinks = styled("div")(() => ({
 }));
 
 const FormControlStyled = styled(FormControl)(() => ({
-  minWidth: "160px",
   display: "flex",
   alignItems: "center",
-  padding: "1rem",
+  gap: "8px",
 }));
 
 const StyledContainerNav = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
-  gap: "160px",
-  paddingTop: "16px",
+  gap: "20px",
+}));
+
+const StyledText = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  cursor: "pointer",
+  gap: "8px",
+  paddingTop: "0",
 }));
 
 const StyledMenuItem = styled(MenuItem)({
@@ -100,11 +106,3 @@ const StyledMenuItem = styled(MenuItem)({
     color: "#048741",
   },
 });
-const StyledText = styled("div")(() => ({
-  display: "flex",
-  alignItems: "center",
-  cursor: "pointer",
-  gap: "8px",
-  border: "none",
-  paddingTop: "15px",
-}));
