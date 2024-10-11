@@ -1,10 +1,10 @@
-import { MainLanding } from "./page/landing/MainLanding";
+import { AddingDoctors } from "./components/addingDoctors/AddingDoctors";
 
 export const App = () => {
   return (
     <div>
       {/* <h1> Healthcheck</h1> */}
-      <MainLanding />
+      <AddingDoctors />
     </div>
   );
 };
