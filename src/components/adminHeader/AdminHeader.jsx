@@ -16,35 +16,33 @@ export const AdminHeader = () => {
 
   return (
     <StyledHeader>
-      <StyledNavContainer>
-        <StyledContainerNav>
-          <Icons.LogohealthCheck />
-          <StyledNavLinks>
-            <a href="#" className="active">
-              Онлайн-запись
-            </a>
-            <a href="#">Заявки</a>
-            <a href="#">Специалисты</a>
-            <a href="#">Пациенты</a>
-          </StyledNavLinks>
-        </StyledContainerNav>
-        <FormControlStyled>
-          <StyledText onClick={handleClick}>
-            <span>Администратор</span>
-            <KeyboardArrowDownIcon />
-          </StyledText>
-          <Menu
-            anchorEl={anchorEl}
-            id="fade-menu"
-            open={open}
-            onClose={handleClose}
-            TransitionComponent={Fade}
-          >
-            <StyledMenuItem onClick={handleClose}>Профиль</StyledMenuItem>
-            <StyledMenuItem onClick={handleClose}>Выйти</StyledMenuItem>
-          </Menu>
-        </FormControlStyled>
-      </StyledNavContainer>
+      <StyledContainerNav>
+        <Icons.LogohealthCheck />
+        <StyledNavLinks>
+          <a href="#" className="active">
+            Онлайн-запись
+          </a>
+          <a href="#">Заявки</a>
+          <a href="#">Специалисты</a>
+          <a href="#">Пациенты</a>
+        </StyledNavLinks>
+      </StyledContainerNav>
+      <FormControlStyled>
+        <StyledText onClick={handleClick}>
+          <span>Администратор</span>
+          <KeyboardArrowDownIcon />
+        </StyledText>
+        <Menu
+          anchorEl={anchorEl}
+          id="fade-menu"
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Fade}
+        >
+          <StyledMenuItem onClick={handleClose}>Профиль</StyledMenuItem>
+          <StyledMenuItem onClick={handleClose}>Выйти</StyledMenuItem>
+        </Menu>
+      </FormControlStyled>
     </StyledHeader>
   );
 };
@@ -55,13 +53,6 @@ const StyledHeader = styled("header")(() => ({
   justifyContent: "space-between",
   alignItems: "center",
   padding: "0 50px",
-}));
-
-const StyledNavContainer = styled("div")(() => ({
-  width: "100%",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
 }));
 
 const StyledNavLinks = styled("nav")(() => ({
