@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import Specialsit from "../../assets/images/therapists.png";
 import { Input } from "../UI/input/Input";
 import { Button } from "../UI/button/Button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ChangeSpecialist } from "./ChangeSpecialist";
 
 export const AddSpecialist = () => {
@@ -18,7 +18,7 @@ export const AddSpecialist = () => {
       "Преимущественно эстетическая хирургия лица: Специализация доктора: Сложное перелечивание корневых каналов зубов с применением операционного микроскопа. Художественная реставрация зубов с использованием самых современных пломбировочных материалов. Восстановление разрушенных зубов керамическими вкладками, коронками.",
   };
 
-  const [selectedDoctor, setSelectedDoctor] = useState({
+  const selectedDoctorRef = useRef({
     name: doctors.name,
     specialty: doctors.specialty,
     firstName: doctors.firstName,
@@ -45,7 +45,7 @@ export const AddSpecialist = () => {
 
   return (
     <StyledContainer>
-      <span>{selectedDoctor.name}</span>
+      <span>{selectedDoctorRef.current.name}</span>
 
       <StyledBoxContainer>
         <StyledImage>
@@ -73,15 +73,21 @@ export const AddSpecialist = () => {
                   <StyledInput
                     id="firstName"
                     placeholder="Напишите имя"
-                    value={selectedDoctor.firstName}
+                    value={selectedDoctorRef.current.firstName}
+                    onChange={(e) =>
+                      (selectedDoctorRef.current.firstName = e.target.value)
+                    }
                   />
                 </StyledContainerLabelInput>
                 <StyledContainerLabelInput>
                   <label htmlFor="department">Отделение</label>
                   <StyledInput
-                    value={selectedDoctor.department}
+                    value={selectedDoctorRef.current.department}
                     id="department"
                     placeholder="Напишите отделение"
+                    onChange={(e) =>
+                      (selectedDoctorRef.current.department = e.target.value)
+                    }
                   />
                 </StyledContainerLabelInput>
               </StyledWrapper>
@@ -89,17 +95,23 @@ export const AddSpecialist = () => {
                 <StyledContainerLabelInput>
                   <label htmlFor="lastName">Фамилия</label>
                   <StyledInput
-                    value={selectedDoctor.lastName}
+                    value={selectedDoctorRef.current.lastName}
                     id="lastName"
                     placeholder="Напишите фамилию"
+                    onChange={(e) =>
+                      (selectedDoctorRef.current.lastName = e.target.value)
+                    }
                   />
                 </StyledContainerLabelInput>
                 <StyledContainerLabelInput>
                   <label htmlFor="position">Должность</label>
                   <StyledInput
-                    value={selectedDoctor.position}
+                    value={selectedDoctorRef.current.position}
                     id="position"
                     placeholder="Напишите должность"
+                    onChange={(e) =>
+                      (selectedDoctorRef.current.position = e.target.value)
+                    }
                   />
                 </StyledContainerLabelInput>
               </StyledWrapper>
@@ -107,8 +119,11 @@ export const AddSpecialist = () => {
             <StyledTextareaText>
               <a>Описание</a>
               <StyledTextarea
-                value={selectedDoctor.description}
+                value={selectedDoctorRef.current.description}
                 placeholder="Введите описание специалиста"
+                onChange={(e) =>
+                  (selectedDoctorRef.current.description = e.target.value)
+                }
               />
             </StyledTextareaText>
           </StyledMain>

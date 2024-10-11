@@ -8,6 +8,9 @@ export const forConfig = (onSubmit) => ({
     email: "",
     password: "",
     confirmPassword: "",
+    department: "",
+    position: "",
+    description: "",
   },
   validationSchema: Yup.object({
     firstName: Yup.string()
@@ -31,6 +34,15 @@ export const forConfig = (onSubmit) => ({
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Пароли должны совпадать")
       .required("Подтверждение пароля обязательно"),
+    department: Yup.string()
+      .required("Отделение обязательно")
+      .min(3, "Отделение должно содержать минимум 3 символа"),
+    position: Yup.string()
+      .required("Должность обязательна")
+      .min(2, "Должность должна содержать минимум 2 символа"),
+    description: Yup.string()
+      .required("Описание обязательно")
+      .min(10, "Описание должно содержать минимум 10 символов"),
   }),
   onSubmit,
 });

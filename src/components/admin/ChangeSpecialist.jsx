@@ -4,10 +4,11 @@ import { Input } from "../UI/input/Input";
 import { Icons } from "../../assets/icons";
 import { Button } from "../UI/button/Button";
 import { useState } from "react";
+import { useFormik } from "formik";
+import { forConfig } from "../../utils/constants/formikConfig";
 
 export const ChangeSpecialist = () => {
   const [selectedImage, setSelectedImage] = useState(Specialsit);
-  const [descriptions, setDescription] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -17,8 +18,15 @@ export const ChangeSpecialist = () => {
     }
   };
 
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
+  const formik = useFormik(
+    forConfig((values) => {
+      console.log(values);
+    })
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    formik.handleSubmit();
   };
 
   return (
@@ -37,36 +45,97 @@ export const ChangeSpecialist = () => {
             type="file"
             id="upload-photo"
             accept="image/*"
-            onChange={handleImageChange} // Trigger the image change handler
-            style={{ display: "none" }} // Hide the default file input
+            onChange={handleImageChange}
+            style={{ display: "none" }}
           />
         </StyledImage>
         <div>
           <StyledMain>
             <p>Добавление специалиста</p>
-            <StyledForm>
+            <StyledForm onSubmit={handleSubmit}>
               <StyledWrapper>
-                <StyledContainerLabelInput>
-                  <label htmlFor="firstName">Имя</label>
-                  <StyledInput id="firstName" placeholder="Напишите имя" />
-                </StyledContainerLabelInput>
-                <StyledContainerLabelInput>
-                  <label htmlFor="department">Отделение</label>
-                  <StyledInput
-                    id="department"
-                    placeholder="Напишите отделение"
-                  />
-                </StyledContainerLabelInput>
+                <div>
+                  <StyleLabel htmlFor="firstName">Имя</StyleLabel>
+                  <StyledContainerLabelInput>
+                    <StyledInput
+                      id="firstName"
+                      name="firstName"
+                      placeholder="Напишите имя"
+                      value={formik.values.firstName}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      isError={
+                        formik.touched.firstName &&
+                        Boolean(formik.errors.firstName)
+                      }
+                    />
+                    {formik.touched.firstName && formik.errors.firstName ? (
+                      <ErrorText>{formik.errors.firstName}</ErrorText>
+                    ) : null}
+                  </StyledContainerLabelInput>
+                </div>
+                <div>
+                  <StyleLabel htmlFor="department">Отделение</StyleLabel>
+                  <StyledContainerLabelInput>
+                    <StyledInput
+                      id="department"
+                      name="department"
+                      placeholder="Напишите отделение"
+                      value={formik.values.department}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      isError={
+                        formik.touched.department &&
+                        Boolean(formik.errors.department)
+                      }
+                    />
+                    {formik.touched.department && formik.errors.department ? (
+                      <ErrorText>{formik.errors.department}</ErrorText>
+                    ) : null}
+                  </StyledContainerLabelInput>
+                </div>
               </StyledWrapper>
               <StyledWrapper>
-                <StyledContainerLabelInput>
-                  <label htmlFor="lastName">Фамилия</label>
-                  <StyledInput id="lastName" placeholder="Напишите фамилию" />
-                </StyledContainerLabelInput>
-                <StyledContainerLabelInput>
-                  <label htmlFor="position">Должность</label>
-                  <StyledInput id="position" placeholder="Напишите должность" />
-                </StyledContainerLabelInput>
+                <div>
+                  <StyleLabel htmlFor="lastName">Фамилия</StyleLabel>
+                  <StyledContainerLabelInput>
+                    <StyledInput
+                      id="lastName"
+                      placeholder="Напишите фамилию"
+                      value={formik.values.lastName}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      name="lastName"
+                      isError={
+                        formik.touched.lastName &&
+                        Boolean(formik.errors.lastName)
+                      }
+                    />
+                    {formik.touched.lastName && formik.errors.lastName ? (
+                      <ErrorText>{formik.errors.lastName}</ErrorText>
+                    ) : null}
+                  </StyledContainerLabelInput>
+                </div>
+                <div>
+                  <StyleLabel htmlFor="position">Должность</StyleLabel>
+                  <StyledContainerLabelInput>
+                    <StyledInput
+                      id="position"
+                      placeholder="Напишите должность"
+                      name="position"
+                      value={formik.values.position}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      isError={
+                        formik.touched.position &&
+                        Boolean(formik.errors.position)
+                      }
+                    />
+                    {formik.touched.position && formik.errors.position ? (
+                      <ErrorText>{formik.errors.position}</ErrorText>
+                    ) : null}
+                  </StyledContainerLabelInput>
+                </div>
               </StyledWrapper>
             </StyledForm>
             <a>Описание</a>
@@ -86,20 +155,37 @@ export const ChangeSpecialist = () => {
           <StyledTextareaa>
             <StyledTextarea
               placeholder="Введите описание специалиста"
-              value={descriptions}
-              onChange={handleDescriptionChange}
+              onChange={formik.handleChange}
+              name="description"
+              value={formik.values.description}
+              onBlur={formik.handleBlur}
+              isError={
+                formik.touched.description && Boolean(formik.errors.description)
+              }
             />
+            {formik.touched.description && formik.errors.description ? (
+              <ErrorText>{formik.errors.description}</ErrorText>
+            ) : null}
           </StyledTextareaa>
 
           <StyledContainerButton>
-            <StyledButton variant="outlined">отменить</StyledButton>
-            <StyledBtn>сохранить</StyledBtn>
+            <StyledButton variant="outlined" onClick={formik.handleReset}>
+              отменить
+            </StyledButton>
+            <StyledBtn type="submit" onClick={handleSubmit}>
+              сохранить
+            </StyledBtn>
           </StyledContainerButton>
         </div>
       </StyledBoxContainer>
     </StyledContainer>
   );
 };
+
+const ErrorText = styled("div")({
+  color: "red",
+  fontSize: "12px",
+});
 
 const StyledTextareaText = styled("div")(() => ({
   display: "flex",
@@ -131,7 +217,6 @@ const StyledTextareaa = styled("div")({
 const StyledMain = styled("main")({
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
 
   "& p": {
     fontWeight: 600,
@@ -152,11 +237,12 @@ const StyledBoxContainer = styled("section")({
   padding: "40px",
 });
 
-const StyledInput = styled(Input)(() => ({
+const StyledInput = styled(Input)(({ isError }) => ({
   width: "490px",
   height: "38px",
   padding: "6px",
   color: "#222222",
+  border: isError ? "1px solid red" : "1px solid #D9D9D9",
   "& ::placeholder": {
     color: "#959595",
     fontSize: "14px",
@@ -203,26 +289,25 @@ const StyledContainerLabelInput = styled("div")({
   flexDirection: "column",
   gap: "4px",
   height: "61px",
-  "& label": {
-    color: "#464444",
-    fontSize: "14px",
-  },
 });
+const StyleLabel = styled("label")(() => ({
+  color: "#464444",
+  fontSize: "14px",
+}));
 
 const StyledWrapper = styled("section")({
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
 });
 
-const StyledTextarea = styled("textarea")({
+const StyledTextarea = styled("textarea")(({ isError }) => ({
   width: "100%",
   height: "200px",
   padding: "10px 20px",
   fontSize: "14px",
-  border: "1px solid #D9D9D9",
+  border: isError ? "1px solid red" : "1px solid #D9D9D9",
   outline: "none",
-});
+}));
 
 const StyledIcons = styled("section")({
   display: "flex",
