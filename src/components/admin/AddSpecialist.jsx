@@ -77,7 +77,11 @@ export const AddSpecialist = () => {
             type="file"
             id="upload-photo"
             accept="image/*"
-            onChange={handleImageChange}
+            onChange={(e) => {
+              handleImageChange(e);
+              formik.handleChange(e);
+              updateSpecialistData(e.target.value);
+            }}
             style={{ display: "none" }}
           />
         </StyledImage>
