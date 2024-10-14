@@ -144,6 +144,8 @@ const Error = styled("div")(() => ({
 
 const StyleInput = styled(Input)(({ error }) => ({
   border: `1px solid ${error ? "red" : "#ccc"}`,
+  display: "flex",
+  justifyContent: "center",
   borderRadius: "4px",
   "&:focus": {
     borderColor: error ? "red" : "#000",

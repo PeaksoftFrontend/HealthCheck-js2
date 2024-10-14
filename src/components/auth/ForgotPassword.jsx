@@ -78,6 +78,8 @@ const StyledInput = styled(Input)(({ error }) => ({
   width: "100%",
   border: `1px solid ${error ? "red" : "#ccc"}`,
   borderRadius: "4px",
+  display: "flex",
+  justifyContent: "center",
   "&:focus": {
     borderColor: error ? "red" : "#000",
   },

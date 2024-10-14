@@ -86,8 +86,7 @@ const StyledInput = styled(Input)(({ error }) => ({
   width: "100%",
   border: `1px solid ${error ? "red" : "#ccc"}`,
   display: "flex",
-  justifyContent: " center",
-  alignItems: "center",
+  justifyContent: "center",
   borderRadius: "4px",
   "&::placeholder": {
     color: error ? "red" : "#ccc",
@@ -107,7 +106,7 @@ const StyledButton = styled(Button)(({ disabled }) => ({
   },
 }));
 
-const Error = styled("div")(() => ({
+export const Error = styled("div")(() => ({
   color: "red",
   fontSize: "12px",
 }));
