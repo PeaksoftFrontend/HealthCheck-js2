@@ -82,7 +82,7 @@ export const SignUp = () => {
           </StyledDivContainer>
 
           <StyledDivContainer>
-            <StyledInput
+            <StyledInputPassword
               type="password"
               placeholder="Введите пароль"
               value={formik.values.password}
@@ -99,7 +99,7 @@ export const SignUp = () => {
           </StyledDivContainer>
 
           <StyledDivContainer>
-            <StyledInput
+            <StyledInputPassword
               type="password"
               placeholder="Повторите пароль"
               value={formik.values.confirmPassword}
@@ -213,6 +213,14 @@ const StyledDivContainer = styled("div")(() => ({
 }));
 
 const StyledInput = styled(Input)(({ isError }) => ({
+  width: "100%",
+  borderRadius: "8px",
+  border: `1px solid ${isError ? "red" : "#ccc"}`,
+  outline: "none",
+  fontSize: "16px",
+  padding: "10px",
+}));
+const StyledInputPassword = styled(Input)(({ isError }) => ({
   width: "100%",
   borderRadius: "8px",
   border: `1px solid ${isError ? "red" : "#ccc"}`,

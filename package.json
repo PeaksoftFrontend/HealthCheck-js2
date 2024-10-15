@@ -15,7 +15,6 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.1",
     "@mui/material": "^6.1.0",
-
     "@mui/x-date-pickers": "^7.19.0",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
@@ -27,10 +26,7 @@
     "react-toastify": "^10.0.5",
     "run": "^1.5.0",
     "slick-carousel": "^1.8.1",
-<<<<<<< HEAD
-=======
     "swiper": "^11.1.14",
->>>>>>> 03627c91b2e63bf43b690d6f95c871fb86ba1cca
     "vite-plugin-svgr": "^4.2.0",
     "yup": "^1.4.0"
   },

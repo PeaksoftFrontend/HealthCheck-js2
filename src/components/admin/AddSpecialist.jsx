@@ -421,8 +421,8 @@ const StyledContainerButton = styled("div")({
 const StyledInput = styled(Input)(({ isError }) => ({
   width: "490px",
   height: "38px",
-  padding: "6px",
   color: "#222222",
+  padding: "8px",
   border: isError ? "1px solid red" : "1px solid #D9D9D9",
   "& ::placeholder": {
     color: "#959595",
