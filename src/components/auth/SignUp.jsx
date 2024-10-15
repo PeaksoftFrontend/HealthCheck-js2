@@ -54,7 +54,7 @@ export const SignUp = () => {
           <StyledDivContainer>
             <StyledInput
               type="text"
-              placeholder="+7 (___) ___--"
+              placeholder="+7 (___) ___-__-__"
               value={formik.values.number}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -139,7 +139,7 @@ const StyledContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "20px",
+  gap: "24px",
   maxWidth: "414px",
   "& h3": {
     width: "127px",
@@ -159,7 +159,7 @@ const StyledDivider = styled("div")(() => ({
   "&::before, &::after": {
     content: '""',
     flexGrow: 1,
-    borderBottom: "1px solid #ccc",
+    borderBottom: `1px solid #ccc`,
     margin: "0 16px",
   },
 }));
@@ -168,7 +168,7 @@ const StyledForm = styled("form")(() => ({
   width: "414px",
   display: "flex",
   flexDirection: "column",
-  gap: "8px",
+  gap: "20px",
 }));
 
 const StyledButton = styled(Button)(() => ({
@@ -208,13 +208,12 @@ const Container = styled("div")(() => ({
 const StyledDivContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  height: "60px",
+  height: "46px",
+  gap: "9px",
 }));
 
 const StyledInput = styled(Input)(({ isError }) => ({
   width: "100%",
-  display: "flex",
-  justifyContent: "center",
   borderRadius: "8px",
   border: `1px solid ${isError ? "red" : "#ccc"}`,
   outline: "none",
@@ -224,4 +223,6 @@ const StyledInput = styled(Input)(({ isError }) => ({
 const Error = styled("div")(() => ({
   color: "red",
   fontSize: "12px",
+  marginTop: "-10px",
+  marginBottom: "10px",
 }));

@@ -106,7 +106,7 @@ const StyledButton = styled(Button)(({ disabled }) => ({
   },
 }));
 
-const Error = styled("div")(() => ({
+export const Error = styled("div")(() => ({
   color: "red",
   fontSize: "12px",
 }));

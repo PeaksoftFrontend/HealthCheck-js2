@@ -80,3 +80,17 @@ export const formikConfigChangePassword = (onSubmit) => ({
   }),
   onSubmit,
 });
+
+export const formikConfigSelect = (onSubmit) => ({
+  initialValues: {
+    select: "",
+    date: null,
+    file: null,
+  },
+  validationSchema: Yup.object({
+    select: Yup.string().min(3, "lkafhdskhf").required("Выберите услугу"),
+    date: Yup.date().nullable().required("Выберите дату"),
+    file: Yup.mixed().required("Загрузите файл").nullable(),
+  }),
+  onSubmit,
+});
