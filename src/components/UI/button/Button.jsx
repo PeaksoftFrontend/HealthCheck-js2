@@ -63,6 +63,7 @@ const StyledButton = styled(MuiButton)(({ variant = "contained" }) => ({
     "&:disabled": {
       width: "6.938rem",
       height: "2.625rem",
+      cursor: "not-allowed",
     },
   }),
   "&:active": {
