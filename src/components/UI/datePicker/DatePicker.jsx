@@ -10,7 +10,7 @@ import { useState } from "react";
 
 dayjs.locale("ru");
 
-export const Datepicker = ({ selectedDate, onDateChange }) => {
+export const Datepicker = ({ selectedDate, onDateChange, error }) => {
   const [currentDate, setCurrentDate] = useState(selectedDate || dayjs());
   const [currentMonth, setCurrentMonth] = useState(
     dayjs(currentDate).startOf("month")
@@ -57,6 +57,7 @@ export const Datepicker = ({ selectedDate, onDateChange }) => {
         onChange={handleDateChange}
         shouldDisableDate={shouldDisableDate}
         inputFormat="DD.MM.YY"
+        error={error}
         slots={{
           calendarHeader: (props) => (
             <CustomCalendarHeader {...props} currentMonth={currentMonth} />
@@ -101,7 +102,7 @@ const StyledCalendar = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  padding: "12px 16px",
+  padding: "15px 16px",
 }));
 const StyledMonthText = styled("div")(() => ({
   textAlign: "center",

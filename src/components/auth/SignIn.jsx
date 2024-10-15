@@ -87,7 +87,7 @@ const StyledDivider = styled("div")(() => ({
   "&::before, &::after": {
     content: '""',
     flexGrow: 1,
-    borderBottom: "1px solid #ccc",
+    borderBottom: `1px solid #ccc`,
     margin: "0 16px",
   },
 }));
@@ -156,5 +156,5 @@ const ContainerDiv = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-  height: "70px",
+  height: "60px",
 }));
