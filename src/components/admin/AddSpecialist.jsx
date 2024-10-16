@@ -72,7 +72,6 @@ export const AddSpecialist = () => {
 
   const formik = useFormik(
     config((values) => {
-      console.log(values);
       setSpecialistData(values);
       setIsEditing(false);
     })
@@ -82,8 +81,6 @@ export const AddSpecialist = () => {
     e.preventDefault();
     if (formik.isValid) {
       formik.handleSubmit();
-    } else {
-      console.log("Form has errors: ", formik.errors);
     }
   };
 
