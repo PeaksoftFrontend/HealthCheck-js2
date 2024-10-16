@@ -31,7 +31,7 @@ export const SignIn = () => {
           ) : null}
         </ContainerDiv>
         <ContainerDiv>
-          <StyleInput
+          <StyleInputPassowrd
             type="password"
             name="password"
             placeholder="Пароль"
@@ -87,7 +87,7 @@ const StyledDivider = styled("div")(() => ({
   "&::before, &::after": {
     content: '""',
     flexGrow: 1,
-    borderBottom: "1px solid #ccc",
+    borderBottom: `1px solid #ccc`,
     margin: "0 16px",
   },
 }));
@@ -147,6 +147,16 @@ const StyleInput = styled(Input)(({ error }) => ({
   display: "flex",
   justifyContent: "center",
   borderRadius: "4px",
+  padding: "10px",
+  "&:focus": {
+    borderColor: error ? "red" : "#000",
+  },
+}));
+const StyleInputPassowrd = styled(Input)(({ error }) => ({
+  border: `1px solid ${error ? "red" : "#ccc"}`,
+  display: "flex",
+  justifyContent: "center",
+  borderRadius: "4px",
   "&:focus": {
     borderColor: error ? "red" : "#000",
   },
@@ -156,5 +166,5 @@ const ContainerDiv = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-  height: "70px",
+  height: "60px",
 }));
