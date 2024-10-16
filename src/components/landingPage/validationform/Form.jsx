@@ -111,7 +111,6 @@ export const Form = () => {
                     }}
                     error={inputError.phone}
                   />
-
                   {inputError.phone && (
                     <ErrorMessage>
                       {formik.values.phone === ""
@@ -218,17 +217,9 @@ const ErrorMessage = styled("div")(() => ({
 }));
 
 const StyledButton = styled(Button)(() => ({
-  width: "12.5rem",
-  height: "3.125rem",
-  padding: "0.75rem",
-  borderRadius: "1.5rem",
-  backgroundColor: "#28A745",
-  color: "#fff",
-  fontWeight: "bold",
-  cursor: "pointer",
-  "&:hover": {
-    backgroundColor: "#218838",
-  },
+  width: "217px",
+  height: "51px",
+  borderRadius: "24px",
 }));
 const StyledContainerInputMassage = styled("section")(() => ({
   height: "60px",

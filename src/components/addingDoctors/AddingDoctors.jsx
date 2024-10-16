@@ -1,277 +1,415 @@
 import { useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Typography,
-  TextareaAutosize,
-} from "@mui/material";
+import { styled } from "@mui/material";
 import Img from "../../assets/icons/others/img.svg";
+import BIcons from "../../assets/icons/others/B.svg";
+import IIcons from "../../assets/icons/others/I.svg";
+import UIcons from "../../assets/icons/others/Frame.svg";
+import MenuLi from "../../assets/icons/others/menu-li.svg";
+import MenuOl from "../../assets/icons/others/menu-ol.svg";
+import { Select } from "../UI/inputSelect/Select";
 
 export const AddingDoctors = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    department: "",
-    position: "",
-    description: "",
-    photo: null,
-  });
-  const [message, setMessage] = useState("");
+  const department = [
+    {
+      value: "Анестезиология",
+      label: "Анестезиология",
+    },
+    {
+      value: "Вакцинация",
+      label: "Вакцинация",
+    },
+    {
+      value: "Гинекология",
+      label: "Гинекология",
+    },
+    {
+      value: "Дерматалогия",
+      label: "Дерматалогия",
+    },
+    {
+      value: "Кардиология",
+      label: "Кардиология",
+    },
+    {
+      value: "Неврология",
+      label: "Неврология",
+    },
+    {
+      value: "Нейрохирургия",
+      label: "Нейрохирургия",
+    },
+  ];
+  const [selectedDepartment, setSelectedDepartment] = useState("");
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [description, setDescription] = useState("");
+  const [isBold, setIsBold] = useState(false);
+  const [isItalic, setIsItalic] = useState(false);
+  const [isUnderline, setIsUnderline] = useState(false);
+  const [isList, setIsList] = useState(false);
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      photo: e.target.files[0],
-    });
+  const toggleBold = () => {
+    setIsBold((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("firstName", formData.firstName);
-    data.append("lastName", formData.lastName);
-    data.append("department", formData.department);
-    data.append("position", formData.position);
-    data.append("description", formData.description);
-    data.append("photo", formData.photo);
+  const toggleItalic = () => {
+    setIsItalic((prev) => !prev);
+  };
 
-    fetch("/add-specialist", {
-      method: "POST",
-      body: data,
-    })
-      .then((response) => {
-        if (response.ok) {
-          setMessage("Специалист успешно добавлен.");
-        } else {
-          setMessage("Ошибка при добавлении специалиста.");
-        }
-      })
-      .catch(() => {
-        setMessage("Ошибка при соединении с сервером.");
-      });
+  const toggleUnderline = () => {
+    setIsUnderline((prev) => !prev);
+  };
+
+  const toggleList = () => {
+    const lines = description.split("\n").filter((line) => line.trim() !== "");
+    if (isList) {
+      setDescription(
+        lines.map((line) => line.replace(/^[•]\s*/, "")).join("\n")
+      );
+    } else {
+      setDescription(lines.map((line) => `• ${line}`).join("\n"));
+    }
+    setIsList((prev) => !prev);
+  };
+
+  const toggleOrderedList = () => {
+    const lines = description.split("\n").filter((line) => line.trim() !== "");
+    const newDescription = lines
+      .map((line, index) => `${index + 1}. ${line}`)
+      .join("\n");
+    setDescription(newDescription);
+    setIsList(false);
   };
 
   return (
-    <SryledDiv>
-      <FormContainer>
-        <Typography variant="h5" gutterBottom>
-          Добавление специалиста
-        </Typography>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <InputRow>
-            <StyledFormControl>
-              <StyledInputLabel shrink htmlFor="firstName">
-                Имя
-              </StyledInputLabel>
-              <StyledTextField
-                id="firstName"
-                name="firstName"
-                placeholder="Напишите имя"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                required
-              />
-            </StyledFormControl>
-
-            <StyledFormControl>
-              <StyledInputLabel shrink htmlFor="lastName">
-                Фамилия
-              </StyledInputLabel>
-              <StyledTextField
-                id="lastName"
-                name="lastName"
-                placeholder="Напишите фамилию"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                required
-              />
-            </StyledFormControl>
-          </InputRow>
-
-          <InputRow>
-            <StyledFormControl>
-              <StyledInputLabel shrink htmlFor="department">
-                Отделение
-              </StyledInputLabel>
-              <Select
-                labelId="department"
-                id="department"
-                name="department"
-                value={formData.department}
-                onChange={handleInputChange}
-                required
-              >
-                <MenuItem value="">
-                  <em>Выберите отделение</em>
-                </MenuItem>
-                <MenuItem value="Отдел 1">Отдел 1</MenuItem>
-                <MenuItem value="Отдел 2">Отдел 2</MenuItem>
-                <MenuItem value="Отдел 3">Отдел 3</MenuItem>
-              </Select>
-            </StyledFormControl>
-
-            <StyledFormControl>
-              <StyledInputLabel shrink htmlFor="position">
-                Должность
-              </StyledInputLabel>
-              <StyledTextField
-                id="position"
-                name="position"
-                placeholder="Напишите должность"
-                value={formData.position}
-                onChange={handleInputChange}
-                required
-              />
-            </StyledFormControl>
-          </InputRow>
-
-          <StyledFormControlPhoto>
-            <StyledButton
-              component="label"
-              htmlFor="photo"
-              variant="outlined"
-              color="primary"
-              style={{ width: "100%", height: "100%", borderRadius: "50%" }}
-            >
-              <img
-                src={Img}
-                alt="Upload"
-                style={{ width: "50%", height: "auto", border: "none" }}
-              />
-              <input
-                type="file"
-                id="photo"
-                name="photo"
-                accept="image/*"
-                onChange={handleFileChange}
-                style={{ display: "none" }}
-                required
-              />
-            </StyledButton>
-          </StyledFormControlPhoto>
-
-          <StyledTextarea
-            id="description"
-            name="description"
-            placeholder="Введите описание специалиста"
-            minRows={4}
-            value={formData.description}
-            onChange={handleInputChange}
-            required
+    <StyledContainer>
+      <StyledBoxContainer>
+        <StyledImage>
+          <StyledContainerImg>
+            <img src={selectedImage || Img} alt="Specialist" />
+          </StyledContainerImg>
+          <label htmlFor="upload-photo">
+            <StyledLabel>
+              Нажмите для добавления <br /> фотографии
+            </StyledLabel>
+          </label>
+          <input
+            type="file"
+            id="upload-photo"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleImageChange}
           />
+        </StyledImage>
+        <div>
+          <StyledMain>
+            <p>Добавление специалиста</p>
+            <StyledForm>
+              <StyledWrapper>
+                <StyledInputContainer>
+                  <StyledContainerLabelInput>
+                    <StyleLabel htmlFor="firstName">Имя</StyleLabel>
+                    <StyledInput
+                      id="firstName"
+                      placeholder="Напишите имя"
+                      readOnly
+                    />
+                  </StyledContainerLabelInput>
+                  <StyledContainerLabelInput>
+                    <StyleLabel htmlFor="lastName">Фамилия</StyleLabel>
+                    <StyledInput
+                      id="lastName"
+                      placeholder="Напишите фамилию"
+                      readOnly
+                    />
+                  </StyledContainerLabelInput>
+                </StyledInputContainer>
+              </StyledWrapper>
+              <StyledWrapper>
+                <StyledInputContainer>
+                  <StyledContainerLabelInput>
+                    <StyleLabel htmlFor="department">Отделение</StyleLabel>
+                    <StyledSelect
+                      options={department}
+                      placeholder="Выберите отделение"
+                      id="department"
+                      value={selectedDepartment}
+                      onChange={(e) => setSelectedDepartment(e.target.value)}
+                    />
+                  </StyledContainerLabelInput>
+                  <StyledContainerLabelInput>
+                    <StyleLabel htmlFor="position">Должность</StyleLabel>
+                    <StyledInput
+                      id="position"
+                      placeholder="Напишите должность"
+                      readOnly
+                    />
+                  </StyledContainerLabelInput>
+                </StyledInputContainer>
+              </StyledWrapper>
 
-          <ButtonContainer>
-            <StyledButton variant="contained" color="grey" type="reset">
-              Отменить
-            </StyledButton>
-            <StyledButton variant="contained" color="primary" type="submit">
-              Добавить
-            </StyledButton>
-          </ButtonContainer>
-        </form>
+              <div>
+                <StyledTextareaText>
+                  <a>Описание</a>
+                  <StyledTextareaContainer>
+                    <StyledBox>
+                      <img
+                        src={BIcons}
+                        alt="Bicons"
+                        onClick={toggleBold}
+                        style={{ cursor: "pointer", opacity: isBold ? 1 : 0.5 }}
+                      />
+                      <img
+                        src={IIcons}
+                        alt="Iicons"
+                        onClick={toggleItalic}
+                        style={{
+                          cursor: "pointer",
+                          opacity: isItalic ? 1 : 0.5,
+                        }}
+                      />
+                      <img
+                        src={UIcons}
+                        alt="Uicons"
+                        onClick={toggleUnderline}
+                        style={{
+                          cursor: "pointer",
+                          opacity: isUnderline ? 1 : 0.5,
+                        }}
+                      />
+                      <img
+                        src={MenuLi}
+                        alt="Menuli"
+                        onClick={toggleList}
+                        style={{ cursor: "pointer" }}
+                      />
+                      <img
+                        src={MenuOl}
+                        alt="Menuol"
+                        onClick={toggleOrderedList}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </StyledBox>
+                    <StyledTextareaa
+                      placeholder="Введите описание специалиста"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      style={{
+                        fontWeight: isBold ? "bold" : "normal",
+                        fontStyle: isItalic ? "italic" : "normal",
+                        textDecoration: isUnderline ? "underline" : "none",
+                        whiteSpace: "pre-wrap",
+                      }}
+                    />
+                  </StyledTextareaContainer>
+                </StyledTextareaText>
+              </div>
 
-        {message && <Typography color="primary">{message}</Typography>}
-      </FormContainer>
-    </SryledDiv>
+              <StyledContainerButton>
+                <StyledButton variant={"outlined"}>Отменить</StyledButton>
+                <StyledBtn type="button">Добавить</StyledBtn>
+              </StyledContainerButton>
+            </StyledForm>
+          </StyledMain>
+        </div>
+      </StyledBoxContainer>
+    </StyledContainer>
   );
 };
 
-// Стилизация компонентов с MUI styled
-const SryledDiv = styled("div")({
-  width: "1301px",
-  height: "1327px",
-  margin: "0 auto",
-  padding: "20px",
-  backgroundColor: "#fff",
-  borderRadius: "6px",
-  position: "relative",
-  top: "223px",
+const StyledTextareaContainer = styled("div")({
+  width: "1000px",
+  height: "279px",
+  display: "flex",
+  flexDirection: "column",
 });
-
-const FormContainer = styled("div")({
+const StyledTextareaa = styled("textarea")(({ isError }) => ({
+  width: "1000px",
+  height: "229px",
+  padding: "10px 20px",
+  fontSize: "14px",
+  border: isError ? "1px solid red" : "1px solid #4D4E51",
+  outline: "none",
+  resize: "none",
   position: "relative",
+  zIndex: 1,
+}));
+
+const StyledInputContainer = styled("div")(() => ({
+  display: "flex",
+  gap: "20px",
+}));
+
+const StyledContainer = styled("div")({
   width: "100%",
-  paddingLeft: "200px",
-  paddingTop: "20px",
-  backgroundColor: "#fff",
-  borderRadius: "6px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.05)",
-});
-
-const StyledButton = styled(Button)({
-  marginTop: "20px",
-  "&:first-of-type": {
-    marginRight: "10px",
-  },
-  border: "none", // Remove the border
-  "&:hover": {
-    background: "rgba(0, 0, 0, 0.1)", // Optional: Add hover effect
+  display: "flex",
+  gap: "30px",
+  flexDirection: "column",
+  fontFamily: "Manrope",
+  "& span": {
+    fontSize: "22px",
+    color: "#222222",
   },
 });
 
-const StyledTextField = styled(TextField)({
-  marginBottom: "20px",
-  flex: 1,
+const StyledMain = styled("main")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "20px",
+  "& p": {
+    fontWeight: 600,
+    fontSize: "18px",
+    color: "#222222",
+  },
 });
 
-const StyledFormControl = styled(FormControl)({
-  width: "490px",
-  height: "38px",
-  marginBottom: "20px",
+const StyledTextareaText = styled("div")({
+  height: "297px",
+  width: "1000px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "4px",
+  position: "relative",
+  "& a": {
+    fontSize: "14px",
+    color: "#4D4E51",
+  },
 });
 
-const StyledInputLabel = styled(InputLabel)({
-  marginBottom: "8px",
+const StyledBoxContainer = styled("section")({
+  display: "flex",
+  gap: "45px",
+  padding: "40px",
 });
 
-const StyledFormControlPhoto = styled(FormControl)({
-  position: "absolute",
-  top: "20px",
-  left: "20px",
-  width: "150px",
-  height: "150px",
-  backgroundColor: "#f0f0f0",
-  padding: "10px",
-  borderRadius: "50%",
+const StyledImage = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "6px",
+});
+
+const StyledLabel = styled("p")({
+  fontFamily: "Manrope",
+  fontWeight: 400,
+  fontSize: "12px",
+  lineHeight: "14.4px",
+  textAlign: "center",
+  maxWidth: "148px",
+  maxHeight: "28px",
+  color: "black",
+});
+
+const StyledContainerImg = styled("div")({
+  width: "140px",
+  height: "140px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  zIndex: 1,
-  cursor: "pointer",
+  borderRadius: "50%",
+  background: "linear-gradient(180deg, #FDFDFD 0%, #E4E7EE 0%)",
+  overflow: "hidden",
+  "& img": {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  },
 });
 
-const StyledTextarea = styled(TextareaAutosize)({
-  width: "100%",
-  padding: "10px",
-  borderRadius: "4px",
-  border: "1px solid #ccc",
-  fontSize: "1rem",
-  marginBottom: "20px",
-});
-
-const ButtonContainer = styled("div")({
+const StyledForm = styled("form")({
   display: "flex",
-  justifyContent: "flex-end",
-  marginTop: "20px",
-});
-
-const InputRow = styled("div")({
-  display: "flex",
-  flexWrap: "wrap",
+  flexDirection: "column",
   gap: "20px",
-  marginBottom: "20px",
-  justifyContent: "space-between",
+});
+
+const StyledContainerLabelInput = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  height: "60px",
+  "& .css-rwbguu-MuiFormControl-root": {
+    margin: "0",
+  },
+});
+
+const StyleLabel = styled("label")(() => ({
+  color: "#464444",
+  fontSize: "14px",
+}));
+
+const StyledWrapper = styled("section")({
+  display: "flex",
+  flexDirection: "column",
+});
+
+const StyledContainerButton = styled("div")({
+  display: "flex",
+  justifyContent: "end",
+  gap: "18px",
+});
+
+const StyledInput = styled("input")(({ isError }) => ({
+  width: "490px",
+  height: "38px",
+  padding: "6px",
+  color: "#222222",
+  border: isError ? "1px solid red" : "1px solid #D9D9D9",
+  "& ::placeholder": {
+    color: "#959595",
+    fontSize: "14px",
+  },
+}));
+
+const StyledButton = styled("button")(() => ({
+  width: "243px",
+  height: "39px",
+  border: "1px solid #959595",
+  color: "#959595",
+  background: "#fff",
+  borderRadius: "10px",
+}));
+
+const StyledBtn = styled("button")(() => ({
+  width: "244px",
+  height: "39px",
+  border: "1px solid #0CBB6B",
+  color: "#fff",
+  background: "#027B44",
+  borderRadius: "10px",
+}));
+const StyledSelect = styled(Select)(({ isError }) => ({
+  width: "490px",
+  height: "38px",
+  color: "#222222",
+  "& .MuiOutlinedInput-notchedOutline": {
+    border: isError ? "1px solid red" : "1px solid #D9D9D9",
+  },
+  "& ::placeholder": {
+    color: "#959595",
+    fontSize: "6px",
+  },
+  "& span": {
+    fontSize: "14px",
+    color: "#4D4E51",
+  },
+}));
+const StyledBox = styled("div")({
+  width: "100%",
+  height: "45px",
+  top: "513px",
+  left: "349px",
+  display: "flex",
+  alignItems: "center",
+  paddingLeft: "50px",
+  gap: "4rem",
+  border: "1px solid #4D4E51",
+  borderBottom: "none",
 });
