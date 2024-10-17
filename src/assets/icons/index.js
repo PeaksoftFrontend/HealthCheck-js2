@@ -78,7 +78,6 @@ import Download from "../icons/others/download.svg?react";
 import Fille from "../icons/others/fille.svg?react";
 import Doctor from "../icons/service-icons/doctor.svg?react";
 import Plus1 from "../icons/others/plus (1).svg?react";
-
 export const Icons = {
   Plus1,
   Doctor,
