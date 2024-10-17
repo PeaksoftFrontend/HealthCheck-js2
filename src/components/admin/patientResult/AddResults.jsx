@@ -1,14 +1,14 @@
 import { styled } from "@mui/material";
 import { useCallback, useState, useEffect } from "react";
-import { Datepicker } from "../../components/UI/datePicker/DatePicker";
-import { Button } from "../../components/UI/button/Button";
+import { Datepicker } from "../../UI/datePicker/DatePicker";
+import { Button } from "../../UI/button/Button";
 import { useDropzone } from "react-dropzone";
-import { Icons } from "../../assets/icons";
+import { Icons } from "../../../assets/icons";
 import { useFormik } from "formik";
 // import { Error } from "../../components/auth/ChangePassword";
-import { formikConfigSelect } from "../../utils/constants/formikConfig";
-import { Select } from "../../components/UI/inputSelect/Select";
-import { Error } from "../../components/auth/ChangePassword";
+import { formikConfigSelect } from "../../../utils/constants/formikConfig";
+import { Select } from "../../UI/inputSelect/Select";
+import { Error } from "../../auth/ChangePassword";
 
 export const AddResults = ({ isOpen, onHandleClick }) => {
   const [selectedDate, setSelectedDate] = useState(null);

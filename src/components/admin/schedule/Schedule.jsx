@@ -11,11 +11,11 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { doctors } from "../../utils/constants/constants";
-import { Modal } from "../UI/modal/Modal";
+import { doctors } from "../../../utils/constants/constants";
+import { Modal } from "../../UI/modal/Modal";
 import { ScheduleModal } from "./ScheduleModal";
-import { Button } from "../UI/button/Button";
-import { Datepicker } from "../UI/datePicker/DatePicker";
+import { Button } from "../../UI/button/Button";
+import { Datepicker } from "../../UI/datePicker/DatePicker";
 
 export const Schedule = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

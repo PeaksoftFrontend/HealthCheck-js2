@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
-import { TimePicker } from "../UI/timePicker/TimePicker";
-import { Icons } from "../../assets/icons";
+import { TimePicker } from "../../UI/timePicker/TimePicker";
+import { Icons } from "../../../assets/icons";
 import DeleteIcon from "@mui/icons-material/Close";
-import { Button } from "../UI/button/Button";
+import { Button } from "../../UI/button/Button";
 
 export const ScheduleModal = ({
   selectedDate,

@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { Icons } from "../../assets/icons";
+import { Icons } from "../../../assets/icons";
 
 export const PatientsFilled = () => {
   const array = [

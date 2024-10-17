@@ -1,8 +1,9 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { styled } from "@mui/material";
 import { Icons } from "../../assets/icons";
 import { Input } from "../UI/input/Input";
 import { Button } from "../UI/button/Button";
-import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
@@ -10,12 +11,15 @@ import Fade from "@mui/material/Fade";
 export const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <StyledWrapper>
       <StyledBox>
@@ -33,7 +37,7 @@ export const Header = () => {
             </StyledContainer>
           </section>
           <StyledInput
-            placeholder="Поиск по сайту "
+            placeholder="Поиск по сайту"
             iconEnd={<Icons.Search />}
           />
           <StyledIcons>
@@ -58,9 +62,11 @@ export const Header = () => {
                 onClose={handleClose}
                 TransitionComponent={Fade}
               >
-                <StyledMenuItem onClick={handleClose}>Войти</StyledMenuItem>
                 <StyledMenuItem onClick={handleClose}>
-                  Регистрация
+                  <StyledLink to="/login">Войти </StyledLink>
+                </StyledMenuItem>
+                <StyledMenuItem onClick={handleClose}>
+                  <StyledLink to="/register">Регистрация </StyledLink>
                 </StyledMenuItem>
               </Menu>
             )}
@@ -93,16 +99,23 @@ export const Header = () => {
 const StyledWrapper = styled("header")({
   width: "100%",
   height: "11.375rem",
-
   "& svg": {
     cursor: "pointer",
   },
 });
 
+const StyledLink = styled(Link)(() => ({
+  textDecoration: "none",
+  color: "#292929",
+  "&:hover": {
+    color: "#048741",
+  },
+}));
 const StyledBox = styled("div")(() => ({
   maxWidth: "1300px",
   margin: "0 auto",
 }));
+
 const StyledHeader = styled("section")({
   display: "flex",
   justifyContent: "space-between",
