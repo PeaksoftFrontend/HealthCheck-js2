@@ -184,7 +184,7 @@ const StyledBox = styled("div")(() => ({
 
 const StyledContainerInput = styled("form")(() => ({
   display: "flex",
-  justifyContent: "center",
+  justifyContent: "space-between",
   alignItems: "center",
   gap: "15px",
 }));
@@ -193,7 +193,8 @@ const StyledInput = styled(Input)(({ error }) => ({
   width: "16.44rem",
   height: "2.625rem",
   background: "#FFFFFF",
-  padding: "0.625rem",
+  padding: "0.600rem",
+
   border: error ? "1px solid red" : "1px solid #218838",
   color: error ? "#000" : "#000",
   "&::placeholder": {

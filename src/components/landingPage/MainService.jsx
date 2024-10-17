@@ -40,7 +40,7 @@ const StyledText = styled("div")({
   left: "7.5rem",
 });
 const StyledDiv = styled("div")({
-  width: "95%",
+  width: "100%",
   margin: "0",
   top: "63.56rem",
   left: "7.5rem",

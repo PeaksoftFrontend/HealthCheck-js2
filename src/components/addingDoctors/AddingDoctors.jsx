@@ -7,6 +7,8 @@ import UIcons from "../../assets/icons/others/Frame.svg";
 import MenuLi from "../../assets/icons/others/menu-li.svg";
 import MenuOl from "../../assets/icons/others/menu-ol.svg";
 import { Select } from "../UI/inputSelect/Select";
+import { Button } from "../UI/button/Button";
+import { Input } from "../UI/input/Input";
 
 export const AddingDoctors = () => {
   const department = [
@@ -47,6 +49,7 @@ export const AddingDoctors = () => {
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isList, setIsList] = useState(false);
+  const [isOrderedList, setIsOrderedList] = useState(null);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -80,14 +83,22 @@ export const AddingDoctors = () => {
       setDescription(lines.map((line) => `• ${line}`).join("\n"));
     }
     setIsList((prev) => !prev);
+    setIsOrderedList(false);
   };
 
   const toggleOrderedList = () => {
     const lines = description.split("\n").filter((line) => line.trim() !== "");
-    const newDescription = lines
-      .map((line, index) => `${index + 1}. ${line}`)
-      .join("\n");
-    setDescription(newDescription);
+    if (isOrderedList) {
+      setDescription(
+        lines.map((line) => line.replace(/^\d+\.\s*/, "")).join("\n")
+      );
+    } else {
+      const newDescription = lines
+        .map((line, index) => `${index + 1}. ${line}`)
+        .join("\n");
+      setDescription(newDescription);
+    }
+    setIsOrderedList((prev) => !prev);
     setIsList(false);
   };
 
@@ -96,8 +107,13 @@ export const AddingDoctors = () => {
       <StyledBoxContainer>
         <StyledImage>
           <StyledContainerImg>
-            <img src={selectedImage || Img} alt="Specialist" />
+            <img
+              src={selectedImage || Img}
+              alt="Specialist"
+              className={selectedImage ? "uploaded" : ""}
+            />
           </StyledContainerImg>
+
           <label htmlFor="upload-photo">
             <StyledLabel>
               Нажмите для добавления <br /> фотографии
@@ -217,7 +233,7 @@ export const AddingDoctors = () => {
 
               <StyledContainerButton>
                 <StyledButton variant={"outlined"}>Отменить</StyledButton>
-                <StyledBtn type="button">Добавить</StyledBtn>
+                <StyledBtn>Добавить</StyledBtn>
               </StyledContainerButton>
             </StyledForm>
           </StyledMain>
@@ -226,6 +242,16 @@ export const AddingDoctors = () => {
     </StyledContainer>
   );
 };
+const StyledButton = styled(Button)(() => ({
+  width: "243px",
+  height: "39px",
+  border: "1px solid #959595",
+  color: "#959595",
+}));
+const StyledBtn = styled(Button)(() => ({
+  width: "244px",
+  height: "39px",
+}));
 
 const StyledTextareaContainer = styled("div")({
   width: "1000px",
@@ -238,7 +264,7 @@ const StyledTextareaa = styled("textarea")(({ isError }) => ({
   height: "229px",
   padding: "10px 20px",
   fontSize: "14px",
-  border: isError ? "1px solid red" : "1px solid #4D4E51",
+  border: isError ? "1px solid red" : "1px solid #D9D9D9",
   outline: "none",
   resize: "none",
   position: "relative",
@@ -296,6 +322,11 @@ const StyledImage = styled("div")({
   display: "flex",
   flexDirection: "column",
   gap: "6px",
+  "& input": {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  },
 });
 
 const StyledLabel = styled("p")({
@@ -306,7 +337,8 @@ const StyledLabel = styled("p")({
   textAlign: "center",
   maxWidth: "148px",
   maxHeight: "28px",
-  color: "black",
+  color: "#909CB5",
+  cursor: "pointer",
 });
 
 const StyledContainerImg = styled("div")({
@@ -318,7 +350,17 @@ const StyledContainerImg = styled("div")({
   borderRadius: "50%",
   background: "linear-gradient(180deg, #FDFDFD 0%, #E4E7EE 0%)",
   overflow: "hidden",
+  position: "relative",
   "& img": {
+    position: "absolute",
+    width: "40px",
+    height: "40px",
+    objectFit: "contain",
+  },
+  "& input[type='file']": {
+    display: "none",
+  },
+  "& img.uploaded": {
     width: "100%",
     height: "100%",
     objectFit: "cover",
@@ -356,7 +398,7 @@ const StyledContainerButton = styled("div")({
   gap: "18px",
 });
 
-const StyledInput = styled("input")(({ isError }) => ({
+const StyledInput = styled(Input)(({ isError }) => ({
   width: "490px",
   height: "38px",
   padding: "6px",
@@ -368,26 +410,10 @@ const StyledInput = styled("input")(({ isError }) => ({
   },
 }));
 
-const StyledButton = styled("button")(() => ({
-  width: "243px",
-  height: "39px",
-  border: "1px solid #959595",
-  color: "#959595",
-  background: "#fff",
-  borderRadius: "10px",
-}));
-
-const StyledBtn = styled("button")(() => ({
-  width: "244px",
-  height: "39px",
-  border: "1px solid #0CBB6B",
-  color: "#fff",
-  background: "#027B44",
-  borderRadius: "10px",
-}));
 const StyledSelect = styled(Select)(({ isError }) => ({
   width: "490px",
   height: "38px",
+  borderRadius: "6px",
   color: "#222222",
   "& .MuiOutlinedInput-notchedOutline": {
     border: isError ? "1px solid red" : "1px solid #D9D9D9",
@@ -410,6 +436,6 @@ const StyledBox = styled("div")({
   alignItems: "center",
   paddingLeft: "50px",
   gap: "4rem",
-  border: "1px solid #4D4E51",
+  border: "1px solid #D9D9D9",
   borderBottom: "none",
 });
