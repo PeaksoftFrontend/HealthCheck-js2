@@ -25,6 +25,7 @@ export const ServicesList = () => {
 
 const StyledDiv = styled("div")({
   maxWidth: "1300px",
+  margin: "0 auto",
 });
 
 const StyledH2 = styled("h2")({
@@ -46,7 +47,7 @@ const StyledServices = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   width: "886px",
-  height: "1250px",
+  height: "auto",
   padding: "0 20px",
 });
 

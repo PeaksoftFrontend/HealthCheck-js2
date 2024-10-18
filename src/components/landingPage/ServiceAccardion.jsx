@@ -13,6 +13,12 @@ export const ServiceAccardion = () => {
       question: "Как проходит процедура?",
       answer: (
         <StyledList>
+          <p>
+            На первом этапе, консультации нашего специалиста, вам будет нужно
+            определиться с желаемым результатом — тоном отбеливания при помощи
+            специальной палитры. Дальнейшие действия выполняются в следующей
+            последовательности:
+          </p>
           <li>Обработка десен защитным составом;</li>
           <li>Защита глаз при помощи специальных очков;</li>
           <li>Нанесение отбеливающего геля;</li>
@@ -78,6 +84,9 @@ export const ServiceAccardion = () => {
       question: "Противопоказания",
       answer: (
         <StyledList>
+          <p>
+            Противопоказания к процедуре отбеливания могут включать следующее:
+          </p>
           <li>Беременность или кормление грудью;</li>
           <li>Аллергия на компоненты отбеливающего геля;</li>
           <li>Повреждение эмали зубов;</li>
@@ -94,6 +103,10 @@ export const ServiceAccardion = () => {
       question: "Насколько безопасно отбеливание Zoom 4?",
       answer: (
         <StyledList>
+          <p>
+            Процедура отбеливания Zoom 4 является относительно безопасной,
+            однако следует учитывать некоторые аспекты:
+          </p>
           <li>
             Процедура должна проводиться под контролем опытного стоматолога или
             специалиста по косметической стоматологии;
@@ -139,40 +152,52 @@ export const ServiceAccardion = () => {
   ];
 
   return (
-    <FAQContainer>
-      <Typography variant="h4" gutterBottom align="center">
-        Часто задаваемые вопросы
-      </Typography>
-      {faqData.map((faq, index) => (
-        <StyledAccordion key={index}>
-          <StyledAccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls={`panel${index + 1}-content`}
-            id={`panel${index + 1}-header`}
-          >
-            <Typography variant="h6">{faq.question}</Typography>
-          </StyledAccordionSummary>
-          <StyledAccordionDetails>
-            <Typography>{faq.answer}</Typography>
-          </StyledAccordionDetails>
-        </StyledAccordion>
-      ))}
-    </FAQContainer>
+    <StyledDiv>
+      <FAQContainer>
+        <StyledH2>Часто задаваемые вопросы</StyledH2>
+        <p>
+          Специалисты нашей клиники с удовольствием ответят на все ваши вопросы.
+          Ниже представленны наиболее популярные.
+        </p>
+        {faqData.map((faq, index) => (
+          <StyledAccordion key={index}>
+            <StyledAccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`panel${index + 1}-content`}
+              id={`panel${index + 1}-header`}
+            >
+              <Typography variant="h6">{faq.question}</Typography>
+            </StyledAccordionSummary>
+            <StyledAccordionDetails>
+              <Typography>{faq.answer}</Typography>
+            </StyledAccordionDetails>
+          </StyledAccordion>
+        ))}
+      </FAQContainer>
+    </StyledDiv>
   );
 };
-
-// Styled components
+const StyledDiv = styled("div")({
+  maxWidth: "1300px",
+  margin: "0 auto",
+});
+const StyledH2 = styled("h1")({
+  width: "460px",
+  height: "36px",
+  top: "1760px",
+  left: "120px",
+  margin: "20px",
+});
 
 const FAQContainer = styled("div")({
+  maxWidth: "1300px",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
   width: "886px",
-  height: "1250px",
+  height: "auto",
   padding: "0 20px",
-  margin: "16px",
   backgroundColor: "#fff",
-  borderRadius: "10px",
+  borderRadius: "20px",
 });
 
 const StyledAccordion = styled(Accordion)({
@@ -198,20 +223,27 @@ const StyledAccordionSummary = styled(AccordionSummary)({
   "&:hover": {
     background: "#048741",
   },
+  "& .css-20bmp1-MuiSvgIcon-root": {
+    background: "#fff",
+    borderRadius: "50%",
+  },
 });
 
 const StyledAccordionDetails = styled(AccordionDetails)({
-  backgroundColor: "#fff", // Светлый фон
+  backgroundColor: "#fff",
   padding: "16px",
   width: "818px",
   height: "auto",
+  "& p": {
+    margin: "10px 0",
+  },
 });
 
 const StyledList = styled("ul")({
-  paddingLeft: "20px", // Отступ для списка
-  listStyleType: "disc", // Маркер — круг (disc вместо circle для сплошного круга)
+  paddingLeft: "20px",
+  listStyleType: "disc",
   "& li::marker": {
-    color: "#009344", // Зеленый цвет для маркера
+    color: "#009344",
   },
-  color: "#4D4E51", // Цвет текста
+  color: "#4D4E51",
 });
