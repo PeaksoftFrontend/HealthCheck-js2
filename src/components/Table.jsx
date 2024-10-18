@@ -9,7 +9,7 @@ import {
 import { useTable } from "react-table";
 import styled from "styled-components";
 
-export const Table = ({ columns, data, isVariant }) => {
+export const Table = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
@@ -25,22 +25,22 @@ export const Table = ({ columns, data, isVariant }) => {
               <TableCell colSpan={6}>
                 <RowContainer>
                   <div className="left-content">
-                    {headerGroup.headers
-                      .slice(0, isVariant === "outlined" ? 6 : 4)
-                      .map((column) => (
-                        <span {...column.getHeaderProps()} key={column.id}>
-                          {column.render("Header")}
-                        </span>
-                      ))}
+                    {headerGroup.headers.slice(0, 4).map((column) => (
+                      <span
+                        className="first_title"
+                        {...column.getHeaderProps()}
+                        key={column.id}
+                      >
+                        {column.render("Header")}
+                      </span>
+                    ))}
                   </div>
                   <div className="right-content">
-                    {headerGroup.headers
-                      .slice(isVariant === "outlined" ? 6 : 4)
-                      .map((column) => (
-                        <span {...column.getHeaderProps()} key={column.id}>
-                          {column.render("Header")}
-                        </span>
-                      ))}
+                    {headerGroup.headers.slice(4).map((column) => (
+                      <span {...column.getHeaderProps()} key={column.id}>
+                        {column.render("Header")}
+                      </span>
+                    ))}
                   </div>
                 </RowContainer>
               </TableCell>
@@ -55,22 +55,22 @@ export const Table = ({ columns, data, isVariant }) => {
                 <TableCell colSpan={6}>
                   <RowContainer>
                     <div className="left-content">
-                      {row.cells
-                        .slice(0, isVariant === "outlined" ? 6 : 4)
-                        .map((cell) => (
-                          <span {...cell.getCellProps()} key={cell.column.id}>
-                            {cell.render("Cell")}
-                          </span>
-                        ))}
+                      {row.cells.slice(0, 4).map((cell) => (
+                        <span
+                          className="Title"
+                          {...cell.getCellProps()}
+                          key={cell.column.id}
+                        >
+                          {cell.render("Cell")}
+                        </span>
+                      ))}
                     </div>
                     <div className="right-content">
-                      {row.cells
-                        .slice(isVariant === "outlined" ? 6 : 4)
-                        .map((cell) => (
-                          <span {...cell.getCellProps()} key={cell.column.id}>
-                            {cell.render("Cell")}
-                          </span>
-                        ))}
+                      {row.cells.slice(4).map((cell) => (
+                        <span {...cell.getCellProps()} key={cell.column.id}>
+                          {cell.render("Cell")}
+                        </span>
+                      ))}
                     </div>
                   </RowContainer>
                 </TableCell>
@@ -86,36 +86,32 @@ export const Table = ({ columns, data, isVariant }) => {
 const RowContainer = styled.div`
   display: flex;
 
-  width: 99%;
   justify-content: space-between;
-  border-bottom: "1px solid black";
-
   .left-content {
     display: flex;
-    /* gap: 5px; */
-    align-items: center;
-
-    span:last-child {
-      width: 150px;
+    width: 100%;
+    .Title {
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .first_title {
+      font-size: 14px;
+      font-weight: 600;
     }
     span {
-      width: 100px;
-      span:last-child {
-        font-weight: 500;
-        font-size: 14px;
-        color: #959595;
-      }
+      width: 200px;
     }
     span:first-child {
-      width: 50px;
+      width: 100px;
     }
   }
 
   .right-content {
     display: flex;
-    gap: 40px;
+    gap: 65px;
+    width: 100%;
     span {
-      width: 100px;
+      width: 90px;
     }
 
     span:last-of-type {
@@ -135,6 +131,7 @@ const StyledTableContainer = styled(TableContainer)({
   borderRadius: "6px",
   display: "flex",
   justifyContent: "center",
+  width: "100%",
 
   "& .MuiTableHead-root": {
     height: "3.688rem",
@@ -142,14 +139,15 @@ const StyledTableContainer = styled(TableContainer)({
   },
 
   "& .MuiTableCell-root": {
-    fontWeight: "500",
+    fontWeight: "600",
+    border: "none",
   },
 
   "& .MuiTableRow-root:last-of-type": {
     borderBottom: "none",
   },
 
-  // "& .MuiTableRow-root:nth-of-type(even)": {
-  // backgroundColor: "#F5F5F59C",
-  // },
+  "& .MuiTableRow-root:nth-of-type(even)": {
+    backgroundColor: "#F5F5F59C",
+  },
 });
