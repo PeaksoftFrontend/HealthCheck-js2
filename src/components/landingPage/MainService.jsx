@@ -14,10 +14,10 @@ export const MainServices = () => {
       </StyledText>
 
       <IconContainer>
-        {services.map((service, index) => (
+        {services.slice(0, 8).map((service, index) => (
           <ServiceCard key={index}>
             <IconWrapper isFirst={index === 0}>
-              <service.icon />
+              <img src={service.icon} alt="" />
             </IconWrapper>
             <IconText>{service.text}</IconText>
           </ServiceCard>
