@@ -23,16 +23,6 @@ export const AdminRoutes = () => {
       ),
     },
     {
-      path: "schedule",
-      element: (
-        <PrivateRoute
-          fallBackPath="/admin"
-          isAllowed={isAuthenticated}
-          Component={Schedule}
-        />
-      ),
-    },
-    {
       path: "applications",
       element: (
         <PrivateRoute

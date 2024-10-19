@@ -17,13 +17,13 @@ import { HeaderModal } from "../HeaderModal";
 export const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const { userRole } = useSelector((state) => state.router);
+  const { isAuth } = useSelector((state) => state.router);
 
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isForgotPasswordModalOpen, setForgotPasswordModalOpen] =
     useState(false);
-  const [isCanelModAL, setIsCanelModal] = useState(false);
+  const [isCancelModal, setIsCancelModal] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = (event) => {
@@ -35,22 +35,23 @@ export const Header = () => {
   };
 
   const handleResultsClick = () => {
-    if (userRole === "USER") {
-      navigate("/user/results");
+    if (isAuth) {
+      navigate("results");
     } else {
       setLoginModalOpen(true);
     }
   };
 
   const handleOnlineClick = () => {
-    if (userRole === "USER") {
-      navigate("/user/online");
+    if (isAuth) {
+      navigate("online");
     } else {
       setLoginModalOpen(true);
     }
   };
-  const canelModalHandler = () => {
-    setIsCanelModal(true);
+
+  const cancelModalHandler = () => {
+    setIsCancelModal(true);
   };
 
   const navigateToSignIn = () => {
@@ -112,7 +113,7 @@ export const Header = () => {
               onClose={handleClose}
               TransitionComponent={Fade}
             >
-              {userRole === "USER" ? (
+              {isAuth ? (
                 <>
                   <StyledMenuItem onClick={handleClose}>
                     <StyledLink to="/user/register">Мои записи</StyledLink>
@@ -121,7 +122,7 @@ export const Header = () => {
                     <StyledLink to="/user/profile">Профиль</StyledLink>
                   </StyledMenuItem>
                   <StyledMenuItem>
-                    <StyledLink onClick={canelModalHandler}>Выйти</StyledLink>
+                    <StyledLink onClick={cancelModalHandler}>Выйти</StyledLink>
                   </StyledMenuItem>
                 </>
               ) : (
@@ -145,57 +146,25 @@ export const Header = () => {
             <Icons.LogohealthCheck />
           </Link>
           <nav>
-            {userRole === "GUEST" && (
-              <>
-                <StyledLinks to="/guest/services">Услуги</StyledLinks>
-                <StyledLinks to="/guest/about-clinic">О клинике</StyledLinks>
-                <StyledLinks to="/guest/doctors">Врачи</StyledLinks>
-                <StyledLinks to="/guest/price">Прайс</StyledLinks>
-                <StyledLinks to="/guest/contacts">Контакты</StyledLinks>
-              </>
-            )}
-            {userRole === "USER" && (
-              <>
-                <StyledLinks to="/user/services">Услуги</StyledLinks>
-                <StyledLinks to="/user/about-clinic">О клинике</StyledLinks>
-                <StyledLinks to="/user/doctors">Врачи</StyledLinks>
-                <StyledLinks to="/user/price">Прайс</StyledLinks>
-                <StyledLinks to="/user/contacts">Контакты</StyledLinks>
-              </>
-            )}
+            <StyledLinks to="services">Услуги</StyledLinks>
+            <StyledLinks to="about-clinic">О клинике</StyledLinks>
+            <StyledLinks to="doctors">Врачи</StyledLinks>
+            <StyledLinks to="price">Прайс</StyledLinks>
+            <StyledLinks to="contacts">Контакты</StyledLinks>
           </nav>
           <div>
-            {userRole === "USER" ? (
-              <>
-                <StyledButtonOutlined
-                  variant="outlined"
-                  onClick={() => navigate("/user/results")}
-                >
-                  получить результаты
-                </StyledButtonOutlined>
-                <StyledButtonContained
-                  variant="contained"
-                  onClick={() => navigate("/user/online")}
-                >
-                  запись онлайн
-                </StyledButtonContained>
-              </>
-            ) : (
-              <>
-                <StyledButtonOutlined
-                  variant="outlined"
-                  onClick={handleResultsClick}
-                >
-                  получить результаты
-                </StyledButtonOutlined>
-                <StyledButtonContained
-                  variant="contained"
-                  onClick={handleOnlineClick}
-                >
-                  запись онлайн
-                </StyledButtonContained>
-              </>
-            )}
+            <StyledButtonOutlined
+              variant="outlined"
+              onClick={handleResultsClick}
+            >
+              получить результаты
+            </StyledButtonOutlined>
+            <StyledButtonContained
+              variant="contained"
+              onClick={handleOnlineClick}
+            >
+              запись онлайн
+            </StyledButtonContained>
           </div>
         </StyledNavigete>
 
@@ -222,14 +191,15 @@ export const Header = () => {
         >
           <ForgotPassword navigateToSignIn={navigateToSignIn} />
         </Modal>
-        <Modal isOpen={isCanelModAL} onClose={() => setIsCanelModal(false)}>
-          <HeaderModal canelModalHandler={canelModalHandler} />
+        <Modal isOpen={isCancelModal} onClose={() => setIsCancelModal(false)}>
+          <HeaderModal cancelModalHandler={cancelModalHandler} />
         </Modal>
       </StyledBox>
     </StyledWrapper>
   );
 };
 
+// Стили остаются без изменений
 const StyledWrapper = styled("header")({
   width: "100%",
   height: "11.375rem",

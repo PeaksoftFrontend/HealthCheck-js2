@@ -12,7 +12,7 @@ import { Layout } from "../layout/Layout";
 import { Guestroutes } from "./guestRoutes/GuestRoutes";
 import { GuestLayout } from "../layout/GuestLayout";
 
-const userRole = "USER";
+const userRole = "GUEST";
 
 export const AppRoutes = () => {
   const path = {
