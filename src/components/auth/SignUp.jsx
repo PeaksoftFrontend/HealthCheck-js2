@@ -4,8 +4,9 @@ import Google from "../../assets/images/google.png";
 import { useFormik } from "formik";
 import { forConfig } from "../../utils/constants/formikConfig";
 import { Input } from "../UI/input/Input";
+import { Link } from "react-router-dom";
 
-export const SignUp = () => {
+export const SignUp = ({ navigateToSignIn }) => {
   const formik = useFormik(
     forConfig((values) => {
       console.log("Форма отправлена", values);
@@ -128,7 +129,7 @@ export const SignUp = () => {
 
         <Container>
           <p>У вас уже есть аккаунт?</p>
-          <a href="">Войти</a>
+          <Link onClick={navigateToSignIn}>Войти</Link>
         </Container>
       </StyledContainer>
     </div>
