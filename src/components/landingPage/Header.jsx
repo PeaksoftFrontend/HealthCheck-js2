@@ -199,7 +199,6 @@ export const Header = () => {
   );
 };
 
-// Стили остаются без изменений
 const StyledWrapper = styled("header")({
   width: "100%",
   height: "11.375rem",
