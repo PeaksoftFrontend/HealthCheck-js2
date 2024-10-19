@@ -1,55 +1,30 @@
 import { useState } from "react";
 import { styled } from "@mui/material";
 import Img from "../../assets/icons/others/img.svg";
-import BIcons from "../../assets/icons/others/B.svg";
-import IIcons from "../../assets/icons/others/I.svg";
-import UIcons from "../../assets/icons/others/Frame.svg";
-import MenuLi from "../../assets/icons/others/menu-li.svg";
-import MenuOl from "../../assets/icons/others/menu-ol.svg";
 import { Select } from "../UI/inputSelect/Select";
 import { Button } from "../UI/button/Button";
 import { Input } from "../UI/input/Input";
+import { department } from "../../utils/constants/department/addingDoctors";
+import { TextEditor } from "./TextEditor";
 
 export const AddingDoctors = () => {
-  const department = [
-    {
-      value: "Анестезиология",
-      label: "Анестезиология",
-    },
-    {
-      value: "Вакцинация",
-      label: "Вакцинация",
-    },
-    {
-      value: "Гинекология",
-      label: "Гинекология",
-    },
-    {
-      value: "Дерматалогия",
-      label: "Дерматалогия",
-    },
-    {
-      value: "Кардиология",
-      label: "Кардиология",
-    },
-    {
-      value: "Неврология",
-      label: "Неврология",
-    },
-    {
-      value: "Нейрохирургия",
-      label: "Нейрохирургия",
-    },
-  ];
   const [selectedDepartment, setSelectedDepartment] = useState("");
-
   const [selectedImage, setSelectedImage] = useState(null);
   const [description, setDescription] = useState("");
-  const [isBold, setIsBold] = useState(false);
-  const [isItalic, setIsItalic] = useState(false);
-  const [isUnderline, setIsUnderline] = useState(false);
-  const [isList, setIsList] = useState(false);
-  const [isOrderedList, setIsOrderedList] = useState(null);
+
+  const [inputValues, setInputValues] = useState({
+    firstName: "",
+    lastName: "",
+    position: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setInputValues((prevValues) => ({
+      ...prevValues,
+      [id]: value,
+    }));
+  };
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -59,48 +34,29 @@ export const AddingDoctors = () => {
       };
       reader.readAsDataURL(e.target.files[0]);
     }
-  };
-
-  const toggleBold = () => {
-    setIsBold((prev) => !prev);
-  };
-
-  const toggleItalic = () => {
-    setIsItalic((prev) => !prev);
-  };
-
-  const toggleUnderline = () => {
-    setIsUnderline((prev) => !prev);
-  };
-
-  const toggleList = () => {
-    const lines = description.split("\n").filter((line) => line.trim() !== "");
-    if (isList) {
-      setDescription(
-        lines.map((line) => line.replace(/^[•]\s*/, "")).join("\n")
-      );
-    } else {
-      setDescription(lines.map((line) => `• ${line}`).join("\n"));
+    const file = e.target.files[0];
+    if (file) {
+      setInputValues((prevValues) => ({
+        ...prevValues,
+        image: URL.createObjectURL(file),
+      }));
     }
-    setIsList((prev) => !prev);
-    setIsOrderedList(false);
   };
 
-  const toggleOrderedList = () => {
-    const lines = description.split("\n").filter((line) => line.trim() !== "");
-    if (isOrderedList) {
-      setDescription(
-        lines.map((line) => line.replace(/^\d+\.\s*/, "")).join("\n")
-      );
-    } else {
-      const newDescription = lines
-        .map((line, index) => `${index + 1}. ${line}`)
-        .join("\n");
-      setDescription(newDescription);
-    }
-    setIsOrderedList((prev) => !prev);
-    setIsList(false);
+  const handleAddDoctor = () => {
+    const doctorData = {
+      firstName: inputValues.firstName,
+      lastName: inputValues.lastName,
+      position: inputValues.position,
+      department: selectedDepartment,
+      description,
+      image: selectedImage,
+    };
+
+    console.log(doctorData);
   };
+
+  const changeTextEditorHandler = (value) => setDescription(value);
 
   return (
     <StyledContainer>
@@ -138,7 +94,8 @@ export const AddingDoctors = () => {
                     <StyledInput
                       id="firstName"
                       placeholder="Напишите имя"
-                      readOnly
+                      value={inputValues.firstName}
+                      onChange={handleInputChange}
                     />
                   </StyledContainerLabelInput>
                   <StyledContainerLabelInput>
@@ -146,7 +103,8 @@ export const AddingDoctors = () => {
                     <StyledInput
                       id="lastName"
                       placeholder="Напишите фамилию"
-                      readOnly
+                      value={inputValues.lastName}
+                      onChange={handleInputChange}
                     />
                   </StyledContainerLabelInput>
                 </StyledInputContainer>
@@ -168,89 +126,48 @@ export const AddingDoctors = () => {
                     <StyledInput
                       id="position"
                       placeholder="Напишите должность"
-                      readOnly
+                      value={inputValues.position}
+                      onChange={handleInputChange}
                     />
                   </StyledContainerLabelInput>
                 </StyledInputContainer>
               </StyledWrapper>
 
-              <div>
-                <StyledTextareaText>
-                  <a>Описание</a>
-                  <StyledTextareaContainer>
-                    <StyledBox>
-                      <img
-                        src={BIcons}
-                        alt="Bicons"
-                        onClick={toggleBold}
-                        style={{ cursor: "pointer", opacity: isBold ? 1 : 0.5 }}
-                      />
-                      <img
-                        src={IIcons}
-                        alt="Iicons"
-                        onClick={toggleItalic}
-                        style={{
-                          cursor: "pointer",
-                          opacity: isItalic ? 1 : 0.5,
-                        }}
-                      />
-                      <img
-                        src={UIcons}
-                        alt="Uicons"
-                        onClick={toggleUnderline}
-                        style={{
-                          cursor: "pointer",
-                          opacity: isUnderline ? 1 : 0.5,
-                        }}
-                      />
-                      <img
-                        src={MenuLi}
-                        alt="Menuli"
-                        onClick={toggleList}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <img
-                        src={MenuOl}
-                        alt="Menuol"
-                        onClick={toggleOrderedList}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </StyledBox>
-                    <StyledTextareaa
-                      placeholder="Введите описание специалиста"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      style={{
-                        fontWeight: isBold ? "bold" : "normal",
-                        fontStyle: isItalic ? "italic" : "normal",
-                        textDecoration: isUnderline ? "underline" : "none",
-                        whiteSpace: "pre-wrap",
-                      }}
-                    />
-                  </StyledTextareaContainer>
-                </StyledTextareaText>
-              </div>
-
-              <StyledContainerButton>
-                <StyledButton variant={"outlined"}>Отменить</StyledButton>
-                <StyledBtn>Добавить</StyledBtn>
-              </StyledContainerButton>
+              <StyledTextareaText>
+                <a>Описание</a>
+                <StyledTextareaContainer>
+                  <TextEditor onChange={changeTextEditorHandler} />
+                </StyledTextareaContainer>
+              </StyledTextareaText>
             </StyledForm>
           </StyledMain>
         </div>
       </StyledBoxContainer>
+
+      <StyledContainerButton>
+        <StyledButton variant="outlined">Отменить</StyledButton>
+        <StyledBtn onClick={handleAddDoctor}>Добавить</StyledBtn>
+      </StyledContainerButton>
     </StyledContainer>
   );
 };
+
 const StyledButton = styled(Button)(() => ({
   width: "243px",
   height: "39px",
   border: "1px solid #959595",
   color: "#959595",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
+
 const StyledBtn = styled(Button)(() => ({
   width: "244px",
   height: "39px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledTextareaContainer = styled("div")({
@@ -259,17 +176,6 @@ const StyledTextareaContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
 });
-const StyledTextareaa = styled("textarea")(({ isError }) => ({
-  width: "1000px",
-  height: "229px",
-  padding: "10px 20px",
-  fontSize: "14px",
-  border: isError ? "1px solid red" : "1px solid #D9D9D9",
-  outline: "none",
-  resize: "none",
-  position: "relative",
-  zIndex: 1,
-}));
 
 const StyledInputContainer = styled("div")(() => ({
   display: "flex",
@@ -427,15 +333,3 @@ const StyledSelect = styled(Select)(({ isError }) => ({
     color: "#4D4E51",
   },
 }));
-const StyledBox = styled("div")({
-  width: "100%",
-  height: "45px",
-  top: "513px",
-  left: "349px",
-  display: "flex",
-  alignItems: "center",
-  paddingLeft: "50px",
-  gap: "4rem",
-  border: "1px solid #D9D9D9",
-  borderBottom: "none",
-});
