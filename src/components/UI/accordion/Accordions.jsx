@@ -3,13 +3,13 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { Icons } from "../../../assets/icons";
 import { useState } from "react";
+import { Icons } from "../../../assets/icons";
 
 export const Accordions = ({ title, children }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const handleChange = (panel) => (event, newExpanded) => {
+  const handleChange = (panel) => (_, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
@@ -41,29 +41,33 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<Icons.Down style={{ fontSize: "0.9rem" }} />}
+    expandIcon={<Icons.Vector style={{ fontSize: "0.9rem" }} />}
     {...props}
   />
 ))({
-  backgroundColor: "#DBF0E5", // Light background color
-  borderRadius: "8px",
+  backgroundColor: "#DBF0E5",
+  borderTopRightRadius: "10px",
+  borderBottomRightRadius: "10px",
+  borderTopLeftRadius: "10px",
+  borderBottomLeftRadius: "10px",
   boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.15)",
   fontWeight: 500,
   borderLeft: "10px solid #048741",
-  transition: "background-color 0.3s, color 0.3s",
+  fontSize: "20px",
+  color: "#4D4E51",
 
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
   },
   "& .MuiAccordionSummary-content": {
-    marginLeft: "8px", // Equivalent to theme.spacing(1)
+    marginLeft: "8px",
   },
   "&.Mui-expanded": {
-    backgroundColor: "#048741", // Expanded background color
-    color: "#FFF", // Text color when expanded
+    backgroundColor: "#048741",
+    color: "#FFF",
   },
 });
 
 const AccordionDetails = styled(MuiAccordionDetails)({
-  padding: "16px", // Equivalent to theme.spacing(2)
+  padding: "16px",
 });

@@ -54,7 +54,10 @@ const StyledDescription = styled("p")(() => ({
 const StyledContainer = styled("section")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: "35px",
+
+  gap: "40px",
+  maxWidth: "1300px",
+  margin: "0 auto",
 }));
 const StyledService = styled("div")(() => ({
   fontSize: "36px",
@@ -80,6 +83,13 @@ const StyledAccordions = styled("div")(() => ({
   flexDirection: "column",
   gap: "20px",
   fontFamily: "Manrope",
+  " .css-yw020d-MuiAccordionSummary-expandIconWrapper": {
+    borderRadius: "50%",
+    background: "#fff",
+    border: "1px solid #048741",
+    padding: "8px 10px",
+    color: " #048741",
+  },
 }));
 
 const StyledPrices = styled("div")(() => ({
@@ -92,7 +102,7 @@ const StyledPrices = styled("div")(() => ({
     fontSize: "18px",
     color: "#4D4E51",
   },
-  "& spsn": {
+  "& span": {
     fontSize: "18px",
     fontWeight: 500,
     color: "#4D4E51",
@@ -106,10 +116,10 @@ const StyledPricesDate = styled("div")(() => ({
     fontSize: "18px",
     fontWeight: 600,
   },
-  "& spsn": {
+  "& span": {
     fontSize: "18px",
     fontWeight: 500,
-    color: "#4D4E51",
+    color: "#222222",
   },
 }));
 
@@ -120,7 +130,6 @@ const StyledPrice = styled("div")(() => ({
 }));
 
 const StyledAccordionContainer = styled("div")(() => ({
-  width: "852px",
-  height: "60px",
-  borderRadius: "10px",
+  width: "68%",
+  marginBottom: "120px",
 }));
