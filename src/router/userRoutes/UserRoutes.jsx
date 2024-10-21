@@ -10,9 +10,10 @@ import { Profile } from "../../components/user/Profile";
 import { Register } from "../../components/user/Register";
 import { GetResults } from "../../components/user/GetResults";
 import { OnlineRegistration } from "../../components/user/OnlineRegistration";
+import { useSelector } from "react-redux";
 
 export const UserRoutes = () => {
-  const isAuthenticated = true;
+  const { isAuthenticated } = useSelector((state) => state.router);
   return [
     {
       path: "",

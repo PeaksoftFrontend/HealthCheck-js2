@@ -4,9 +4,10 @@ import { Specialists } from "../../components/admin/Specialists";
 import { AddSpecialist } from "../../components/admin/AddSpecialist";
 import { Schedule } from "../../components/schedule/Schedule";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const AdminRoutes = () => {
-  const isAuthenticated = true;
+  const { isAuthenticated } = useSelector((state) => state.router);
   return [
     {
       path: "",

@@ -4,7 +4,9 @@ const authSlice = createSlice({
   name: "router",
   initialState: {
     isAuth: false,
+    userRole: "GUEST",
+    isAuthenticated: true,
   },
 });
-export const { isAuth } = authSlice.actions;
+export const { isAuth, userRole, isAuthenticated } = authSlice.actions;
 export const authReducer = authSlice.reducer;

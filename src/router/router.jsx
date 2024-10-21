@@ -11,10 +11,11 @@ import { UserRoutes } from "./userRoutes/UserRoutes";
 import { Layout } from "../layout/Layout";
 import { Guestroutes } from "./guestRoutes/GuestRoutes";
 import { GuestLayout } from "../layout/GuestLayout";
-
-const userRole = "GUEST";
+import { useSelector } from "react-redux";
 
 export const AppRoutes = () => {
+  const { userRole } = useSelector((state) => state.router);
+
   const path = {
     USER: "/user",
     ADMIN: "/admin",

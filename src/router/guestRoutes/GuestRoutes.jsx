@@ -6,9 +6,10 @@ import { Services } from "../../components/user/Services";
 import { AboutClinic } from "../../components/user/AboutClinic";
 import { Navigate } from "react-router-dom";
 import { MainLanding } from "../../page/landing/MainLanding";
+import { useSelector } from "react-redux";
 
 export const Guestroutes = () => {
-  const isAuthenticated = true;
+  const { isAuthenticated } = useSelector((state) => state.router);
   return [
     {
       path: "",
