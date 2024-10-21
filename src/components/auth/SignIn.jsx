@@ -31,7 +31,7 @@ export const SignIn = () => {
           ) : null}
         </ContainerDiv>
         <ContainerDiv>
-          <StyleInput
+          <StyleInputPassowrd
             type="password"
             name="password"
             placeholder="Пароль"
@@ -143,6 +143,16 @@ const Error = styled("div")(() => ({
 }));
 
 const StyleInput = styled(Input)(({ error }) => ({
+  border: `1px solid ${error ? "red" : "#ccc"}`,
+  display: "flex",
+  justifyContent: "center",
+  borderRadius: "4px",
+  padding: "10px",
+  "&:focus": {
+    borderColor: error ? "red" : "#000",
+  },
+}));
+const StyleInputPassowrd = styled(Input)(({ error }) => ({
   border: `1px solid ${error ? "red" : "#ccc"}`,
   display: "flex",
   justifyContent: "center",
