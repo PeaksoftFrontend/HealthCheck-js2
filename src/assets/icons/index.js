@@ -74,8 +74,14 @@ import Detail from "../icons/others/Подробнее.svg?react";
 import Logotip from "../icons/logo/logo-healthCheck.svg?react";
 import PhoneMob from "../icons/others/phoneMob.svg?react";
 import LogohealthCheck from "../icons/logo/HealthCheckLogo.svg?react";
+import Download from "../icons/others/download.svg?react";
+import Fille from "../icons/others/fille.svg?react";
+import Doctor from "../icons/service-icons/doctor.svg?react";
+import Plus1 from "../icons/others/plus (1).svg?react";
 
 export const Icons = {
+  Plus1,
+  Doctor,
   LogohealthCheck,
   Masseger,
   PhoneMob,
@@ -148,4 +154,6 @@ export const Icons = {
   Stomach,
   Terapiya,
   Urologiya,
+  Download,
+  Fille,
 };
