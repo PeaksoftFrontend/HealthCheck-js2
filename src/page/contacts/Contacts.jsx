@@ -1,47 +1,63 @@
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
+import L from "leaflet";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import { Icons } from "../../assets/icons";
 import { styled } from "@mui/material";
-// import { useEffect, useState } from "react";
 
+let DefaultIcon = L.icon({
+  iconUrl: Icons.Label,
+  shadowUrl: markerShadow,
+  iconSize: [70, 70],
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 export const Contacts = () => {
-  //   const apiKey = "YOUR_API_KEY"; // Замените на ваш API-ключ Google Maps
-  //   const moscowCoordinates = "55.7558,37.6173"; // Координаты Москвы (широта и долгота)
-  //   const mapSrc = `https://www.google.com/maps/embed/v1/view?key=${apiKey}&center=${moscowCoordinates}&zoom=12`;
-
   return (
-    <MainContainer>
-      <h1 className="title">
-        Наши <span>контакты</span>
-      </h1>
-      <p className="text">
-        Комфорт и спокойствие пациента — это часть качественного лечения!
-        Предупредите администратора, что вы едете к нам на машине и мы предложим
-        бесплатную подземную парковку при нашей клинике.
-      </p>
-      <section>
-        <div>
-          <h4>Контактные номера: </h4>
-          <p>+996(800) 000 000 ; +996(505) 000 000 </p>
-        </div>
-        <div>
-          <h4>Наш адрес: </h4>
-          <p>Кыргызстан, г. Бишкек, Медерова 44 </p>
-        </div>
-        <div>
-          <h4>Режим работы клиники: </h4>
-          <p>Понедельник - суббота с 08:00 до 18:00. </p>
-        </div>
-        <div>
-          <h4>Электронная почта : </h4>
-          <p>healthchek.kg </p>
-        </div>
-      </section>
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345098374!2d144.9630578153163!3d-37.81627977975161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf57742e125d2128f!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1614362413682!5m2!1sen!2sus"
-        width="600"
-        height="450"
-        allowfullscreen=""
-        loading="lazy"
-      ></iframe>
-    </MainContainer>
+    <>
+      <MainContainer>
+        <h1 className="title">
+          Наши <span>контакты</span>
+        </h1>
+        <p className="text">
+          Комфорт и спокойствие пациента — это часть качественного лечения!
+          Предупредите администратора, что вы едете к нам на машине и мы
+          предложим бесплатную подземную парковку при нашей клинике.
+        </p>
+        <section>
+          <div>
+            <h4>Контактные номера: </h4>
+            <p>+996(800) 000 000 ; +996(505) 000 000 </p>
+          </div>
+          <div>
+            <h4>Наш адрес: </h4>
+            <p>Кыргызстан, г. Бишкек, Медерова 44 </p>
+          </div>
+          <div>
+            <h4>Режим работы клиники: </h4>
+            <p>Понедельник - суббота с 08:00 до 18:00. </p>
+          </div>
+          <div>
+            <h4>Электронная почта : </h4>
+            <p>healthchek.kg </p>
+          </div>
+        </section>
+      </MainContainer>
+      <StyledMapContainer
+        center={[42.8846, 74.589]}
+        zoom={13}
+        zoomControl={false}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <Marker position={[42.8846, 74.589]}>
+          <StyledPopup>HealthCheck</StyledPopup>
+        </Marker>
+      </StyledMapContainer>
+    </>
   );
 };
 
@@ -81,4 +97,38 @@ const MainContainer = styled("div")({
       color: "#048741",
     },
   },
+});
+
+const StyledPopup = styled(Popup)({
+  "& .leaflet-popup-content-wrapper": {
+    width: "115px",
+    height: "39px",
+    borderRadius: "8.08px",
+    background: "#048741",
+    position: "absolute",
+    right: "-135px",
+    top: "-55px",
+  },
+  "& .leaflet-popup-tip": {
+    display: "none",
+  },
+  "& a.leaflet-popup-close-button": {
+    display: "none",
+  },
+  "& .leaflet-popup-content": {
+    color: "white",
+    height: "35px",
+    fontSize: "16.5px",
+    fontWeight: "400",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "0",
+    letterSpacing: "5%",
+  },
+});
+
+const StyledMapContainer = styled(MapContainer)({
+  width: "100%",
+  height: "300px",
 });
