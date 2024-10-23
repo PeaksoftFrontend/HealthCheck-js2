@@ -1,10 +1,9 @@
-import { Doctors } from "./page/doctors/Doctors";
+import { AppRoutes } from "./router/router";
 
 export const App = () => {
   return (
     <div>
-      <h1> Healthcheck</h1>
-      <Doctors />
+      <AppRoutes />
     </div>
   );
 };

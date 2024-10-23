@@ -28,9 +28,16 @@ export const DoctorsList = ({ statusFilter }) => {
           </StyledDiv>
         ))}
       </div>
-      {filteredDoctors.length > 6 && !showAll && (
-        <h4 onClick={() => setShowAll(true)}>Показать больше</h4>
-      )}
+      <div>
+        {filteredDoctors.length > 6 && !showAll && (
+          <StyledBox>
+            <p>
+              В нашей клинике работают: <span>более 30 специалистов</span>
+            </p>
+            <h4 onClick={() => setShowAll(true)}>Показать больше</h4>
+          </StyledBox>
+        )}
+      </div>
     </ContainerDiv>
   );
 };
@@ -80,5 +87,27 @@ const StyledDiv = styled("div")({
     alignItems: "flex-end",
     borderRadius: "4px",
     justifyContent: "center",
+  },
+});
+
+const StyledBox = styled("div")({
+  display: "flex",
+  gap: "16px",
+  width: "900px",
+  marginTop: "60px",
+  "& h4": {
+    fontSize: "16px",
+    fontWeight: "500",
+    color: "#048741",
+    textDecoration: "0.1px underline",
+    cursor: "Pointer",
+  },
+  "& p": {
+    fontSize: "16px",
+    fontWeight: "400",
+    "& span": {
+      color: "#222222",
+      fontWeight: "550",
+    },
   },
 });

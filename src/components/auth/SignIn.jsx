@@ -4,13 +4,14 @@ import { Input } from "../UI/input/Input";
 import { Button } from "../UI/button/Button";
 import Google from "../../assets/images/google.png";
 import { formikConfig } from "../../utils/constants/formikConfig";
+import { Link } from "react-router-dom";
 
-export const SignIn = () => {
-  const formik = useFormik(
-    formikConfig((values) => {
+export const SignIn = ({ navigateToSignUp, navigateToForgotPassword }) => {
+  const formik = useFormik({
+    ...formikConfig((values) => {
       console.log("Форма отправлена", values);
-    })
-  );
+    }),
+  });
 
   return (
     <StyledContainer>
@@ -31,7 +32,7 @@ export const SignIn = () => {
           ) : null}
         </ContainerDiv>
         <ContainerDiv>
-          <StyleInputPassowrd
+          <StyleInputPassword
             type="password"
             name="password"
             placeholder="Пароль"
@@ -44,9 +45,9 @@ export const SignIn = () => {
             <Error>{formik.errors.password}</Error>
           ) : null}
         </ContainerDiv>
-        <StyledButton type="submit">Создать аккаунт</StyledButton>
+        <StyledButton type="submit">Войти</StyledButton>
       </StyledForm>
-      <span>Забыли пароль?</span>
+      <span onClick={navigateToForgotPassword}>Забыли пароль?</span>
       <StyledDivider>ИЛИ</StyledDivider>
       <StyledDiv>
         <img src={Google} alt="Google icon" />
@@ -54,7 +55,7 @@ export const SignIn = () => {
       </StyledDiv>
       <Container>
         <p>У вас уже есть аккаунт?</p>
-        <a href="#">Войти</a>
+        <Link onClick={navigateToSignUp}>Войти</Link>
       </Container>
     </StyledContainer>
   );
@@ -67,20 +68,18 @@ const StyledContainer = styled("div")(() => ({
   gap: "24px",
   maxWidth: "414px",
   "& h3": {
-    width: "61px",
-    height: "25px",
     fontWeight: "500",
     fontSize: "18px",
   },
   "& span": {
     color: "blue",
+    cursor: "pointer",
   },
 }));
 
 const StyledDivider = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
-  width: "443px",
   color: "#666",
   fontWeight: "bold",
   fontSize: "14px",
@@ -123,7 +122,6 @@ const Container = styled("div")(() => ({
   alignItems: "center",
   gap: "3px",
   "& p": {
-    height: "18px",
     fontSize: "14px",
     fontWeight: "400",
     color: "#23262F",
@@ -152,11 +150,13 @@ const StyleInput = styled(Input)(({ error }) => ({
     borderColor: error ? "red" : "#000",
   },
 }));
-const StyleInputPassowrd = styled(Input)(({ error }) => ({
+
+const StyleInputPassword = styled(Input)(({ error }) => ({
   border: `1px solid ${error ? "red" : "#ccc"}`,
   display: "flex",
   justifyContent: "center",
   borderRadius: "4px",
+  padding: "10px",
   "&:focus": {
     borderColor: error ? "red" : "#000",
   },

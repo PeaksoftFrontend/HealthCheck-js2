@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 import { DoctorsList } from "./DoctorsList";
 
-export const Doctors = () => {
+export const Doctor = () => {
   return (
     <StyledContainer>
       <StyleDiv>

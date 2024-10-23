@@ -17,7 +17,7 @@ import Cancellation from "./others/cancellation.svg?react";
 import Cansled from "./others/canseled.svg?react";
 import CheckboxFill from "./others/checkbox-fill.svg?react";
 import CheckboxRound from "./others/checkbox-round.svg?react";
-import DeleteOutlineclcon from "./others/DeleteOutlineIcon.svg?react";
+import DeleteOutlineIcon from "./others/DeleteOutlineIcon.svg?react";
 import Down from "./others/down.svg?react";
 import Frame from "./others/Frame.svg?react";
 import Gps from "./others/gps.svg?react";
@@ -79,7 +79,10 @@ import Fille from "../icons/others/fille.svg?react";
 import Doctor from "../icons/service-icons/doctor.svg?react";
 import Plus1 from "../icons/others/plus (1).svg?react";
 import Label from "../../assets/icons/messenger/label.svg";
+import Vector from "../icons/others/Vector (4).svg?react";
+
 export const Icons = {
+  Vector,
   Plus1,
   Doctor,
   LogohealthCheck,
@@ -105,7 +108,7 @@ export const Icons = {
   Cansled,
   CheckboxFill,
   CheckboxRound,
-  DeleteOutlineclcon,
+  DeleteOutlineIcon,
   Down,
   Frame,
   Gps,
