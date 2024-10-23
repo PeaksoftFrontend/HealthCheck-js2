@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { Input } from "../../UI/input/Input";
 import { Button } from "../../UI/button/Button";
 import { Icons } from "../../../assets/icons";
-import { validationSchema } from "../../../validation/validation";
+import { validationSchema } from "../../../utils/constants/validation/validation";
 import validation from "../../../assets/images/validation.png";
 import { styled } from "@mui/material";
 

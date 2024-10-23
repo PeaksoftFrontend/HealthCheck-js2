@@ -203,7 +203,6 @@ const FAQContainer = styled("div")({
 const StyledAccordion = styled(Accordion)({
   margin: "8px 0",
   boxShadow: "none",
-  border: "1px solid #e0e0e0",
   "&:before": {
     display: "none",
   },
@@ -220,10 +219,20 @@ const StyledAccordionSummary = styled(AccordionSummary)({
   background: "#DBF0E5",
   width: "852px",
   height: "60px",
+  transition: "background-color 0.3s ease",
+
   "&:hover": {
     background: "#048741",
+    color: "#fff",
   },
-  "& .css-20bmp1-MuiSvgIcon-root": {
+
+  "&.Mui-expanded": {
+    background: "#048741",
+    color: "#fff",
+    borderLeft: "8px solid #048741",
+  },
+
+  "&.Mui-expanded .css-20bmp1-MuiSvgIcon-root": {
     background: "#fff",
     borderRadius: "50%",
   },
