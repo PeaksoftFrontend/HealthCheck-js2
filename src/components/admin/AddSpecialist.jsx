@@ -86,233 +86,226 @@ export const AddSpecialist = () => {
 
   return (
     <StyledContainer>
-      <StyledBox>
-        <span>
-          {isEditing
-            ? "Добавление специалиста"
-            : selectedDoctorRef.current.name}
-        </span>
+      <span>
+        {isEditing ? "Добавление специалиста" : selectedDoctorRef.current.name}
+      </span>
 
-        <StyledBoxContainer>
-          <StyledImage>
-            <StyledContainerImg>
-              <img src={selectedImage} alt="Specialist" />
-            </StyledContainerImg>
-            <label htmlFor="upload-photo">
-              <p>Сменить фото</p>
-            </label>
-            <input
-              type="file"
-              id="upload-photo"
-              accept="image/*"
-              onChange={(e) => {
-                handleImageChange(e);
-                formik.handleChange(e);
-              }}
-              style={{ display: "none" }}
-            />
-          </StyledImage>
+      <StyledBoxContainer>
+        <StyledImage>
+          <StyledContainerImg>
+            <img src={selectedImage} alt="Specialist" />
+          </StyledContainerImg>
+          <label htmlFor="upload-photo">
+            <p>Сменить фото</p>
+          </label>
+          <input
+            type="file"
+            id="upload-photo"
+            accept="image/*"
+            onChange={(e) => {
+              handleImageChange(e);
+              formik.handleChange(e);
+            }}
+            style={{ display: "none" }}
+          />
+        </StyledImage>
 
-          <div>
-            <StyledMain>
-              <p>{isEditing ? "Добавление специалиста" : "Личные данные"}</p>
-              {isEditing ? (
-                <StyledForm onSubmit={handleSubmit}>
-                  <StyledWrapper>
-                    <StyledInputContainer>
-                      <StyledContainerLabelInput>
-                        <StyleLabel htmlFor="firstName">Имя</StyleLabel>
-                        <StyledInput
-                          id="firstName"
-                          name="firstName"
-                          placeholder="Напишите имя"
-                          value={formik.values.firstName}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          isError={
-                            formik.touched.firstName &&
-                            Boolean(formik.errors.firstName)
-                          }
-                        />
-                        {formik.touched.firstName && formik.errors.firstName ? (
-                          <ErrorText>{formik.errors.firstName}</ErrorText>
-                        ) : null}
-                      </StyledContainerLabelInput>
-                      <StyledContainerLabelInput>
-                        <StyleLabel htmlFor="lastName">Фамилия</StyleLabel>
-                        <StyledInput
-                          id="lastName"
-                          placeholder="Напишите фамилию"
-                          value={formik.values.lastName}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          name="lastName"
-                          isError={
-                            formik.touched.lastName &&
-                            Boolean(formik.errors.lastName)
-                          }
-                        />
-                        {formik.touched.lastName && formik.errors.lastName ? (
-                          <ErrorText>{formik.errors.lastName}</ErrorText>
-                        ) : null}
-                      </StyledContainerLabelInput>
-                    </StyledInputContainer>
-                  </StyledWrapper>
+        <div>
+          <StyledMain>
+            <p>{isEditing ? "Добавление специалиста" : "Личные данные"}</p>
+            {isEditing ? (
+              <StyledForm onSubmit={handleSubmit}>
+                <StyledWrapper>
+                  <StyledInputContainer>
+                    <StyledContainerLabelInput>
+                      <StyleLabel htmlFor="firstName">Имя</StyleLabel>
+                      <StyledInput
+                        id="firstName"
+                        name="firstName"
+                        placeholder="Напишите имя"
+                        value={formik.values.firstName}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        isError={
+                          formik.touched.firstName &&
+                          Boolean(formik.errors.firstName)
+                        }
+                      />
+                      {formik.touched.firstName && formik.errors.firstName ? (
+                        <ErrorText>{formik.errors.firstName}</ErrorText>
+                      ) : null}
+                    </StyledContainerLabelInput>
+                    <StyledContainerLabelInput>
+                      <StyleLabel htmlFor="lastName">Фамилия</StyleLabel>
+                      <StyledInput
+                        id="lastName"
+                        placeholder="Напишите фамилию"
+                        value={formik.values.lastName}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        name="lastName"
+                        isError={
+                          formik.touched.lastName &&
+                          Boolean(formik.errors.lastName)
+                        }
+                      />
+                      {formik.touched.lastName && formik.errors.lastName ? (
+                        <ErrorText>{formik.errors.lastName}</ErrorText>
+                      ) : null}
+                    </StyledContainerLabelInput>
+                  </StyledInputContainer>
+                </StyledWrapper>
+                <StyledInputContainer>
+                  <StyledContainerLabelInput>
+                    <StyleLabel htmlFor="department">Отделение</StyleLabel>
+                    <StyledInput
+                      id="department"
+                      name="department"
+                      placeholder="Напишите отделение"
+                      value={formik.values.department}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      isError={
+                        formik.touched.department &&
+                        Boolean(formik.errors.department)
+                      }
+                    />
+                    {formik.touched.department && formik.errors.department ? (
+                      <ErrorText>{formik.errors.department}</ErrorText>
+                    ) : null}
+                  </StyledContainerLabelInput>
+                  <StyledContainerLabelInput>
+                    <StyleLabel htmlFor="position">Должность</StyleLabel>
+                    <StyledInput
+                      id="position"
+                      placeholder="Напишите должность"
+                      name="position"
+                      value={formik.values.position}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      isError={
+                        formik.touched.position &&
+                        Boolean(formik.errors.position)
+                      }
+                    />
+                    {formik.touched.position && formik.errors.position ? (
+                      <ErrorText>{formik.errors.position}</ErrorText>
+                    ) : null}
+                  </StyledContainerLabelInput>
+                </StyledInputContainer>
+
+                <StyledTextareaText>
+                  <a>Описание</a>
+                  <StyledContainerIcons>
+                    <StyledIcons>
+                      <Icons.Bicons onClick={toggleBold} />
+                      <Icons.Iicons onClick={toggleItalic} />
+                      <Icons.Frame onClick={toggleUnderline} />
+                      <Icons.MenuLi onClick={toggleList} />
+                      <Icons.MenuOl onClick={toggleOrderedList} />
+                    </StyledIcons>
+                    <hr />
+                  </StyledContainerIcons>
+                  <StyledTextareaa
+                    placeholder="Введите описание специалиста"
+                    onChange={(e) => {
+                      formik.handleChange(e);
+                      setDescription(e.target.value);
+                    }}
+                    name="description"
+                    value={description}
+                    onBlur={formik.handleBlur}
+                    isError={
+                      formik.touched.description &&
+                      Boolean(formik.errors.description)
+                    }
+                    style={{
+                      fontWeight: isBold ? "bold" : "normal",
+                      fontStyle: isItalic ? "italic" : "normal",
+                      textDecoration: isUnderline ? "underline" : "none",
+                    }}
+                  />
+                  {formik.touched.description && formik.errors.description ? (
+                    <ErrorText>{formik.errors.description}</ErrorText>
+                  ) : null}
+                </StyledTextareaText>
+
+                <StyledContainerButton>
+                  <StyledBtns variant="outlined" onClick={formik.handleReset}>
+                    отменить
+                  </StyledBtns>
+                  <StyledBtn type="submit">сохранить</StyledBtn>
+                </StyledContainerButton>
+              </StyledForm>
+            ) : (
+              <StyledForm>
+                <StyledWrapper>
+                  <StyledInputContainer>
+                    <StyledContainerLabelInput>
+                      <StyleLabel htmlFor="firstName">Имя</StyleLabel>
+                      <StyledInput
+                        id="firstName"
+                        placeholder="Напишите имя"
+                        value={selectedDoctorRef.current.firstName || ""}
+                        readOnly
+                      />
+                    </StyledContainerLabelInput>
+                    <StyledContainerLabelInput>
+                      <StyleLabel htmlFor="lastName">Фамилия</StyleLabel>
+                      <StyledInput
+                        value={selectedDoctorRef.current.lastName || ""}
+                        id="lastName"
+                        placeholder="Напишите фамилию"
+                        readOnly
+                      />
+                    </StyledContainerLabelInput>
+                  </StyledInputContainer>
+                </StyledWrapper>
+                <StyledWrapper>
                   <StyledInputContainer>
                     <StyledContainerLabelInput>
                       <StyleLabel htmlFor="department">Отделение</StyleLabel>
                       <StyledInput
                         id="department"
-                        name="department"
                         placeholder="Напишите отделение"
-                        value={formik.values.department}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        isError={
-                          formik.touched.department &&
-                          Boolean(formik.errors.department)
-                        }
+                        value={selectedDoctorRef.current.department || ""}
+                        readOnly
                       />
-                      {formik.touched.department && formik.errors.department ? (
-                        <ErrorText>{formik.errors.department}</ErrorText>
-                      ) : null}
                     </StyledContainerLabelInput>
                     <StyledContainerLabelInput>
                       <StyleLabel htmlFor="position">Должность</StyleLabel>
                       <StyledInput
                         id="position"
                         placeholder="Напишите должность"
-                        name="position"
-                        value={formik.values.position}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        isError={
-                          formik.touched.position &&
-                          Boolean(formik.errors.position)
-                        }
+                        value={selectedDoctorRef.current.position || ""}
+                        readOnly
                       />
-                      {formik.touched.position && formik.errors.position ? (
-                        <ErrorText>{formik.errors.position}</ErrorText>
-                      ) : null}
                     </StyledContainerLabelInput>
                   </StyledInputContainer>
+                </StyledWrapper>
 
-                  <StyledTextareaText>
-                    <a>Описание</a>
-                    <StyledContainerIcons>
-                      <StyledIcons>
-                        <Icons.Bicons onClick={toggleBold} />
-                        <Icons.Iicons onClick={toggleItalic} />
-                        <Icons.Frame onClick={toggleUnderline} />
-                        <Icons.MenuLi onClick={toggleList} />
-                        <Icons.MenuOl onClick={toggleOrderedList} />
-                      </StyledIcons>
-                      <hr />
-                    </StyledContainerIcons>
-                    <StyledTextareaa
-                      placeholder="Введите описание специалиста"
-                      onChange={(e) => {
-                        formik.handleChange(e);
-                        setDescription(e.target.value);
-                      }}
-                      name="description"
-                      value={description}
-                      onBlur={formik.handleBlur}
-                      isError={
-                        formik.touched.description &&
-                        Boolean(formik.errors.description)
-                      }
-                      style={{
-                        fontWeight: isBold ? "bold" : "normal",
-                        fontStyle: isItalic ? "italic" : "normal",
-                        textDecoration: isUnderline ? "underline" : "none",
-                      }}
-                    />
-                    {formik.touched.description && formik.errors.description ? (
-                      <ErrorText>{formik.errors.description}</ErrorText>
-                    ) : null}
-                  </StyledTextareaText>
-
-                  <StyledContainerButton>
-                    <StyledBtns variant="outlined" onClick={formik.handleReset}>
-                      отменить
-                    </StyledBtns>
-                    <StyledBtn type="submit">сохранить</StyledBtn>
-                  </StyledContainerButton>
-                </StyledForm>
-              ) : (
-                <StyledForm>
-                  <StyledWrapper>
-                    <StyledInputContainer>
-                      <StyledContainerLabelInput>
-                        <StyleLabel htmlFor="firstName">Имя</StyleLabel>
-                        <StyledInput
-                          id="firstName"
-                          placeholder="Напишите имя"
-                          value={selectedDoctorRef.current.firstName || ""}
-                          readOnly
-                        />
-                      </StyledContainerLabelInput>
-                      <StyledContainerLabelInput>
-                        <StyleLabel htmlFor="lastName">Фамилия</StyleLabel>
-                        <StyledInput
-                          value={selectedDoctorRef.current.lastName || ""}
-                          id="lastName"
-                          placeholder="Напишите фамилию"
-                          readOnly
-                        />
-                      </StyledContainerLabelInput>
-                    </StyledInputContainer>
-                  </StyledWrapper>
-                  <StyledWrapper>
-                    <StyledInputContainer>
-                      <StyledContainerLabelInput>
-                        <StyleLabel htmlFor="department">Отделение</StyleLabel>
-                        <StyledInput
-                          id="department"
-                          placeholder="Напишите отделение"
-                          value={selectedDoctorRef.current.department || ""}
-                          readOnly
-                        />
-                      </StyledContainerLabelInput>
-                      <StyledContainerLabelInput>
-                        <StyleLabel htmlFor="position">Должность</StyleLabel>
-                        <StyledInput
-                          id="position"
-                          placeholder="Напишите должность"
-                          value={selectedDoctorRef.current.position || ""}
-                          readOnly
-                        />
-                      </StyledContainerLabelInput>
-                    </StyledInputContainer>
-                  </StyledWrapper>
-
-                  <StyledTextareaText>
-                    <a>Описание</a>
-                    <StyledTextareaa
-                      placeholder="Введите описание специалиста"
-                      value={selectedDoctorRef.current.description || ""}
-                      readOnly
-                    />
-                  </StyledTextareaText>
-                  <StyledContainerButton>
-                    <StyledButton variant={"outlined"}>назад</StyledButton>
-                    <StyledBtn type="button" onClick={handleChangeSpecialist}>
-                      Редактировать
-                    </StyledBtn>
-                  </StyledContainerButton>
-                </StyledForm>
-              )}
-            </StyledMain>
-          </div>
-        </StyledBoxContainer>
-      </StyledBox>
+                <StyledTextareaText>
+                  <a>Описание</a>
+                  <StyledTextareaa
+                    placeholder="Введите описание специалиста"
+                    value={selectedDoctorRef.current.description || ""}
+                    readOnly
+                  />
+                </StyledTextareaText>
+                <StyledContainerButton>
+                  <StyledButton variant={"outlined"}>назад</StyledButton>
+                  <StyledBtn type="button" onClick={handleChangeSpecialist}>
+                    Редактировать
+                  </StyledBtn>
+                </StyledContainerButton>
+              </StyledForm>
+            )}
+          </StyledMain>
+        </div>
+      </StyledBoxContainer>
     </StyledContainer>
   );
 };
-const StyledBox = styled("div")(() => ({
-  maxWidth: "1300px",
-}));
 
 const ErrorText = styled("div")({
   color: "red",
@@ -341,9 +334,8 @@ const StyledInputContainer = styled("div")(() => ({
 const StyledContainer = styled("div")({
   width: "100%",
   display: "flex",
-  justifyContent: "center",
   gap: "30px",
-
+  flexDirection: "column",
   fontFamily: "Manrope",
   "& span": {
     fontSize: "22px",

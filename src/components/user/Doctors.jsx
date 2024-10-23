@@ -1,10 +1,17 @@
-import { Link } from "react-router-dom";
+import { Doctor } from "../../page/doctors/Doctor";
+import { Footer } from "../landingPage/Footer";
+import { styled } from "@mui/material";
 
 export const Doctors = () => {
   return (
-    <div>
-      <h1>Врачи</h1>
-      <Link to={"/"}>go to home page </Link>
-    </div>
+    <StyledDiv>
+      <Doctor />
+      <Footer />
+    </StyledDiv>
   );
 };
+const StyledDiv = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "120px",
+});

@@ -78,6 +78,7 @@ import Download from "../icons/others/download.svg?react";
 import Fille from "../icons/others/fille.svg?react";
 import Doctor from "../icons/service-icons/doctor.svg?react";
 import Plus1 from "../icons/others/plus (1).svg?react";
+import Label from "../../assets/icons/messenger/label.svg";
 import Vector from "../icons/others/Vector (4).svg?react";
 
 export const Icons = {
@@ -158,4 +159,5 @@ export const Icons = {
   Urologiya,
   Download,
   Fille,
+  Label,
 };

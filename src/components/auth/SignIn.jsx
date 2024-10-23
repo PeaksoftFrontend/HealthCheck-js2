@@ -10,7 +10,6 @@ export const SignIn = ({ navigateToSignUp, navigateToForgotPassword }) => {
   const formik = useFormik({
     ...formikConfig((values) => {
       console.log("Форма отправлена", values);
-      // Handle your sign in logic here
     }),
   });
 

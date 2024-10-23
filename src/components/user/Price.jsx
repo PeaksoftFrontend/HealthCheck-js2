@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import { Prices } from "../Prices";
 
 export const Price = () => {
   return (
     <div>
-      <h1>Прайс</h1>
+      <Prices />
       <Link to={"/"}>go to home page </Link>
     </div>
   );
