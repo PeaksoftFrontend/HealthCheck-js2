@@ -1,7 +1,9 @@
+import { AppRoutes } from "./router/router";
+
 export const App = () => {
   return (
     <div>
-      <h1> Healthcheck</h1>
+      <AppRoutes />
     </div>
   );
 };
