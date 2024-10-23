@@ -3,13 +3,16 @@ import { Icons } from "../../assets/icons";
 import Menu from "@mui/material/Menu";
 import { useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Link } from "react-router-dom";
 
 export const AdminHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -19,12 +22,10 @@ export const AdminHeader = () => {
       <StyledContainerNav>
         <Icons.LogohealthCheck />
         <StyledNavLinks>
-          <a href="#" className="active">
-            Онлайн-запись
-          </a>
-          <a href="#">Заявки</a>
-          <a href="#">Специалисты</a>
-          <a href="#">Пациенты</a>
+          <StyledLink to="/admin/schedule">Онлайн-запись</StyledLink>
+          <StyledLink to="/admin/applications">Заявки</StyledLink>
+          <StyledLink to="/admin/specialists">Специалисты</StyledLink>
+          <StyledLink to="/admin/patients">Пациенты</StyledLink>
         </StyledNavLinks>
       </StyledContainerNav>
       <FormControlStyled>
@@ -46,6 +47,7 @@ export const AdminHeader = () => {
     </StyledHeader>
   );
 };
+
 const StyledHeader = styled("header")(() => ({
   width: "100%",
   height: "80px",
@@ -64,11 +66,11 @@ const StyledNavLinks = styled("nav")(() => ({
   left: "50%",
   transform: "translateX(-50%)",
   top: "30px",
-
-  "& a": {
-    textDecoration: "none",
-    color: "#333",
-  },
+}));
+const StyledLink = styled(Link)(() => ({
+  textDecoration: "none",
+  color: "#333",
+  transition: "color 0.3s",
 }));
 
 const FormControlStyled = styled(FormControl)(() => ({
@@ -91,9 +93,9 @@ const StyledText = styled("div")(() => ({
   paddingTop: "0",
 }));
 
-const StyledMenuItem = styled(MenuItem)({
+const StyledMenuItem = styled(MenuItem)(() => ({
   padding: "6px 30px",
   "&:hover": {
     color: "#048741",
   },
-});
+}));
