@@ -1,29 +1,34 @@
 import { styled } from "@mui/material";
 import { services } from "../../utils/constants/service";
+import { Button } from "../UI/button/Button";
 
 export const MainServices = () => {
   return (
     <StyledDiv>
-      <StyledText>
-        <StyledH2>
-          Наши <GreenText>услуги</GreenText>
-        </StyledH2>
-        <StyledParagraph>
-          За все время работы клиника приняла более 1 млн. пациентов.
-        </StyledParagraph>
-      </StyledText>
+      <div>
+        <StyledText>
+          <StyledH2>
+            Наши <GreenText>услуги</GreenText>
+          </StyledH2>
+          <StyledParagraph>
+            За все время работы клиника приняла более 1 млн. пациентов.
+          </StyledParagraph>
+        </StyledText>
 
-      <IconContainer>
-        {services.map((service, index) => (
-          <ServiceCard key={index}>
-            <IconWrapper isFirst={index === 0}>
-              <service.icon />
-            </IconWrapper>
-            <IconText>{service.text}</IconText>
-          </ServiceCard>
-        ))}
-      </IconContainer>
-      <StyledButton>Смотреть все</StyledButton>
+        <IconContainer>
+          {services.map((service, index) => (
+            <ServiceCard key={index}>
+              <IconWrapper isFirst={index === 0}>
+                <service.icon />
+              </IconWrapper>
+              <IconText>{service.text}</IconText>
+            </ServiceCard>
+          ))}
+        </IconContainer>
+      </div>
+      <StyledButton variant={"outlined"}>
+        С <span>мотреть все</span>
+      </StyledButton>
     </StyledDiv>
   );
 };
@@ -35,7 +40,7 @@ const StyledText = styled("div")({
   left: "7.5rem",
 });
 const StyledDiv = styled("div")({
-  width: "95%",
+  width: "100%",
   margin: "0",
   top: "63.56rem",
   left: "7.5rem",
@@ -43,6 +48,7 @@ const StyledDiv = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   paddingBottom: "120px",
+  gap: "48px",
 });
 
 const StyledH2 = styled("h2")({
@@ -83,17 +89,24 @@ const ServiceCard = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   margin: "1rem",
+  width: "102px",
+  gap: "20px",
 });
 
 const IconWrapper = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  border: "2px solid #ccc",
-  borderRadius: "0.5rem",
-  padding: "1rem",
+  border: "1px solid #DEDEDE",
+  borderRadius: "18px",
+  padding: "20px",
+  width: "102px",
+  height: "106px",
   "&:hover": {
-    backgroundColor: "#048741",
+    border: "none",
+    background:
+      "linear-gradient(to bottom,rgba(12, 187, 107, 1),rgba(2, 123, 68, 1)) 100%",
+
     "&:hover svg": {
       path: {
         fill: "#ffff",
@@ -107,24 +120,11 @@ const IconText = styled("span")({
   fontFamily: "Manrope",
 });
 
-const StyledButton = styled("button")({
-  width: "10rem",
-  height: "2.625rem",
-  borderRadius: "0.625rem",
-  border: "0.0625rem solid green",
-  padding: "0.625rem 1.25rem",
-  gap: "0.625rem",
-  fontFamily: "Manrope",
-  fontSize: "1rem",
-  backgroundColor: "white",
-  color: "#048741",
-  cursor: "pointer",
-  marginTop: "1rem",
-  display: "block",
-  marginLeft: "auto",
-  marginRight: "auto",
-  "&:hover": {
-    backgroundColor: "#048741",
-    color: "white",
+const StyledButton = styled(Button)({
+  width: "147px",
+  height: "42px",
+  textTransform: "uppercase",
+  "& span": {
+    textTransform: "lowercase",
   },
 });
