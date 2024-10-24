@@ -1,9 +1,12 @@
-import { AppRoutes } from "./router/router";
+// import { AppRoutes } from "./router/router";
+
+import { Results } from "./page/results/Results";
 
 export const App = () => {
   return (
     <div>
-      <AppRoutes />
+      <Results />
+      {/* <AppRoutes /> */}
     </div>
   );
 };

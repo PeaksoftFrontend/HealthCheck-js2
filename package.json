@@ -14,15 +14,11 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.1",
-<<<<<<< HEAD
-    "@mui/material": "^6.1.4",
-=======
     "@mui/material": "^6.1.0",
     "@mui/x-date-pickers": "^7.19.0",
     "@reduxjs/toolkit": "^2.3.0",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
->>>>>>> 2ed4814151d8c0983cc92d0507e56f06eb2ada5c
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.9",
