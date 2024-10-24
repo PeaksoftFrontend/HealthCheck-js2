@@ -14,7 +14,6 @@ export const Input = forwardRef(
       iconEnd,
       disabled,
       error,
-
       ...props
     },
     ref
@@ -36,7 +35,6 @@ export const Input = forwardRef(
         InputProps={{
           startAdornment: iconStart ? (
             <InputAdornment position="start">
-              {" "}
               <div style={{ cursor: "pointer" }}>{iconStart}</div>
             </InputAdornment>
           ) : null,
@@ -109,6 +107,6 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
 
   "& .MuiInputBase-input": {
     border: "none",
-    padding: "0",
+    padding: "0px",
   },
 }));

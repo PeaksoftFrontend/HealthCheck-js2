@@ -63,7 +63,6 @@ export const Select = forwardRef(
 );
 
 const FormControls = styled(FormControl)(({ theme }) => ({
-  margin: theme.spacing(1.8),
   marginTop: theme.spacing(0),
   display: "flex",
   gap: "4px",
