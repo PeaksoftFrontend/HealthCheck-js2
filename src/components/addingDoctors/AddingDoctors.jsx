@@ -2,74 +2,48 @@ import { useState } from "react";
 import { styled } from "@mui/material";
 import Img from "../../assets/icons/others/img.svg";
 import { Select } from "../UI/inputSelect/Select";
-import { Button } from "../UI/button/Button";
-import { Input } from "../UI/input/Input";
 import { department } from "../../utils/constants/department/addingDoctors";
 import { TextEditor } from "./TextEditor";
+import { Button } from "../UI/button/Button";
+import { Input } from "../UI/input/Input";
 
 export const AddingDoctors = () => {
-  const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [description, setDescription] = useState("");
-
-  const [inputValues, setInputValues] = useState({
+  const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    department: "",
     position: "",
+    description: "",
+    image: null,
   });
 
   const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setInputValues((prevValues) => ({
-      ...prevValues,
-      [id]: value,
-    }));
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setSelectedImage(e.target.result);
+        setFormData({ ...formData, image: e.target.result });
       };
       reader.readAsDataURL(e.target.files[0]);
     }
-    const file = e.target.files[0];
-    if (file) {
-      setInputValues((prevValues) => ({
-        ...prevValues,
-        image: URL.createObjectURL(file),
-      }));
-    }
   };
 
-  const handleAddDoctor = () => {
-    const doctorData = {
-      firstName: inputValues.firstName,
-      lastName: inputValues.lastName,
-      position: inputValues.position,
-      department: selectedDepartment,
-      description,
-      image: selectedImage,
-    };
-
-    console.log(doctorData);
+  const handleAddClick = () => {
+    const valuesArray = Object.values(formData);
+    console.log(valuesArray);
   };
-
-  const changeTextEditorHandler = (value) => setDescription(value);
 
   return (
     <StyledContainer>
       <StyledBoxContainer>
         <StyledImage>
           <StyledContainerImg>
-            <img
-              src={selectedImage || Img}
-              alt="Specialist"
-              className={selectedImage ? "uploaded" : ""}
-            />
+            <img src={formData.image || Img} alt="Specialist" />
           </StyledContainerImg>
-
           <label htmlFor="upload-photo">
             <StyledLabel>
               Нажмите для добавления <br /> фотографии
@@ -93,8 +67,9 @@ export const AddingDoctors = () => {
                     <StyleLabel htmlFor="firstName">Имя</StyleLabel>
                     <StyledInput
                       id="firstName"
+                      name="firstName"
                       placeholder="Напишите имя"
-                      value={inputValues.firstName}
+                      value={formData.firstName}
                       onChange={handleInputChange}
                     />
                   </StyledContainerLabelInput>
@@ -102,8 +77,9 @@ export const AddingDoctors = () => {
                     <StyleLabel htmlFor="lastName">Фамилия</StyleLabel>
                     <StyledInput
                       id="lastName"
+                      name="lastName"
                       placeholder="Напишите фамилию"
-                      value={inputValues.lastName}
+                      value={formData.lastName}
                       onChange={handleInputChange}
                     />
                   </StyledContainerLabelInput>
@@ -117,65 +93,46 @@ export const AddingDoctors = () => {
                       options={department}
                       placeholder="Выберите отделение"
                       id="department"
-                      value={selectedDepartment}
-                      onChange={(e) => setSelectedDepartment(e.target.value)}
+                      name="department"
+                      value={formData.department}
+                      onChange={(e) =>
+                        setFormData({ ...formData, department: e.target.value })
+                      }
                     />
                   </StyledContainerLabelInput>
                   <StyledContainerLabelInput>
                     <StyleLabel htmlFor="position">Должность</StyleLabel>
                     <StyledInput
                       id="position"
+                      name="position"
                       placeholder="Напишите должность"
-                      value={inputValues.position}
+                      value={formData.position}
                       onChange={handleInputChange}
                     />
                   </StyledContainerLabelInput>
                 </StyledInputContainer>
               </StyledWrapper>
 
-              <StyledTextareaText>
-                <a>Описание</a>
-                <StyledTextareaContainer>
-                  <TextEditor onChange={changeTextEditorHandler} />
-                </StyledTextareaContainer>
-              </StyledTextareaText>
+              <TextEditor
+                value={formData.description}
+                onChange={(value) =>
+                  setFormData({ ...formData, description: value })
+                }
+              />
+
+              <StyledContainerButton>
+                <StyledButton variant={"outlined"}>Отменить</StyledButton>
+                <StyledBtn type="button" onClick={handleAddClick}>
+                  Добавить
+                </StyledBtn>
+              </StyledContainerButton>
             </StyledForm>
           </StyledMain>
         </div>
       </StyledBoxContainer>
-
-      <StyledContainerButton>
-        <StyledButton variant="outlined">Отменить</StyledButton>
-        <StyledBtn onClick={handleAddDoctor}>Добавить</StyledBtn>
-      </StyledContainerButton>
     </StyledContainer>
   );
 };
-
-const StyledButton = styled(Button)(() => ({
-  width: "243px",
-  height: "39px",
-  border: "1px solid #959595",
-  color: "#959595",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledBtn = styled(Button)(() => ({
-  width: "244px",
-  height: "39px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledTextareaContainer = styled("div")({
-  width: "1000px",
-  height: "279px",
-  display: "flex",
-  flexDirection: "column",
-});
 
 const StyledInputContainer = styled("div")(() => ({
   display: "flex",
@@ -205,19 +162,6 @@ const StyledMain = styled("main")({
   },
 });
 
-const StyledTextareaText = styled("div")({
-  height: "297px",
-  width: "1000px",
-  display: "flex",
-  flexDirection: "column",
-  gap: "4px",
-  position: "relative",
-  "& a": {
-    fontSize: "14px",
-    color: "#4D4E51",
-  },
-});
-
 const StyledBoxContainer = styled("section")({
   display: "flex",
   gap: "45px",
@@ -243,8 +187,7 @@ const StyledLabel = styled("p")({
   textAlign: "center",
   maxWidth: "148px",
   maxHeight: "28px",
-  color: "#909CB5",
-  cursor: "pointer",
+  color: "black",
 });
 
 const StyledContainerImg = styled("div")({
@@ -300,8 +243,9 @@ const StyledWrapper = styled("section")({
 
 const StyledContainerButton = styled("div")({
   display: "flex",
-  justifyContent: "end",
+  justifyContent: "flex-end",
   gap: "18px",
+  marginTop: "330px",
 });
 
 const StyledInput = styled(Input)(({ isError }) => ({
@@ -309,6 +253,7 @@ const StyledInput = styled(Input)(({ isError }) => ({
   height: "38px",
   padding: "6px",
   color: "#222222",
+  borderRadius: "6px",
   border: isError ? "1px solid red" : "1px solid #D9D9D9",
   "& ::placeholder": {
     color: "#959595",
@@ -316,11 +261,29 @@ const StyledInput = styled(Input)(({ isError }) => ({
   },
 }));
 
+const StyledButton = styled(Button)(() => ({
+  width: "243px",
+  height: "39px",
+  border: "1px solid #959595",
+  color: "#959595",
+  background: "#fff",
+  borderRadius: "10px",
+}));
+
+const StyledBtn = styled(Button)(() => ({
+  width: "244px",
+  height: "39px",
+  color: "#fff",
+  borderRadius: "10px",
+}));
+
 const StyledSelect = styled(Select)(({ isError }) => ({
   width: "490px",
   height: "38px",
-  borderRadius: "6px",
   color: "#222222",
+  borderRadius: "6px",
+  padding: "6px",
+  marginTop: "-4px",
   "& .MuiOutlinedInput-notchedOutline": {
     border: isError ? "1px solid red" : "1px solid #D9D9D9",
   },
